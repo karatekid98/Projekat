@@ -25,7 +25,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var address = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id);
+                var address = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
                 if (address == null)
                 {
                     return NotFound();
@@ -44,13 +44,12 @@ namespace Projekat.Controllers
         {
             try
             {
-                var addresses = _addressService.AsQueryable().ToList();
+                var addresses = _addressService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
 
                 return Ok(addresses);
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.GetBaseException().Message);
             }
 
@@ -113,5 +112,69 @@ namespace Projekat.Controllers
                 return BadRequest(e.GetBaseException().Message);
             }
         }
+
+        [HttpPut("softDelete/{id}")]
+        public ActionResult SoftDelete(Guid id)
+        {
+            try
+            {
+                var existingAddress = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingAddress == null)
+                {
+                    return NotFound();
+                }
+
+                Address address = new Address
+                {
+                    IsDeleted = true,
+                    City = existingAddress.City,
+                    Line = existingAddress.Line,
+                    Country = existingAddress.Country,
+                    Postcode = existingAddress.Postcode,
+                    Id = existingAddress.Id
+                };
+
+                _addressService.UpdateAddress(existingAddress, address);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("undoDelete/{id}")]
+        public ActionResult UndoDelete(Guid id)
+        {
+            try
+            {
+                var existingAddress = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingAddress == null)
+                {
+                    return NotFound();
+                }
+
+                Address address = new Address
+                {
+                    IsDeleted = false,
+                    City = existingAddress.City,
+                    Line = existingAddress.Line,
+                    Country = existingAddress.Country,
+                    Postcode = existingAddress.Postcode,
+                    Id = existingAddress.Id
+                };
+
+                _addressService.UpdateAddress(existingAddress, address);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+
     }
 }
