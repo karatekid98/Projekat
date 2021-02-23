@@ -1,0 +1,12 @@
+G:\MyRepositores\ProjekatDipl\Contracts\bin\Debug\netcoreapp3.1\Contracts.deps.json
+G:\MyRepositores\ProjekatDipl\Contracts\bin\Debug\netcoreapp3.1\Contracts.dll
+G:\MyRepositores\ProjekatDipl\Contracts\bin\Debug\netcoreapp3.1\Contracts.pdb
+G:\MyRepositores\ProjekatDipl\Contracts\bin\Debug\netcoreapp3.1\DataAccess.dll
+G:\MyRepositores\ProjekatDipl\Contracts\bin\Debug\netcoreapp3.1\DataAccess.pdb
+G:\MyRepositores\ProjekatDipl\Contracts\obj\Debug\netcoreapp3.1\Contracts.csprojAssemblyReference.cache
+G:\MyRepositores\ProjekatDipl\Contracts\obj\Debug\netcoreapp3.1\Contracts.AssemblyInfoInputs.cache
+G:\MyRepositores\ProjekatDipl\Contracts\obj\Debug\netcoreapp3.1\Contracts.AssemblyInfo.cs
+G:\MyRepositores\ProjekatDipl\Contracts\obj\Debug\netcoreapp3.1\Contracts.csproj.CoreCompileInputs.cache
+G:\MyRepositores\ProjekatDipl\Contracts\obj\Debug\netcoreapp3.1\Contracts.csproj.CopyComplete
+G:\MyRepositores\ProjekatDipl\Contracts\obj\Debug\netcoreapp3.1\Contracts.dll
+G:\MyRepositores\ProjekatDipl\Contracts\obj\Debug\netcoreapp3.1\Contracts.pdb

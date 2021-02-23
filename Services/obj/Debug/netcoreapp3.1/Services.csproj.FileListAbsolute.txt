@@ -1,0 +1,16 @@
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\Services.deps.json
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\Services.dll
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\Services.pdb
+G:\MyRepositores\ProjekatDipl\Services\obj\Debug\netcoreapp3.1\Services.csprojAssemblyReference.cache
+G:\MyRepositores\ProjekatDipl\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfoInputs.cache
+G:\MyRepositores\ProjekatDipl\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfo.cs
+G:\MyRepositores\ProjekatDipl\Services\obj\Debug\netcoreapp3.1\Services.csproj.CoreCompileInputs.cache
+G:\MyRepositores\ProjekatDipl\Services\obj\Debug\netcoreapp3.1\Services.dll
+G:\MyRepositores\ProjekatDipl\Services\obj\Debug\netcoreapp3.1\Services.pdb
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\Contracts.dll
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\DataAccess.dll
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\Repositories.dll
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\Contracts.pdb
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\DataAccess.pdb
+G:\MyRepositores\ProjekatDipl\Services\bin\Debug\netcoreapp3.1\Repositories.pdb
+G:\MyRepositores\ProjekatDipl\Services\obj\Debug\netcoreapp3.1\Services.csproj.CopyComplete
