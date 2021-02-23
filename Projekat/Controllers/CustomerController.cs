@@ -55,7 +55,7 @@ namespace Projekat.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostCustomer([FromBody] Customer customer)
+        public ActionResult AddCustomer([FromBody] Customer customer)
         {
             try
             {
@@ -69,6 +69,47 @@ namespace Projekat.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public ActionResult UpdateCustomer(Guid id, [FromBody] Customer newCustomer)
+        {
+            try
+            {
+                var existingCustomer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id);
+
+                if (existingCustomer == null)
+                {
+                    return NotFound();
+                }
+
+                _customerService.UpdateCustomer(existingCustomer, newCustomer);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCustomer(Guid id)
+        {
+            try
+            {
+                var existingCustomer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id);
+
+                if (existingCustomer == null)
+                {
+                    return NotFound();
+                }
+
+                _customerService.RemoveCustomer(existingCustomer);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
 
     }
 }

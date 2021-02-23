@@ -57,7 +57,7 @@ namespace Projekat.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostAddress([FromBody] Address address)
+        public ActionResult AddAddress([FromBody] Address address)
         {
             try
             {
