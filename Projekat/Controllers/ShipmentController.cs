@@ -26,7 +26,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var shipment = _shipmentService.AsQueryable().FirstOrDefault(x => x.Id == id);
+                var shipment = _shipmentService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
                 if (shipment == null)
                 {
                     return NotFound();
@@ -45,7 +45,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var shipment = _shipmentService.AsQueryable().ToList();
+                var shipment = _shipmentService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
 
                 return Ok(shipment);
             }
@@ -107,6 +107,63 @@ namespace Projekat.Controllers
                 }
 
                 _shipmentService.RemoveShipment(existingShipment);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("softDelete/{id}")]
+        public ActionResult SoftDelete(Guid id)
+        {
+            try
+            {
+                var existingShipment = _shipmentService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingShipment == null)
+                {
+                    return NotFound();
+                }
+
+                Shipment shipment = new Shipment
+                {
+                    IsDeleted = true,
+                    DateOfShipment = existingShipment.DateOfShipment,
+                    Id = existingShipment.Id
+                };
+
+                _shipmentService.UpdateShipment(existingShipment, shipment);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("undoDelete/{id}")]
+        public ActionResult UndoDelete(Guid id)
+        {
+            try
+            {
+                var existingShipment = _shipmentService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingShipment == null)
+                {
+                    return NotFound();
+                }
+
+
+                Shipment shipment = new Shipment
+                {
+                    IsDeleted = false,
+                    DateOfShipment = existingShipment.DateOfShipment,
+                    Id = existingShipment.Id
+                };
+
+                _shipmentService.UpdateShipment(existingShipment, shipment);
                 return Ok();
             }
             catch (Exception e)

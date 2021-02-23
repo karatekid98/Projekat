@@ -25,7 +25,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var product = _productService.AsQueryable().FirstOrDefault(x => x.Id == id);
+                var product = _productService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
                 if (product == null)
                 {
                     return NotFound();
@@ -44,7 +44,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var products = _productService.AsQueryable().ToList();
+                var products = _productService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
 
                 return Ok(products);
             }
@@ -113,6 +113,72 @@ namespace Projekat.Controllers
                 return BadRequest(e.GetBaseException().Message);
             }
         }
+
+        [HttpPut("softDelete/{id}")]
+        public ActionResult SoftDelete(Guid id)
+        {
+            try
+            {
+                var existingProduct = _productService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingProduct == null)
+                {
+                    return NotFound();
+                }
+
+                Product product = new Product
+                {
+                    IsDeleted = true,
+                    Name = existingProduct.Name,
+                    Unit = existingProduct.Unit,
+                    Price = existingProduct.Price,
+                    Description = existingProduct.Description,
+                    Date = existingProduct.Date,
+                    Id = existingProduct.Id
+                };
+
+                _productService.UpdateProduct(existingProduct, product);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("undoDelete/{id}")]
+        public ActionResult UndoDelete(Guid id)
+        {
+            try
+            {
+                var existingProduct = _productService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingProduct == null)
+                {
+                    return NotFound();
+                }
+
+
+                Product product = new Product
+                {
+                    IsDeleted = false,
+                    Name = existingProduct.Name,
+                    Unit = existingProduct.Unit,
+                    Price = existingProduct.Price,
+                    Description = existingProduct.Description,
+                    Date = existingProduct.Date,
+                    Id = existingProduct.Id
+                };
+
+                _productService.UpdateProduct(existingProduct, product);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
     }
 
 

@@ -24,7 +24,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var invoice = _invoiceService.AsQueryable().FirstOrDefault();
+                var invoice = _invoiceService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
 
                 if (invoice == null)
                 {
@@ -44,7 +44,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var invoices = _invoiceService.AsQueryable().ToList();
+                var invoices = _invoiceService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
 
                 if (invoices == null)
                 {
@@ -110,6 +110,66 @@ namespace Projekat.Controllers
 
                 _invoiceService.RemoveInvoice(existingInvoice);
 
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("softDelete/{id}")]
+        public ActionResult SoftDelete(Guid id)
+        {
+            try
+            {
+                var existingInvoice = _invoiceService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingInvoice == null)
+                {
+                    return NotFound();
+                }
+
+                Invoice invoice = new Invoice
+                {
+                    IsDeleted = true,
+                    Date = existingInvoice.Date,
+                    IssuerId = existingInvoice.IssuerId,
+                    IsPrinted = existingInvoice.IsPrinted,
+                    Id = existingInvoice.Id
+                };
+
+                _invoiceService.UpdateInvoice(existingInvoice, invoice);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("undoDelete/{id}")]
+        public ActionResult UndoDelete(Guid id)
+        {
+            try
+            {
+                var existingInvoice = _invoiceService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingInvoice == null)
+                {
+                    return NotFound();
+                }
+
+                Invoice invoice = new Invoice
+                {
+                    IsDeleted = false,
+                    Date = existingInvoice.Date,
+                    IssuerId = existingInvoice.IssuerId,
+                    IsPrinted = existingInvoice.IsPrinted,
+                    Id = existingInvoice.Id
+                };
+
+                _invoiceService.UpdateInvoice(existingInvoice, invoice);
                 return Ok();
             }
             catch (Exception e)

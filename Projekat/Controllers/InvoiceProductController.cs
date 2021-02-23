@@ -24,7 +24,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var invoiceProduct = _invoiceProductService.AsQueryable().FirstOrDefault(x => x.Id == id);
+                var invoiceProduct = _invoiceProductService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
                 if (invoiceProduct == null)
                 {
                     return NotFound();
@@ -43,7 +43,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var invoiceProducts = _invoiceProductService.AsQueryable().ToList();
+                var invoiceProducts = _invoiceProductService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
 
                 return Ok(invoiceProducts);
             }
@@ -105,6 +105,61 @@ namespace Projekat.Controllers
                 }
 
                 _invoiceProductService.RemoveInvoiceProduct(existingInvoiceProduct);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+
+        [HttpPut("softDelete/{id}")]
+        public ActionResult SoftDelete(Guid id)
+        {
+            try
+            {
+                var existingInvoiceProduct = _invoiceProductService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingInvoiceProduct == null)
+                {
+                    return NotFound();
+                }
+
+                InvoiceProduct invoiceProduct = new InvoiceProduct
+                {
+                    IsDeleted = true,
+                    Id = existingInvoiceProduct.Id
+                };
+
+                _invoiceProductService.UpdateInvoiceProduct(existingInvoiceProduct, invoiceProduct);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("undoDelete/{id}")]
+        public ActionResult UndoDelete(Guid id)
+        {
+            try
+            {
+                var existingInvoiceProduct = _invoiceProductService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingInvoiceProduct == null)
+                {
+                    return NotFound();
+                }
+
+                InvoiceProduct invoiceProduct = new InvoiceProduct
+                {
+                    IsDeleted = false,
+                    Id = existingInvoiceProduct.Id
+                };
+
+                _invoiceProductService.UpdateInvoiceProduct(existingInvoiceProduct, invoiceProduct);
                 return Ok();
             }
             catch (Exception e)

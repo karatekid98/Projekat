@@ -24,7 +24,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var customer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id);
+                var customer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
 
                 if (customer == null)
                 {
@@ -44,7 +44,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var customers = _customerService.AsQueryable().ToList();
+                var customers = _customerService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
 
                 return Ok(customers);
             }
@@ -110,6 +110,69 @@ namespace Projekat.Controllers
                 return BadRequest(e.GetBaseException().Message);
             }
         }
+
+        [HttpPut("softDelete/{id}")]
+        public ActionResult SoftDelete(Guid id)
+        {
+            try
+            {
+                var existingCustomer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingCustomer == null)
+                {
+                    return NotFound();
+                }
+
+                Customer customer = new Customer
+                {
+                    IsDeleted = true,
+                    Name = existingCustomer.Name,
+                    Email = existingCustomer.Email,
+                    Phone = existingCustomer.Phone,
+                    CompanyNumber = existingCustomer.CompanyNumber,
+                    Id = existingCustomer.Id
+                };
+
+                _customerService.UpdateCustomer(existingCustomer, customer);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("undoDelete/{id}")]
+        public ActionResult UndoDelete(Guid id)
+        {
+            try
+            {
+                var existingCustomer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingCustomer == null)
+                {
+                    return NotFound();
+                }
+
+                Customer customer = new Customer
+                {
+                    IsDeleted = false,
+                    Name = existingCustomer.Name,
+                    Email = existingCustomer.Email,
+                    Phone = existingCustomer.Phone,
+                    CompanyNumber = existingCustomer.CompanyNumber,
+                    Id = existingCustomer.Id
+                };
+
+                _customerService.UpdateCustomer(existingCustomer, customer);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
 
     }
 }

@@ -25,7 +25,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var user = _userService.AsQueryable().FirstOrDefault(x => x.Id == id);
+                var user = _userService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
                 if (user == null)
                 {
                     return NotFound();
@@ -44,7 +44,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var users = _userService.AsQueryable().ToList();
+                var users = _userService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
 
                 return Ok(users);
             }
@@ -106,6 +106,74 @@ namespace Projekat.Controllers
                 }
 
                 _userService.RemoveUser(existingUser);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("softDelete/{id}")]
+        public ActionResult SoftDelete(Guid id)
+        {
+            try
+            {
+                var existingUser = _userService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingUser == null)
+                {
+                    return NotFound();
+                }
+
+                User user = new User
+                {
+                    IsDeleted = true,
+                    LastName = existingUser.LastName,
+                    FirstName = existingUser.FirstName,
+                    Email = existingUser.Email,
+                    Phone = existingUser.Phone,
+                    Role = existingUser.Role,
+                    DateOfBirth = existingUser.DateOfBirth,
+                    Gender = existingUser.Gender,
+                    Id = existingUser.Id
+                };
+
+                _userService.UpdateUser(existingUser, user);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPut("undoDelete/{id}")]
+        public ActionResult UndoDelete(Guid id)
+        {
+            try
+            {
+                var existingUser = _userService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+
+                if (existingUser == null)
+                {
+                    return NotFound();
+                }
+
+                User user = new User
+                {
+                    IsDeleted = false,
+                    LastName = existingUser.LastName,
+                    FirstName = existingUser.FirstName,
+                    Email = existingUser.Email,
+                    Phone = existingUser.Phone,
+                    Role = existingUser.Role,
+                    DateOfBirth = existingUser.DateOfBirth,
+                    Gender = existingUser.Gender,
+                    Id = existingUser.Id
+                };
+
+                _userService.UpdateUser(existingUser, user);
                 return Ok();
             }
             catch (Exception e)
