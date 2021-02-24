@@ -136,6 +136,7 @@ namespace Projekat.Controllers
                     Date = existingInvoice.Date,
                     IssuerId = existingInvoice.IssuerId,
                     IsPrinted = existingInvoice.IsPrinted,
+                    CustomerId = existingInvoice.CustomerId,
                     Id = existingInvoice.Id
                 };
 
@@ -166,6 +167,7 @@ namespace Projekat.Controllers
                     Date = existingInvoice.Date,
                     IssuerId = existingInvoice.IssuerId,
                     IsPrinted = existingInvoice.IsPrinted,
+                    CustomerId = existingInvoice.CustomerId,
                     Id = existingInvoice.Id
                 };
 

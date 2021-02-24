@@ -12,7 +12,7 @@ namespace DataAccess.Entities
         public string Unit { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DateAdded { get; set; }
 
         //ef relationship
         [JsonIgnore]

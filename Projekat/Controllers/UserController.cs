@@ -136,7 +136,8 @@ namespace Projekat.Controllers
                     Role = existingUser.Role,
                     DateOfBirth = existingUser.DateOfBirth,
                     Gender = existingUser.Gender,
-                    Id = existingUser.Id
+                    Id = existingUser.Id,
+                    AddressId = existingUser.AddressId
                 };
 
                 _userService.UpdateUser(existingUser, user);
@@ -170,7 +171,8 @@ namespace Projekat.Controllers
                     Role = existingUser.Role,
                     DateOfBirth = existingUser.DateOfBirth,
                     Gender = existingUser.Gender,
-                    Id = existingUser.Id
+                    Id = existingUser.Id,
+                    AddressId = existingUser.AddressId
                 };
 
                 _userService.UpdateUser(existingUser, user);

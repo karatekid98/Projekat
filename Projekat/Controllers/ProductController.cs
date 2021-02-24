@@ -133,7 +133,7 @@ namespace Projekat.Controllers
                     Unit = existingProduct.Unit,
                     Price = existingProduct.Price,
                     Description = existingProduct.Description,
-                    Date = existingProduct.Date,
+                    DateAdded = existingProduct.DateAdded,
                     Id = existingProduct.Id
                 };
 
@@ -166,7 +166,7 @@ namespace Projekat.Controllers
                     Unit = existingProduct.Unit,
                     Price = existingProduct.Price,
                     Description = existingProduct.Description,
-                    Date = existingProduct.Date,
+                    DateAdded = existingProduct.DateAdded,
                     Id = existingProduct.Id
                 };
 

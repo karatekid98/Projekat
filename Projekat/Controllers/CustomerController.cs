@@ -130,6 +130,7 @@ namespace Projekat.Controllers
                     Email = existingCustomer.Email,
                     Phone = existingCustomer.Phone,
                     CompanyNumber = existingCustomer.CompanyNumber,
+                    AddressId = existingCustomer.AddressId,
                     Id = existingCustomer.Id
                 };
 
@@ -161,6 +162,7 @@ namespace Projekat.Controllers
                     Email = existingCustomer.Email,
                     Phone = existingCustomer.Phone,
                     CompanyNumber = existingCustomer.CompanyNumber,
+                    AddressId = existingCustomer.AddressId,
                     Id = existingCustomer.Id
                 };
 

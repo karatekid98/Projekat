@@ -129,6 +129,8 @@ namespace Projekat.Controllers
                 InvoiceProduct invoiceProduct = new InvoiceProduct
                 {
                     IsDeleted = true,
+                    InvoiceId = existingInvoiceProduct.InvoiceId,
+                    ProductId = existingInvoiceProduct.ProductId,
                     Id = existingInvoiceProduct.Id
                 };
 
@@ -156,6 +158,8 @@ namespace Projekat.Controllers
                 InvoiceProduct invoiceProduct = new InvoiceProduct
                 {
                     IsDeleted = false,
+                    InvoiceId = existingInvoiceProduct.InvoiceId,
+                    ProductId = existingInvoiceProduct.ProductId,
                     Id = existingInvoiceProduct.Id
                 };
 

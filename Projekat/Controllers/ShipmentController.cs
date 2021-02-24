@@ -131,6 +131,7 @@ namespace Projekat.Controllers
                 {
                     IsDeleted = true,
                     DateOfShipment = existingShipment.DateOfShipment,
+                    InvoiceId = existingShipment.InvoiceId,
                     Id = existingShipment.Id
                 };
 
@@ -160,6 +161,7 @@ namespace Projekat.Controllers
                 {
                     IsDeleted = false,
                     DateOfShipment = existingShipment.DateOfShipment,
+                    InvoiceId = existingShipment.InvoiceId,
                     Id = existingShipment.Id
                 };
 
