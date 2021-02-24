@@ -153,7 +153,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var existingInvoice = _invoiceService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var existingInvoice = _invoiceService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == true);
 
                 if (existingInvoice == null)
                 {

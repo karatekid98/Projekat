@@ -153,7 +153,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var existingUser = _userService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var existingUser = _userService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == true);
 
                 if (existingUser == null)
                 {

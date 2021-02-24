@@ -147,7 +147,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var existingCustomer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var existingCustomer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == true);
 
                 if (existingCustomer == null)
                 {

@@ -1,0 +1,56 @@
+CREATE TABLE [User] (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    LastName nvarchar(200),
+    FirstName nvarchar(200),
+    AddressId UNIQUEIDENTIFIER NOT NULL,
+    Email nvarchar(150),
+	Phone nvarchar(150),
+	[Role] bit,
+	DateOfBirth date not null,
+	Gender nvarchar(50) not null,
+	FOREIGN KEY (AddressId) REFERENCES [Address](Id)
+);
+
+CREATE TABLE [Address] (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    City nvarchar(150) not null,
+    Line nvarchar(150) not null,
+	Country nvarchar(150) not null,
+	Postcode nvarchar(50) not null,
+);
+
+CREATE TABLE Customer (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Name nvarchar(150) not null,
+    Email nvarchar(150),
+	Phone nvarchar(150),
+	AddressId UNIQUEIDENTIFIER NOT NULL,
+	CompanyNumber varchar(50),
+	FOREIGN KEY (AddressId) REFERENCES [Address](Id)
+);
+
+CREATE TABLE Product  (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Name nvarchar(150) not null,
+    Unit nvarchar(50) not null,
+	Price float not null,
+	[Description] nvarchar(max),
+	DateAdded date not null
+);
+
+CREATE TABLE Invoice (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    Date date not null,
+	CustomerId UNIQUEIDENTIFIER NOT NULL,
+	ProductId UNIQUEIDENTIFIER NOT NULL,
+	IssuerId UNIQUEIDENTIFIER NOT NULL,
+	FOREIGN KEY (CustomerId) REFERENCES Customer(Id),
+	FOREIGN KEY (ProductId) REFERENCES [Product](Id)
+);
+  
+CREATE TABLE Shipment (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    DateOfShipment date not null,
+	InvoiceId UNIQUEIDENTIFIER NOT NULL,
+	FOREIGN KEY (InvoiceId) REFERENCES Invoice(Id),
+);

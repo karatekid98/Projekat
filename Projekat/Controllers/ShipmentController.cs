@@ -148,7 +148,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var existingShipment = _shipmentService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var existingShipment = _shipmentService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == true);
 
                 if (existingShipment == null)
                 {

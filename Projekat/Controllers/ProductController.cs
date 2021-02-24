@@ -151,7 +151,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var existingProduct = _productService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var existingProduct = _productService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == true);
 
                 if (existingProduct == null)
                 {

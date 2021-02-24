@@ -149,7 +149,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var existingAddress = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var existingAddress = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == true);
 
                 if (existingAddress == null)
                 {
