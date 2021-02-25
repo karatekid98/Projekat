@@ -1,0 +1,35 @@
+@mixin flexCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //align-content: center;
+}
+#content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+#left-side {
+  display: flex;
+  width: 50%;
+  background-color: whitesmoke;
+}
+
+#right-side {
+  @include flexCenter;
+  width: 50%;
+  background-color: #8DB596;
+}
+
+//mat-card
+.login-card {
+  max-width: 400px;
+  overflow: hidden;
+}
+
+//input
+.input-full-width {
+  width: 90%;
+}
