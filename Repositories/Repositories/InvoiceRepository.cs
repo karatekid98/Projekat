@@ -30,5 +30,10 @@ namespace Repositories.Repositories
         {
             Update(existingInvoice, newInvoice);
         }
+
+        public void SoftDelete(Invoice invoice)
+        {
+            SoftDelete(invoice);
+        }
     }
 }

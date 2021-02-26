@@ -39,5 +39,11 @@ namespace Services.Services
             _repositoryWrapper.Invoice.RemoveInvoice(invoice);
         }
 
+        // ovu metodu pozivamo i kad se brise shipment za taj invoice, takodje i invoiceproduct brise
+        public void SoftDelete(Invoice invoice)
+        {
+            var existingInvoice = _repositoryWrapper.Invoice.AsQueryable().First(x => x.Id == invoice.Id);
+            _repositoryWrapper.Invoice.SoftDelete(existingInvoice);
+        }
     }
 }
