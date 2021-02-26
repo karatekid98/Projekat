@@ -4,6 +4,7 @@ import { LoginService } from '../../core/services/login-service/login.service';
 import { Login } from '../../models/login';
 import { User } from '../../models/user';
 import { SingUp } from '../../models/singup';
+import { computeMsgId } from '@angular/compiler';
 
 @Component({
   selector: 'app-login-page',
@@ -16,7 +17,7 @@ export class LoginPageComponent implements OnInit {
       country: '',
       city: '',
       line: '',
-      postcode: ''
+      postcode: '',
     },
     UserDto: {
       firstName: '',
@@ -25,9 +26,20 @@ export class LoginPageComponent implements OnInit {
       phone: '',
       password: '',
       gender: '',
-      dateOfBirth: new Date
-    }
+      dateOfBirth: new Date(),
+    },
   };
+  public user: User = {
+    firstName: '',
+    lastName: '',
+    phone: '',
+    dateOfBirth: new Date(),
+    gender: '',
+    addressId: '',
+    email: '',
+    password: ''
+  };
+
   public login: Login = {
     email: '',
     password: '',
@@ -46,7 +58,7 @@ export class LoginPageComponent implements OnInit {
     lastName: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
     gender: new FormControl('', Validators.required),
-    dateOfBirth: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required),
     postcode: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
@@ -64,10 +76,9 @@ export class LoginPageComponent implements OnInit {
   hide = true;
   confirmhide = true;
 
-
-  get isDateChecked() {
-    return this.singupForm.get('dateOfBirth');
-  }
+  // get isDateChecked() {
+  //   return this.singupForm.get('dateOfBirth');
+  // }
 
   get emailInput() {
     return this.loginForm.get('email');
@@ -87,30 +98,36 @@ export class LoginPageComponent implements OnInit {
 
   constructor(private loginService: LoginService) {}
 
-  ngOnInit(): void {
-    this.checkDate();
+  ngOnInit(): void {}
 
-
-  }
-
-  finishLogin() {
+  // TODO: add message if passwords don't match
+  finishSingup(): void{
     this.fillOutForm();
     this.loginService.singup(this.singup).subscribe(
       (response) => {
-        console.log('radi');
+        this.user.firstName = response.firstName;
+        this.user.lastName = response.lastName;
+        this.user.gender = response.gender;
+        this.user.dateOfBirth = response.dateOfBirth;
+        this.user.password = response.password;
+        this.user.email= response.email;
+        this.user.phone= response.phone;
       },
       (error) => {
-        console.log(this.singup);
         console.log(error.error);
       }
     );
   }
+  finishLogin(): void{
+
+  }
+
 
   fillOutForm(): void {
     this.singup.UserDto.firstName = this.singupForm.value.firstName;
     this.singup.UserDto.lastName = this.singupForm.value.lastName;
     this.singup.UserDto.gender = this.singupForm.value.gender;
-    this.singup.UserDto.dateOfBirth = this.singupForm.value.dateOfBirth;
+    this.singup.UserDto.dateOfBirth = this.singupForm.value.date;
     this.singup.UserDto.email = this.singupForm.value.emailSingUp;
     this.singup.UserDto.phone = this.singupForm.value.phoneNumber;
     this.singup.UserDto.password = this.singupForm.value.passwordSingUp;
@@ -120,11 +137,19 @@ export class LoginPageComponent implements OnInit {
     this.singup.AddressDto.line = this.singupForm.value.line;
   }
 
-  checkDate() {
-    if (this.isDateChecked) {
-      this.singupForm.controls['dateOfBirth'].disable();
+  // checkDate() {
+  //   if (this.isDateChecked) {
+  //     this.singupForm.controls['date'].disable();
+  //   } else {
+  //     this.singupForm.controls['date'].enable();
+  //   }
+  // }
+
+  checkPasswords(): boolean {
+    if (this.passwordInputSingUp === this.passwordInputConfirm) {
+      return true;
     } else {
-      this.singupForm.controls['dateOfBirth'].enable();
+      return false;
     }
   }
 }

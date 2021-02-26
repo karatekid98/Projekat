@@ -45,7 +45,7 @@
                 </mat-form-field>
               </form>
             </mat-card-content>
-
+            <button (click)="finishLogin()" id="loginButton" color="accent" mat-raised-button>FINISH</button>
 
 
           </mat-tab>
@@ -78,7 +78,7 @@
                   <input
                     matInput
                     [matDatepicker]="dp3"
-                    formControlName="dateOfBirth"
+                    formControlName="date"
                     required
                   />
                   <mat-datepicker-toggle
@@ -89,8 +89,8 @@
                 </mat-form-field>
                 <mat-label>Gender</mat-label><br>
                 <mat-radio-group formControlName="gender"aria-label="Select an option">
-                  <mat-radio-button value="female">Female</mat-radio-button>
-                  <mat-radio-button value="male">Male</mat-radio-button>
+                  <mat-radio-button value="Female">Female</mat-radio-button>
+                  <mat-radio-button value="Male">Male</mat-radio-button>
                 </mat-radio-group>
 
                 <mat-form-field class="input-full-width">
@@ -169,7 +169,7 @@
                 </mat-form-field>
               </form>
             </mat-card-content>
-            <button (click)="finishLogin()" id="singupButton" color="accent" mat-raised-button>FINISH</button>
+            <button (click)="finishSingup()" id="singupButton" color="accent" mat-raised-button>FINISH</button>
           </mat-tab>
         </mat-tab-group>
       </mat-card-header>

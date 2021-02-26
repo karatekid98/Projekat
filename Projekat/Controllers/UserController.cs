@@ -228,6 +228,7 @@ namespace Projekat.Controllers
                 user.FirstName= signupRequest.UserDto.FirstName;
                 user.LastName= signupRequest.UserDto.LastName;
                 user.Phone= signupRequest.UserDto.Phone;
+                user.Gender = signupRequest.UserDto.Gender;
                 user.Password= signupRequest.UserDto.Password;
                 user.Role = false;
 
