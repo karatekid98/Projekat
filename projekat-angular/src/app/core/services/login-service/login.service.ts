@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Login } from '../../../models/login';
 import { User } from '../../../models/user';
+import { SingUp } from '../../../models/singup';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class LoginService {
   }
 
 
-  singup(singupForm: User): Observable<User> {
-    return this.http.post<User>(`http://localhost:28846/api/User/`, singupForm);
+  singup(singupForm: SingUp): Observable<SingUp> {
+    return this.http.post<SingUp>(`http://localhost:28846/api/User/singUp`, singupForm);
   }
 }

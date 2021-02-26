@@ -189,7 +189,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("singUp")]
         public ActionResult Signup([FromBody] SignupRequest signupRequest)
         {
             try
@@ -215,7 +215,6 @@ namespace Projekat.Controllers
                 {
                     user.AddressId = existingAddress.Id;
                 }
-
 
                 var existingUser = _userService.AsQueryable().FirstOrDefault(x => x.Email == signupRequest.UserDto.Email);
 
@@ -243,7 +242,7 @@ namespace Projekat.Controllers
         }
 
         // ukoliko dobijem null, user ne postoji, u suprotnom postoji i vraca celog User-a u responsu
-        [HttpPost]
+        [HttpPost("logIn")]
         public ActionResult<User> Login([FromBody] LoginRequest loginRequest) 
         {
             try
