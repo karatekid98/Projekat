@@ -17,6 +17,8 @@ namespace DataAccess.Entities
         public string Gender { get; set; }
         public Guid AddressId { get; set; }
 
+        public string Password { get; set; }
+
         //ef relationships
         [JsonIgnore]
         [ForeignKey("AddressId")]
