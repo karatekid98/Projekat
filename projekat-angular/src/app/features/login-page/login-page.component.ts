@@ -2,21 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/login-service/login.service';
 import { Login } from '../../models/login';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  email: string = "";
+  public singup: User = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+    gender: '',
+    dateOfBirth: new Date,
+    addressId: '',
+    role: false,
+  };
 
-  login: FormGroup = new FormGroup({
+  email: string = '';
+
+  loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required, Validators.min(3)]),
   });
 
-  singup: FormGroup = new FormGroup({
+  singupForm: FormGroup = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
@@ -37,40 +50,65 @@ export class LoginPageComponent implements OnInit {
   userLogin: Login = {
     email: '',
     password: '',
-  }
+  };
 
   get isDateChecked() {
-    return this.singup.get('dateOfBirth');
+    return this.singupForm.get('dateOfBirth');
   }
 
   get emailInput() {
-    return this.login.get('email');
+    return this.loginForm.get('email');
   }
   get passwordInput() {
-    return this.login.get('password');
+    return this.loginForm.get('password');
   }
   get emailInputSingup() {
-    return this.singup.get('emailSingUp');
+    return this.singupForm.get('emailSingUp');
   }
   get passwordInputSingUp() {
-    return this.singup.get('passwordSingUp');
+    return this.singupForm.get('passwordSingUp');
   }
   get passwordInputConfirm() {
-    return this.singup.get('confirmPassword');
+    return this.singupForm.get('confirmPassword');
   }
 
-
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.checkDate();
 
+
   }
+
+  finishLogin() {
+    this.fillOutForm();
+    this.loginService.singup(this.singup).subscribe(
+      (response) => {
+        console.log('radi');
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
+  }
+
+  fillOutForm(): void {
+    this.singup.firstName = this.singupForm.value.firstName;
+    this.singup.lastName = this.singupForm.value.lastName;
+    this.singup.gender = this.singupForm.value.gender;
+    this.singup.dateOfBirth = this.singupForm.value.dateOfBirth;
+    this.singup.email = this.singupForm.value.emailSingUp;
+    this.singup.phone = this.singupForm.value.phoneNumber;
+    this.singup.role = false;
+    this.singup.addressId = '4CD879FB-3A66-4414-97EE-924C64919F07';
+    this.singup.password = this.singupForm.value.passwordSingUp;
+  }
+
   checkDate() {
-    if(this.isDateChecked) {
-      this.singup.controls['dateOfBirth'].disable();
+    if (this.isDateChecked) {
+      this.singupForm.controls['dateOfBirth'].disable();
     } else {
-      this.singup.controls['dateOfBirth'].enable();
+      this.singupForm.controls['dateOfBirth'].enable();
     }
   }
 }

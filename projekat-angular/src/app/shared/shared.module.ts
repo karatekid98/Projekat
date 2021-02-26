@@ -9,7 +9,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
@@ -24,7 +24,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    HttpClientModule
   ],
   exports: [
     MatCardModule,
@@ -36,7 +37,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    HttpClientModule
   ]
 })
 export class SharedModule { }
