@@ -111,7 +111,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("softDelete/{id}")]
+        [HttpPatch("softDelete/{id}")]
         public ActionResult SoftDelete(Guid id)
         {
             try
@@ -123,18 +123,8 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                Customer customer = new Customer
-                {
-                    IsDeleted = true,
-                    Name = existingCustomer.Name,
-                    Email = existingCustomer.Email,
-                    Phone = existingCustomer.Phone,
-                    CompanyNumber = existingCustomer.CompanyNumber,
-                    AddressId = existingCustomer.AddressId,
-                    Id = existingCustomer.Id
-                };
 
-                _customerService.UpdateCustomer(existingCustomer, customer);
+                _customerService.SoftDelete(existingCustomer);
                 return Ok();
             }
             catch (Exception e)

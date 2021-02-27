@@ -29,5 +29,11 @@ namespace Repositories.Repositories
         {
             Update(existingProduct, newProduct);
         }
+
+        public void SoftDelete(Product product)
+        {
+            product.IsDeleted = true;
+            base.SoftDelete(product);
+        }
     }
 }

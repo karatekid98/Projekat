@@ -9,5 +9,6 @@ namespace Contracts.Services
         IQueryable<InvoiceProduct> AsQueryable();
         void RemoveInvoiceProduct(InvoiceProduct invoiceProduct);
         void UpdateInvoiceProduct(InvoiceProduct existingInvoiceProduct, InvoiceProduct newInvoiceProduct);
+        void SoftDelete(InvoiceProduct invoiceProduct);
     }
 }

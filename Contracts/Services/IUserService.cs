@@ -9,5 +9,6 @@ namespace Contracts.Services
         IQueryable<User> AsQueryable();
         void RemoveUser(User user);
         void UpdateUser(User existingUser, User newUser);
+        void SoftDelete(User user);
     }
 }

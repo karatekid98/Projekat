@@ -9,5 +9,6 @@ namespace Contracts.Services
         IQueryable<Customer> AsQueryable();
         void RemoveCustomer(Customer customer);
         void UpdateCustomer(Customer existingCustomer, Customer newCustomer);
+        void SoftDelete(Customer customer);
     }
 }

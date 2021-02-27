@@ -33,7 +33,8 @@ namespace Repositories.Repositories
 
         public void SoftDelete(Invoice invoice)
         {
-            SoftDelete(invoice);
+            invoice.IsDeleted = true;
+            base.SoftDelete(invoice);
         }
     }
 }

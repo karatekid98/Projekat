@@ -29,5 +29,11 @@ namespace Repositories.Repositories
         {
             Update(existingShipment, newShipment);
         }
+        public void SoftDelete(Shipment shipment)
+        {
+            shipment.IsDeleted = true;
+            base.SoftDelete(shipment);
+        }
+
     }
 }

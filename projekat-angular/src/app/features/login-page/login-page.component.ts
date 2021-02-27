@@ -37,7 +37,7 @@ export class LoginPageComponent implements OnInit {
     gender: '',
     addressId: '',
     email: '',
-    password: ''
+    password: '',
   };
 
   public login: Login = {
@@ -101,7 +101,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {}
 
   // TODO: add message if passwords don't match
-  finishSingup(): void{
+  finishSingup(): void {
     this.fillOutForm();
     this.loginService.singup(this.singup).subscribe(
       (response) => {
@@ -110,18 +110,15 @@ export class LoginPageComponent implements OnInit {
         this.user.gender = response.gender;
         this.user.dateOfBirth = response.dateOfBirth;
         this.user.password = response.password;
-        this.user.email= response.email;
-        this.user.phone= response.phone;
+        this.user.email = response.email;
+        this.user.phone = response.phone;
       },
       (error) => {
         console.log(error.error);
       }
     );
   }
-  finishLogin(): void{
-
-  }
-
+  finishLogin(): void {}
 
   fillOutForm(): void {
     this.singup.UserDto.firstName = this.singupForm.value.firstName;

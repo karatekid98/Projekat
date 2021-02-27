@@ -117,7 +117,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("softDelete/{id}")]
+        [HttpPatch("softDelete/{id}")]
         public ActionResult SoftDelete(Guid id)
         {
             try
@@ -129,22 +129,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                User user = new User
-                {
-                    IsDeleted = true,
-                    LastName = existingUser.LastName,
-                    FirstName = existingUser.FirstName,
-                    Email = existingUser.Email,
-                    Phone = existingUser.Phone,
-                    Role = existingUser.Role,
-                    DateOfBirth = existingUser.DateOfBirth,
-                    Gender = existingUser.Gender,
-                    Id = existingUser.Id,
-                    AddressId = existingUser.AddressId,
-                    Password = existingUser.Password
-                };
-
-                _userService.UpdateUser(existingUser, user);
+                _userService.SoftDelete(existingUser);
                 return Ok();
             }
             catch (Exception e)

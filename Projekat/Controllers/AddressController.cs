@@ -113,7 +113,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("softDelete/{id}")]
+        [HttpPatch("softDelete/{id}")]
         public ActionResult SoftDelete(Guid id)
         {
             try
@@ -125,17 +125,8 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                Address address = new Address
-                {
-                    IsDeleted = true,
-                    City = existingAddress.City,
-                    Line = existingAddress.Line,
-                    Country = existingAddress.Country,
-                    Postcode = existingAddress.Postcode,
-                    Id = existingAddress.Id
-                };
 
-                _addressService.UpdateAddress(existingAddress, address);
+                _addressService.SoftDelete(existingAddress);
                 return Ok();
             }
             catch (Exception e)
@@ -144,7 +135,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("undoDelete/{id}")]
+        [HttpPatch("undoDelete/{id}")]
         public ActionResult UndoDelete(Guid id)
         {
             try

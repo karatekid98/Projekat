@@ -9,5 +9,7 @@ namespace Contracts.Services
         IQueryable<Address> AsQueryable();
         void RemoveAddress(Address address);
         void UpdateAddress(Address existingAddress, Address newAddress);
+
+        void SoftDelete(Address address);
     }
 }

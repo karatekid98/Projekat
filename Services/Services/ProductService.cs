@@ -26,18 +26,87 @@ namespace Services.Services
 
         public Product AddProduct(Product product)
         {
-            _repositoryWrapper.Product.AddProduct(product);
-            return product;
+            try
+            {
+                _repositoryWrapper.Product.BeginTransaction();
+                _repositoryWrapper.Product.AddProduct(product);
+                _repositoryWrapper.Product.CommitTransaction();
+                return product;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Product.RollbackTransaction();
+                throw e;
+            }
+            
         }
 
+        public List<Product> AddProducts(List<Product> products)
+        {
+            try
+            {
+                _repositoryWrapper.Product.BeginTransaction();
+                foreach (var  product in products)
+                {
+                    _repositoryWrapper.Product.AddProduct(product);
+                }
+
+                _repositoryWrapper.Product.CommitTransaction();
+                return products;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Product.RollbackTransaction();
+                throw e;
+            }
+
+        }
         public void UpdateProduct(Product existingProduct, Product newProduct)
         {
-            _repositoryWrapper.Product.UpdateProduct(existingProduct, newProduct);
+            try
+            {
+                _repositoryWrapper.Product.BeginTransaction();
+                _repositoryWrapper.Product.UpdateProduct(existingProduct, newProduct);
+                _repositoryWrapper.Product.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Product.RollbackTransaction();
+                throw e;
+            }
+           
         }
 
         public void RemoveProduct(Product product)
         {
-            _repositoryWrapper.Product.RemoveProduct(product);
+            try
+            {
+                _repositoryWrapper.Product.BeginTransaction();
+                _repositoryWrapper.Product.RemoveProduct(product);
+                _repositoryWrapper.Product.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Product.RollbackTransaction();
+                throw e;
+            }
+            
+        }
+
+        public void SoftDelete(Product product)
+        {
+            try
+            {
+                _repositoryWrapper.Product.BeginTransaction();
+                _repositoryWrapper.Product.SoftDelete(product);
+                _repositoryWrapper.Product.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Product.RollbackTransaction();
+                throw e;
+            }
+           
         }
     }
 }

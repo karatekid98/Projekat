@@ -30,5 +30,10 @@ namespace Repositories.Repositories
         {
             Update(existingAddress, newAddress);
         }
+        public void SoftDelete(Address address)
+        {
+            address.IsDeleted = true;
+            base.SoftDelete(address);
+        }
     }
 }
