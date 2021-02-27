@@ -151,7 +151,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("undoDelete/{id}")]
+        [HttpPatch("undoDelete/{id}")]
         public ActionResult UndoDelete(Guid id)
         {
             try
@@ -163,19 +163,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-
-                Product product = new Product
-                {
-                    IsDeleted = false,
-                    Name = existingProduct.Name,
-                    Unit = existingProduct.Unit,
-                    Price = existingProduct.Price,
-                    Description = existingProduct.Description,
-                    DateAdded = existingProduct.DateAdded,
-                    Id = existingProduct.Id
-                };
-
-                _productService.UpdateProduct(existingProduct, product);
+                _productService.UndoDelete(existingProduct);
                 return Ok();
             }
             catch (Exception e)

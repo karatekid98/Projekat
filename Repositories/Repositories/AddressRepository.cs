@@ -35,5 +35,11 @@ namespace Repositories.Repositories
             address.IsDeleted = true;
             base.SoftDelete(address);
         }
+
+        public void UndoDelete(Address address)
+        {
+            address.IsDeleted = false;
+            base.UndoDelete(address);
+        }
     }
 }

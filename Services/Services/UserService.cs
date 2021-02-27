@@ -87,5 +87,21 @@ namespace Services.Services
             }
           
         }
+
+        public void UndoDelete(User user)
+        {
+            try
+            {
+                _repositoryWrapper.User.BeginTransaction();
+                _repositoryWrapper.User.UndoDelete(user);
+                _repositoryWrapper.User.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.User.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

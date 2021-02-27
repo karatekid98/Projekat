@@ -49,6 +49,12 @@ namespace Repositories.Base
 
         }
 
+        public void UndoDelete(T entity)
+        {
+            DatabaseContext.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+        }
+
         public void Remove(T entity)
         {
 

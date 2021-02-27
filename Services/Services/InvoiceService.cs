@@ -105,5 +105,37 @@ namespace Services.Services
             }
       
         }
+
+        public void UndoDelete(Invoice invoice)
+        {
+            try
+            {
+                _repositoryWrapper.Invoice.BeginTransaction();
+                var existingInvoice = _repositoryWrapper.Invoice.AsQueryable().First(x => x.Id == invoice.Id);
+                _repositoryWrapper.Invoice.UndoDelete(existingInvoice);
+
+                var invoiceProducts = _repositoryWrapper.InvoiceProduct.AsQueryable().Where(x => x.InvoiceId == invoice.Id && x.IsDeleted == true);
+
+                foreach (var invoiceProduct in invoiceProducts)
+                {
+                    _repositoryWrapper.InvoiceProduct.UndoDelete(invoiceProduct);
+                }
+
+                var invoiceShipments = _repositoryWrapper.Shipment.AsQueryable().Where(x => x.InvoiceId == invoice.Id && x.IsDeleted == true);
+
+                foreach (var invoiceShipment in invoiceShipments)
+                {
+                    invoiceShipment.IsDeleted = false;
+                    _repositoryWrapper.Shipment.UndoDelete(invoiceShipment);
+                }
+                _repositoryWrapper.Invoice.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Invoice.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

@@ -139,7 +139,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("undoDelete/{id}")]
+        [HttpPatch("undoDelete/{id}")]
         public ActionResult UndoDelete(Guid id)
         {
             try
@@ -151,17 +151,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                Invoice invoice = new Invoice
-                {
-                    IsDeleted = false,
-                    Date = existingInvoice.Date,
-                    IssuerId = existingInvoice.IssuerId,
-                    IsPrinted = existingInvoice.IsPrinted,
-                    CustomerId = existingInvoice.CustomerId,
-                    Id = existingInvoice.Id
-                };
-
-                _invoiceService.UpdateInvoice(existingInvoice, invoice);
+                _invoiceService.UndoDelete(existingInvoice);
                 return Ok();
             }
             catch (Exception e)

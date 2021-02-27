@@ -10,6 +10,7 @@ namespace Contracts.Repositories
         void RemoveInvoice(Invoice invoice);
         void UpdateInvoice(Invoice existingInvoice, Invoice newInvoice);
         void SoftDelete(Invoice invoice);
+        void UndoDelete(Invoice invoice);
 
     }
 }

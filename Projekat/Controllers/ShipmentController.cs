@@ -137,7 +137,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("undoDelete/{id}")]
+        [HttpPatch("undoDelete/{id}")]
         public ActionResult UndoDelete(Guid id)
         {
             try
@@ -149,16 +149,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-
-                Shipment shipment = new Shipment
-                {
-                    IsDeleted = false,
-                    DateOfShipment = existingShipment.DateOfShipment,
-                    InvoiceId = existingShipment.InvoiceId,
-                    Id = existingShipment.Id
-                };
-
-                _shipmentService.UpdateShipment(existingShipment, shipment);
+                _shipmentService.UndoDelete(existingShipment);
                 return Ok();
             }
             catch (Exception e)

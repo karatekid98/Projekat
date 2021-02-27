@@ -87,5 +87,21 @@ namespace Services.Services
             }
       
         }
+
+        public void UndoDelete(InvoiceProduct invoiceProduct)
+        {
+            try
+            {
+                _repositoryWrapper.InvoiceProduct.BeginTransaction();
+                _repositoryWrapper.InvoiceProduct.UndoDelete(invoiceProduct);
+                _repositoryWrapper.InvoiceProduct.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.InvoiceProduct.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

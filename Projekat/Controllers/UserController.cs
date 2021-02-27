@@ -138,7 +138,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("undoDelete/{id}")]
+        [HttpPatch("undoDelete/{id}")]
         public ActionResult UndoDelete(Guid id)
         {
             try
@@ -150,22 +150,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                User user = new User
-                {
-                    IsDeleted = false,
-                    LastName = existingUser.LastName,
-                    FirstName = existingUser.FirstName,
-                    Email = existingUser.Email,
-                    Phone = existingUser.Phone,
-                    Role = existingUser.Role,
-                    DateOfBirth = existingUser.DateOfBirth,
-                    Gender = existingUser.Gender,
-                    Id = existingUser.Id,
-                    AddressId = existingUser.AddressId,
-                    Password = existingUser.Password
-                };
-
-                _userService.UpdateUser(existingUser, user);
+                _userService.UndoDelete(existingUser);
                 return Ok();
             }
             catch (Exception e)

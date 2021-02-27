@@ -85,6 +85,21 @@ namespace Services.Services
                 _repositoryWrapper.Customer.RollbackTransaction();
                 throw e;
             }
+        }
+
+        public void UndoDelete(Customer customer)
+        {
+            try
+            {
+                _repositoryWrapper.Customer.BeginTransaction();
+                _repositoryWrapper.Customer.UndoDelete(customer);
+                _repositoryWrapper.Customer.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Customer.RollbackTransaction();
+                throw e;
+            }
 
         }
     }

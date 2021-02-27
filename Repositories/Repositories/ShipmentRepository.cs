@@ -35,5 +35,11 @@ namespace Repositories.Repositories
             base.SoftDelete(shipment);
         }
 
+        public void UndoDelete(Shipment shipment)
+        {
+            shipment.IsDeleted = false;
+            base.UndoDelete(shipment);
+        }
+
     }
 }

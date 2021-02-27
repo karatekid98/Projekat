@@ -10,5 +10,6 @@ namespace Contracts.Repositories
         void RemoveProduct(Product product);
         void UpdateProduct(Product existingProduct, Product newProduct);
         void SoftDelete(Product product);
+        void UndoDelete(Product product);
     }
 }

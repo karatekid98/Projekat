@@ -147,17 +147,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                Address address = new Address
-                {
-                    IsDeleted = false,
-                    City = existingAddress.City,
-                    Line = existingAddress.Line,
-                    Country = existingAddress.Country,
-                    Postcode = existingAddress.Postcode,
-                    Id = existingAddress.Id
-                };
-
-                _addressService.UpdateAddress(existingAddress, address);
+                _addressService.UndoDelete(existingAddress);
                 return Ok();
             }
             catch (Exception e)

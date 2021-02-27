@@ -87,5 +87,21 @@ namespace Services.Services
             }
          
         }
+
+        public void UndoDelete(Address address)
+        {
+            try
+            {
+                _repositoryWrapper.Address.BeginTransaction();
+                _repositoryWrapper.Address.UndoDelete(address);
+                _repositoryWrapper.Address.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Address.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

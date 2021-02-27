@@ -108,5 +108,21 @@ namespace Services.Services
             }
            
         }
+
+        public void UndoDelete(Product product)
+        {
+            try
+            {
+                _repositoryWrapper.Product.BeginTransaction();
+                _repositoryWrapper.Product.UndoDelete(product);
+                _repositoryWrapper.Product.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Product.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

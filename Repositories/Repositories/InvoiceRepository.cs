@@ -36,5 +36,11 @@ namespace Repositories.Repositories
             invoice.IsDeleted = true;
             base.SoftDelete(invoice);
         }
+
+        public void UndoDelete(Invoice invoice)
+        {
+            invoice.IsDeleted = false;
+            base.UndoDelete(invoice);
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace Contracts.Repositories
         void UpdateAddress(Address existingAddress, Address newAddress);
 
         void SoftDelete(Address address);
+
+        void UndoDelete(Address address);
     }
 }

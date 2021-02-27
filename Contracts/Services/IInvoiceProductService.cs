@@ -10,5 +10,6 @@ namespace Contracts.Services
         void RemoveInvoiceProduct(InvoiceProduct invoiceProduct);
         void UpdateInvoiceProduct(InvoiceProduct existingInvoiceProduct, InvoiceProduct newInvoiceProduct);
         void SoftDelete(InvoiceProduct invoiceProduct);
+        void UndoDelete(InvoiceProduct invoiceProduct);
     }
 }

@@ -10,5 +10,6 @@ namespace Contracts.Services
         void RemoveShipment(Shipment shipment);
         void UpdateShipment(Shipment existingShipment, Shipment newShipment);
         void SoftDelete(Shipment shipment);
+        void UndoDelete(Shipment shipment);
     }
 }
