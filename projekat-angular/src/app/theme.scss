@@ -1,0 +1,23 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$primary-color-dark: #689F38;
+$primary-color: #DCEDC8;
+$primary-color-light:  #8BC34A;
+$primary-color-text: #212121;
+$accent-color: #4CAF50;
+$primary-text-color:#212121;
+$secondary-text-color: #757575;
+$divider-color: #BDBDBD;
+
+$my-theme: mat-light-theme($primary-color-dark, $primary-color, $primary-color-light, $primary-color-text, $accent-color, $primary-text-color, $secondary-text-color, $divider-color);
+
+
+@include angular-material-theme($my-theme);
+
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-light-blue);
+  $alternate-accent:  mat-palette($mat-yellow, 400);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
+}

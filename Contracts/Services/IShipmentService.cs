@@ -9,5 +9,7 @@ namespace Contracts.Services
         IQueryable<Shipment> AsQueryable();
         void RemoveShipment(Shipment shipment);
         void UpdateShipment(Shipment existingShipment, Shipment newShipment);
+        void SoftDelete(Shipment shipment);
+        void UndoDelete(Shipment shipment);
     }
 }

@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/login-service/login.service';
 import { Login } from '../../models/login';
 import { User } from '../../models/user';
+import { SingUp } from '../../models/singup';
+import { computeMsgId } from '@angular/compiler';
 
 @Component({
   selector: 'app-login-page',
@@ -10,19 +12,41 @@ import { User } from '../../models/user';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  public singup: User = {
+  public singup: SingUp = {
+    AddressDto: {
+      country: '',
+      city: '',
+      line: '',
+      postcode: '',
+    },
+    UserDto: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      password: '',
+      gender: '',
+      dateOfBirth: new Date(),
+    },
+  };
+  public user: User = {
     firstName: '',
     lastName: '',
-    email: '',
     phone: '',
-    password: '',
+    dateOfBirth: new Date(),
     gender: '',
-    dateOfBirth: new Date,
     addressId: '',
-    role: false,
+    email: '',
+    password: '',
+  };
+
+  public login: Login = {
+    email: '',
+    password: '',
   };
 
   email: string = '';
+  gender = ['Female', 'Male'];
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -34,7 +58,11 @@ export class LoginPageComponent implements OnInit {
     lastName: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
     gender: new FormControl('', Validators.required),
-    dateOfBirth: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required),
+    postcode: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+    line: new FormControl('', Validators.required),
     emailSingUp: new FormControl('', [Validators.email, Validators.required]),
     passwordSingUp: new FormControl('', [
       Validators.required,
@@ -46,15 +74,11 @@ export class LoginPageComponent implements OnInit {
     ]),
   });
   hide = true;
+  confirmhide = true;
 
-  userLogin: Login = {
-    email: '',
-    password: '',
-  };
-
-  get isDateChecked() {
-    return this.singupForm.get('dateOfBirth');
-  }
+  // get isDateChecked() {
+  //   return this.singupForm.get('dateOfBirth');
+  // }
 
   get emailInput() {
     return this.loginForm.get('email');
@@ -74,41 +98,55 @@ export class LoginPageComponent implements OnInit {
 
   constructor(private loginService: LoginService) {}
 
-  ngOnInit(): void {
-    this.checkDate();
+  ngOnInit(): void {}
 
-
-  }
-
-  finishLogin() {
+  // TODO: add message if passwords don't match
+  finishSingup(): void {
     this.fillOutForm();
     this.loginService.singup(this.singup).subscribe(
       (response) => {
-        console.log('radi');
+        this.user.firstName = response.firstName;
+        this.user.lastName = response.lastName;
+        this.user.gender = response.gender;
+        this.user.dateOfBirth = response.dateOfBirth;
+        this.user.password = response.password;
+        this.user.email = response.email;
+        this.user.phone = response.phone;
       },
       (error) => {
         console.log(error.error);
       }
     );
   }
+  finishLogin(): void {}
 
   fillOutForm(): void {
-    this.singup.firstName = this.singupForm.value.firstName;
-    this.singup.lastName = this.singupForm.value.lastName;
-    this.singup.gender = this.singupForm.value.gender;
-    this.singup.dateOfBirth = this.singupForm.value.dateOfBirth;
-    this.singup.email = this.singupForm.value.emailSingUp;
-    this.singup.phone = this.singupForm.value.phoneNumber;
-    this.singup.role = false;
-    this.singup.addressId = '4CD879FB-3A66-4414-97EE-924C64919F07';
-    this.singup.password = this.singupForm.value.passwordSingUp;
+    this.singup.UserDto.firstName = this.singupForm.value.firstName;
+    this.singup.UserDto.lastName = this.singupForm.value.lastName;
+    this.singup.UserDto.gender = this.singupForm.value.gender;
+    this.singup.UserDto.dateOfBirth = this.singupForm.value.date;
+    this.singup.UserDto.email = this.singupForm.value.emailSingUp;
+    this.singup.UserDto.phone = this.singupForm.value.phoneNumber;
+    this.singup.UserDto.password = this.singupForm.value.passwordSingUp;
+    this.singup.AddressDto.country = this.singupForm.value.country;
+    this.singup.AddressDto.city = this.singupForm.value.city;
+    this.singup.AddressDto.postcode = this.singupForm.value.postcode;
+    this.singup.AddressDto.line = this.singupForm.value.line;
   }
 
-  checkDate() {
-    if (this.isDateChecked) {
-      this.singupForm.controls['dateOfBirth'].disable();
+  // checkDate() {
+  //   if (this.isDateChecked) {
+  //     this.singupForm.controls['date'].disable();
+  //   } else {
+  //     this.singupForm.controls['date'].enable();
+  //   }
+  // }
+
+  checkPasswords(): boolean {
+    if (this.passwordInputSingUp === this.passwordInputConfirm) {
+      return true;
     } else {
-      this.singupForm.controls['dateOfBirth'].enable();
+      return false;
     }
   }
 }

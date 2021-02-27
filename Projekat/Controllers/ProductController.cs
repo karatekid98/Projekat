@@ -71,6 +71,21 @@ namespace Projekat.Controllers
             }
         }
 
+        [HttpPost("addProducts")]
+        public ActionResult AddProducts([FromBody] List<Product> products)
+        {
+            try
+            {
+                _productService.AddProducts(products);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
 
         [HttpPut("{id}")]
         public ActionResult UpdateProduct(Guid id, [FromBody] Product newProduct)
@@ -114,7 +129,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("softDelete/{id}")]
+        [HttpPatch("softDelete/{id}")]
         public ActionResult SoftDelete(Guid id)
         {
             try
@@ -126,18 +141,8 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                Product product = new Product
-                {
-                    IsDeleted = true,
-                    Name = existingProduct.Name,
-                    Unit = existingProduct.Unit,
-                    Price = existingProduct.Price,
-                    Description = existingProduct.Description,
-                    DateAdded = existingProduct.DateAdded,
-                    Id = existingProduct.Id
-                };
 
-                _productService.UpdateProduct(existingProduct, product);
+                _productService.SoftDelete(existingProduct);
                 return Ok();
             }
             catch (Exception e)
@@ -146,7 +151,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("undoDelete/{id}")]
+        [HttpPatch("undoDelete/{id}")]
         public ActionResult UndoDelete(Guid id)
         {
             try
@@ -158,19 +163,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-
-                Product product = new Product
-                {
-                    IsDeleted = false,
-                    Name = existingProduct.Name,
-                    Unit = existingProduct.Unit,
-                    Price = existingProduct.Price,
-                    Description = existingProduct.Description,
-                    DateAdded = existingProduct.DateAdded,
-                    Id = existingProduct.Id
-                };
-
-                _productService.UpdateProduct(existingProduct, product);
+                _productService.UndoDelete(existingProduct);
                 return Ok();
             }
             catch (Exception e)

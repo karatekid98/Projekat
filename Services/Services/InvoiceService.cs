@@ -25,19 +25,117 @@ namespace Services.Services
 
         public Invoice AddInvoice(Invoice invoice)
         {
-            _repositoryWrapper.Invoice.AddInvoice(invoice);
-            return invoice;
+            try
+            {
+                _repositoryWrapper.Invoice.BeginTransaction();
+                _repositoryWrapper.Invoice.AddInvoice(invoice);
+                _repositoryWrapper.Invoice.CommitTransaction();
+                return invoice;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Invoice.RollbackTransaction();
+                throw e;
+            }
+       
+         
         }
 
         public void UpdateInvoice(Invoice existingInvoice, Invoice newInvoice)
         {
-            _repositoryWrapper.Invoice.UpdateInvoice(existingInvoice, newInvoice);
+            try
+            {
+                _repositoryWrapper.Invoice.BeginTransaction();
+                _repositoryWrapper.Invoice.UpdateInvoice(existingInvoice, newInvoice);
+                _repositoryWrapper.Invoice.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Invoice.RollbackTransaction();
+                throw e;
+            }
+     
         }
 
         public void RemoveInvoice(Invoice invoice)
         {
-            _repositoryWrapper.Invoice.RemoveInvoice(invoice);
+            try
+            {
+                _repositoryWrapper.Invoice.BeginTransaction();
+                _repositoryWrapper.Invoice.RemoveInvoice(invoice);
+                _repositoryWrapper.Invoice.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Invoice.RollbackTransaction();
+                throw e;
+            }
+           
         }
 
+        // ovu metodu pozivamo i kad se brise shipment za taj invoice, takodje i invoiceproduct brise
+        public void SoftDelete(Invoice invoice)
+        {
+            try
+            {
+                _repositoryWrapper.Invoice.BeginTransaction();
+                var existingInvoice = _repositoryWrapper.Invoice.AsQueryable().First(x => x.Id == invoice.Id);
+                _repositoryWrapper.Invoice.SoftDelete(existingInvoice);
+
+                var invoiceProducts = _repositoryWrapper.InvoiceProduct.AsQueryable().Where(x => x.InvoiceId == invoice.Id && x.IsDeleted == false);
+
+                foreach (var invoiceProduct in invoiceProducts)
+                {
+                    _repositoryWrapper.InvoiceProduct.SoftDelete(invoiceProduct);
+                }
+
+                var invoiceShipments = _repositoryWrapper.Shipment.AsQueryable().Where(x => x.InvoiceId == invoice.Id && x.IsDeleted == false);
+
+                foreach (var invoiceShipment in invoiceShipments)
+                {
+                    invoiceShipment.IsDeleted = true;
+                    _repositoryWrapper.Shipment.SoftDelete(invoiceShipment);
+                }
+                _repositoryWrapper.Invoice.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Invoice.RollbackTransaction();
+                throw e;
+            }
+      
+        }
+
+        public void UndoDelete(Invoice invoice)
+        {
+            try
+            {
+                _repositoryWrapper.Invoice.BeginTransaction();
+                var existingInvoice = _repositoryWrapper.Invoice.AsQueryable().First(x => x.Id == invoice.Id);
+                _repositoryWrapper.Invoice.UndoDelete(existingInvoice);
+
+                var invoiceProducts = _repositoryWrapper.InvoiceProduct.AsQueryable().Where(x => x.InvoiceId == invoice.Id && x.IsDeleted == true);
+
+                foreach (var invoiceProduct in invoiceProducts)
+                {
+                    _repositoryWrapper.InvoiceProduct.UndoDelete(invoiceProduct);
+                }
+
+                var invoiceShipments = _repositoryWrapper.Shipment.AsQueryable().Where(x => x.InvoiceId == invoice.Id && x.IsDeleted == true);
+
+                foreach (var invoiceShipment in invoiceShipments)
+                {
+                    invoiceShipment.IsDeleted = false;
+                    _repositoryWrapper.Shipment.UndoDelete(invoiceShipment);
+                }
+                _repositoryWrapper.Invoice.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Invoice.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

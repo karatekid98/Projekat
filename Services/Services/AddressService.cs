@@ -25,20 +25,83 @@ namespace Services.Services
 
         public Address AddAddress(Address address)
         {
-            _repositoryWrapper.Address.AddAddress(address);
-            return address;
+            try
+            {
+                _repositoryWrapper.Address.BeginTransaction();
+                _repositoryWrapper.Address.AddAddress(address);
+                _repositoryWrapper.Address.CommitTransaction();
+                return address;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Address.RollbackTransaction();
+                throw e;
+            }
+       
         }
 
         public void UpdateAddress(Address existingAddress, Address newAddress)
         {
-            _repositoryWrapper.Address.UpdateAddress(existingAddress, newAddress);
+            try
+            {
+                _repositoryWrapper.Address.BeginTransaction();
+                _repositoryWrapper.Address.UpdateAddress(existingAddress, newAddress);
+                _repositoryWrapper.Address.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Address.RollbackTransaction();
+                throw e;
+            }
+        
         }
 
         public void RemoveAddress(Address address)
         {
-            _repositoryWrapper.Address.RemoveAddress(address);
+            try
+            {
+                _repositoryWrapper.Address.BeginTransaction();
+                _repositoryWrapper.Address.RemoveAddress(address);
+                _repositoryWrapper.Address.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Address.RollbackTransaction();
+                throw e;
+            }
+         
         }
 
+        public void SoftDelete(Address address)
+        {
+            try
+            {
+                _repositoryWrapper.Address.BeginTransaction();
+                _repositoryWrapper.Address.SoftDelete(address);
+                _repositoryWrapper.Address.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Address.RollbackTransaction();
+                throw e;
+            }
+         
+        }
 
+        public void UndoDelete(Address address)
+        {
+            try
+            {
+                _repositoryWrapper.Address.BeginTransaction();
+                _repositoryWrapper.Address.UndoDelete(address);
+                _repositoryWrapper.Address.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Address.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

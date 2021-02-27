@@ -25,19 +25,83 @@ namespace Services.Services
 
         public InvoiceProduct AddInvoiceProduct(InvoiceProduct invoiceProduct)
         {
-            _repositoryWrapper.InvoiceProduct.AddInvoiceProduct(invoiceProduct);
-            return invoiceProduct;
+            try
+            {
+                _repositoryWrapper.InvoiceProduct.BeginTransaction();
+                _repositoryWrapper.InvoiceProduct.AddInvoiceProduct(invoiceProduct);
+                _repositoryWrapper.InvoiceProduct.CommitTransaction();
+                return invoiceProduct;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.InvoiceProduct.RollbackTransaction();
+                throw e;
+            }
+           
         }
 
         public void UpdateInvoiceProduct(InvoiceProduct existingInvoiceProduct, InvoiceProduct newInvoiceProduct)
         {
-            _repositoryWrapper.InvoiceProduct.UpdateInvoiceProduct(existingInvoiceProduct, newInvoiceProduct);
+            try
+            {
+                _repositoryWrapper.InvoiceProduct.BeginTransaction();
+                _repositoryWrapper.InvoiceProduct.UpdateInvoiceProduct(existingInvoiceProduct, newInvoiceProduct);
+                _repositoryWrapper.InvoiceProduct.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.InvoiceProduct.RollbackTransaction();
+                throw e;
+            }
+ 
         }
 
         public void RemoveInvoiceProduct(InvoiceProduct invoiceProduct)
         {
-            _repositoryWrapper.InvoiceProduct.RemoveInvoiceProduct(invoiceProduct);
+            try
+            {
+                _repositoryWrapper.InvoiceProduct.BeginTransaction();
+                _repositoryWrapper.InvoiceProduct.RemoveInvoiceProduct(invoiceProduct);
+                _repositoryWrapper.InvoiceProduct.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.InvoiceProduct.RollbackTransaction();
+                throw e;
+            }
+            
         }
 
+        public void SoftDelete(InvoiceProduct invoiceProduct)
+        {
+            try
+            {
+                _repositoryWrapper.InvoiceProduct.BeginTransaction();
+                _repositoryWrapper.InvoiceProduct.SoftDelete(invoiceProduct);
+                _repositoryWrapper.InvoiceProduct.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.InvoiceProduct.RollbackTransaction();
+                throw e;
+            }
+      
+        }
+
+        public void UndoDelete(InvoiceProduct invoiceProduct)
+        {
+            try
+            {
+                _repositoryWrapper.InvoiceProduct.BeginTransaction();
+                _repositoryWrapper.InvoiceProduct.UndoDelete(invoiceProduct);
+                _repositoryWrapper.InvoiceProduct.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.InvoiceProduct.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }

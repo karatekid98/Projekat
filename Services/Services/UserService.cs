@@ -25,18 +25,83 @@ namespace Services.Services
 
         public User AddUser(User user)
         {
-            _repositoryWrapper.User.AddUser(user);
-            return user;
+            try
+            {
+                _repositoryWrapper.User.BeginTransaction();
+                _repositoryWrapper.User.AddUser(user);
+                _repositoryWrapper.User.CommitTransaction();
+                return user;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.User.RollbackTransaction();
+                throw e;
+            }
+         
         }
 
         public void UpdateUser(User existingUser, User newUser)
         {
-            _repositoryWrapper.User.UpdateUser(existingUser, newUser);
+            try
+            {
+                _repositoryWrapper.User.BeginTransaction();
+                _repositoryWrapper.User.UpdateUser(existingUser, newUser);
+                _repositoryWrapper.User.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.User.RollbackTransaction();
+                throw e;
+            }
+            
         }
 
         public void RemoveUser(User user)
         {
-            _repositoryWrapper.User.RemoveUser(user);
+            try
+            {
+                _repositoryWrapper.User.BeginTransaction();
+                _repositoryWrapper.User.RemoveUser(user);
+                _repositoryWrapper.User.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.User.RollbackTransaction();
+                throw e;
+            }
+            
+        }
+
+        public void SoftDelete(User user)
+        {
+            try
+            {
+                _repositoryWrapper.User.BeginTransaction();
+                _repositoryWrapper.User.SoftDelete(user);
+                _repositoryWrapper.User.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.User.RollbackTransaction();
+                throw e;
+            }
+          
+        }
+
+        public void UndoDelete(User user)
+        {
+            try
+            {
+                _repositoryWrapper.User.BeginTransaction();
+                _repositoryWrapper.User.UndoDelete(user);
+                _repositoryWrapper.User.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.User.RollbackTransaction();
+                throw e;
+            }
+
         }
     }
 }

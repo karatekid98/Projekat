@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using System;
 using System.Linq;
 
 namespace Contracts.Services
@@ -9,5 +10,7 @@ namespace Contracts.Services
         IQueryable<Invoice> AsQueryable();
         void RemoveInvoice(Invoice invoice);
         void UpdateInvoice(Invoice existingInvoice, Invoice newInvoice);
+        void SoftDelete(Invoice invoice);
+        void UndoDelete(Invoice invoice);
     }
 }

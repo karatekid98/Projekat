@@ -25,18 +25,83 @@ namespace Services.Services
 
         public Shipment AddShipment(Shipment shipment)
         {
-            _repositoryWrapper.Shipment.AddShipment(shipment);
-            return shipment;
+            try
+            {
+                _repositoryWrapper.Shipment.BeginTransaction();
+                _repositoryWrapper.Shipment.AddShipment(shipment);
+                _repositoryWrapper.Shipment.CommitTransaction();
+                return shipment;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Shipment.RollbackTransaction();
+                throw e;
+            }
+    
         }
 
         public void UpdateShipment(Shipment existingShipment, Shipment newShipment)
         {
-            _repositoryWrapper.Shipment.UpdateShipment(existingShipment, newShipment);
+            try
+            {
+                _repositoryWrapper.Shipment.BeginTransaction();
+                _repositoryWrapper.Shipment.UpdateShipment(existingShipment, newShipment);
+                _repositoryWrapper.Shipment.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Shipment.RollbackTransaction();
+                throw e;
+            }
+          
         }
 
         public void RemoveShipment(Shipment shipment)
         {
-            _repositoryWrapper.Shipment.RemoveShipment(shipment);
+            try
+            {
+                _repositoryWrapper.Shipment.BeginTransaction();
+                _repositoryWrapper.Shipment.RemoveShipment(shipment);
+                _repositoryWrapper.Shipment.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Shipment.RollbackTransaction();
+                throw e;
+            }
+        
+        }
+
+        public void SoftDelete(Shipment shipment)
+        {
+            try
+            {
+                _repositoryWrapper.Shipment.BeginTransaction();
+                _repositoryWrapper.Shipment.SoftDelete(shipment);
+                _repositoryWrapper.Shipment.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Shipment.RollbackTransaction();
+                throw e;
+            }
+
+        }
+
+        public void UndoDelete(Shipment shipment)
+        {
+            try
+            {
+                _repositoryWrapper.Shipment.BeginTransaction();
+                _repositoryWrapper.Shipment.UndoDelete(shipment);
+                _repositoryWrapper.Shipment.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Shipment.RollbackTransaction();
+                throw e;
+            }
+
         }
     }
 }

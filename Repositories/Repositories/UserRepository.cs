@@ -29,5 +29,17 @@ namespace Repositories.Repositories
         {
             Update(existingUser, newUser);
         }
+
+        public void SoftDelete(User user)
+        {
+            user.IsDeleted = true;
+            base.SoftDelete(user);
+        }
+
+        public void UndoDelete(User user)
+        {
+            user.IsDeleted = false;
+            base.UndoDelete(user);
+        }
     }
 }

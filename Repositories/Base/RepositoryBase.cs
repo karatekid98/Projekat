@@ -25,59 +25,61 @@ namespace Repositories.Base
         //dodaje u set prosledjeni entity
         public void Add(T entity)
         {
-            try
-            {
-                DatabaseContext.Database.BeginTransaction();
-                DatabaseContext.Set<T>().Add(entity);
-                SaveChanges();
-                DatabaseContext.Database.CommitTransaction();
-            }
-            catch (Exception e)
-            {
-                DatabaseContext.Database.RollbackTransaction();
-                throw e;
-            }
+
+            DatabaseContext.Set<T>().Add(entity);
+            SaveChanges();
+
+        }
+
+        //pronalazi entity ako postoji i promeni ga na novi(detached mora)
+        public void Update(T existing, T entity)
+        {
+      
+            DatabaseContext.Entry(existing).State = EntityState.Detached;
+            DatabaseContext.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
     
         }
 
-        //pronalayi entity ako postoji i promeni ga na novi(detached mora)
-        public void Update(T existing, T entity)
+        public void SoftDelete(T entity)
         {
-            try
-            {
-                DatabaseContext.Database.BeginTransaction();
-                DatabaseContext.Entry(existing).State = EntityState.Detached;
-                DatabaseContext.Entry(entity).State = EntityState.Modified;
-                SaveChanges();
-                DatabaseContext.Database.CommitTransaction();
-            }
-            catch (Exception e)
-            {
-                DatabaseContext.Database.RollbackTransaction();
-                throw e;
-            }
-         
+  
+            DatabaseContext.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+
+        }
+
+        public void UndoDelete(T entity)
+        {
+            DatabaseContext.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
         }
 
         public void Remove(T entity)
         {
-            try
-            {
-                DatabaseContext.Database.BeginTransaction();
-                DatabaseContext.Set<T>().Remove(entity);
-                SaveChanges();
-                DatabaseContext.Database.CommitTransaction();
-            }
-            catch (Exception e)
-            {
-                DatabaseContext.Database.RollbackTransaction();
-                throw e;
-            }
+
+            DatabaseContext.Set<T>().Remove(entity);
+            SaveChanges();
         }
 
         public void SaveChanges()
         {
             DatabaseContext.SaveChanges();
+        }
+
+        public void BeginTransaction()
+        {
+            DatabaseContext.Database.BeginTransaction();
+        }
+     
+        public void CommitTransaction()
+        {
+            DatabaseContext.Database.CommitTransaction();
+        }
+
+        public void RollbackTransaction()
+        {
+            DatabaseContext.Database.RollbackTransaction();
         }
     }
 }

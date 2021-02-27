@@ -1,6 +1,7 @@
 ﻿using Contracts.Services;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Projekat.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace Projekat.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IAddressService _addressService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IAddressService addressService)
         {
             _userService = userService;
+            _addressService = addressService;
         }
 
 
@@ -114,7 +117,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("softDelete/{id}")]
+        [HttpPatch("softDelete/{id}")]
         public ActionResult SoftDelete(Guid id)
         {
             try
@@ -126,22 +129,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                User user = new User
-                {
-                    IsDeleted = true,
-                    LastName = existingUser.LastName,
-                    FirstName = existingUser.FirstName,
-                    Email = existingUser.Email,
-                    Phone = existingUser.Phone,
-                    Role = existingUser.Role,
-                    DateOfBirth = existingUser.DateOfBirth,
-                    Gender = existingUser.Gender,
-                    Id = existingUser.Id,
-                    AddressId = existingUser.AddressId,
-                    Password = existingUser.Password
-                };
-
-                _userService.UpdateUser(existingUser, user);
+                _userService.SoftDelete(existingUser);
                 return Ok();
             }
             catch (Exception e)
@@ -150,7 +138,7 @@ namespace Projekat.Controllers
             }
         }
 
-        [HttpPut("undoDelete/{id}")]
+        [HttpPatch("undoDelete/{id}")]
         public ActionResult UndoDelete(Guid id)
         {
             try
@@ -162,22 +150,7 @@ namespace Projekat.Controllers
                     return NotFound();
                 }
 
-                User user = new User
-                {
-                    IsDeleted = false,
-                    LastName = existingUser.LastName,
-                    FirstName = existingUser.FirstName,
-                    Email = existingUser.Email,
-                    Phone = existingUser.Phone,
-                    Role = existingUser.Role,
-                    DateOfBirth = existingUser.DateOfBirth,
-                    Gender = existingUser.Gender,
-                    Id = existingUser.Id,
-                    AddressId = existingUser.AddressId,
-                    Password = existingUser.Password
-                };
-
-                _userService.UpdateUser(existingUser, user);
+                _userService.UndoDelete(existingUser);
                 return Ok();
             }
             catch (Exception e)
@@ -185,5 +158,81 @@ namespace Projekat.Controllers
                 return BadRequest(e.GetBaseException().Message);
             }
         }
+
+        [HttpPost("singUp")]
+        public ActionResult Signup([FromBody] SignupRequest signupRequest)
+        {
+            try
+            {
+                var user = new User();
+                var address = new Address();
+                var existingAddress = _addressService.AsQueryable().FirstOrDefault(x => x.City == signupRequest.AddressDto.City &&
+                x.Country == signupRequest.AddressDto.Country &&
+                x.Line == signupRequest.AddressDto.Line &&
+                x.Postcode == signupRequest.AddressDto.Postcode);
+
+                if (existingAddress == null)
+                {
+                    address.City = signupRequest.AddressDto.City;
+                    address.Country = signupRequest.AddressDto.Country;
+                    address.Line = signupRequest.AddressDto.Line;
+                    address.Postcode = signupRequest.AddressDto.Postcode;
+
+                    _addressService.AddAddress(address);
+                    user.AddressId = address.Id;
+                } 
+                else
+                {
+                    user.AddressId = existingAddress.Id;
+                }
+
+                var existingUser = _userService.AsQueryable().FirstOrDefault(x => x.Email == signupRequest.UserDto.Email);
+
+                if (existingUser != null)
+                {
+                    return Ok(false);
+                }
+
+                user.DateOfBirth = signupRequest.UserDto.DateOfBirth;
+                user.Email = signupRequest.UserDto.Email;
+                user.FirstName= signupRequest.UserDto.FirstName;
+                user.LastName= signupRequest.UserDto.LastName;
+                user.Phone= signupRequest.UserDto.Phone;
+                user.Gender = signupRequest.UserDto.Gender;
+                user.Password= signupRequest.UserDto.Password;
+                user.Role = false;
+
+                _userService.AddUser(user);
+                
+                return Ok(true);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        // ukoliko dobijem null, user ne postoji, u suprotnom postoji i vraca celog User-a u responsu
+        [HttpPost("logIn")]
+        public ActionResult<User> Login([FromBody] LoginRequest loginRequest) 
+        {
+            try
+            {
+                var existingUser = _userService.AsQueryable().FirstOrDefault(x => x.Email == loginRequest.Email && x.Password == loginRequest.Password);
+
+                if (existingUser == null)
+                {
+                    return Ok(null);
+                }
+
+                return Ok(existingUser);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+          
+        }
+
     }
 }

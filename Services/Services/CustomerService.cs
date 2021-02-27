@@ -25,20 +25,82 @@ namespace Services.Services
 
         public Customer AddCustomer(Customer customer)
         {
-            _repositoryWrapper.Customer.AddCustomer(customer);
-            return customer;
+            try
+            {
+                _repositoryWrapper.Customer.BeginTransaction();
+                _repositoryWrapper.Customer.AddCustomer(customer);
+                _repositoryWrapper.Customer.CommitTransaction();
+                return customer;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Customer.RollbackTransaction();
+                throw e;
+            }
+     
         }
 
         public void UpdateCustomer(Customer existingCustomer, Customer newCustomer)
         {
-            _repositoryWrapper.Customer.UpdateCustomer(existingCustomer, newCustomer);
+            try
+            {
+                _repositoryWrapper.Customer.BeginTransaction();
+                _repositoryWrapper.Customer.UpdateCustomer(existingCustomer, newCustomer);
+                _repositoryWrapper.Customer.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Customer.RollbackTransaction();
+                throw e;
+            }
+           
         }
 
         public void RemoveCustomer(Customer customer)
         {
-            _repositoryWrapper.Customer.RemoveCustomer(customer);
+            try
+            {
+                _repositoryWrapper.Customer.BeginTransaction();
+                _repositoryWrapper.Customer.RemoveCustomer(customer);
+                _repositoryWrapper.Customer.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Customer.RollbackTransaction();
+                throw e;
+            }
+   
         }
 
+        public void SoftDelete(Customer customer)
+        {
+            try
+            {
+                _repositoryWrapper.Customer.BeginTransaction();
+                _repositoryWrapper.Customer.SoftDelete(customer);
+                _repositoryWrapper.Customer.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Customer.RollbackTransaction();
+                throw e;
+            }
+        }
 
+        public void UndoDelete(Customer customer)
+        {
+            try
+            {
+                _repositoryWrapper.Customer.BeginTransaction();
+                _repositoryWrapper.Customer.UndoDelete(customer);
+                _repositoryWrapper.Customer.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Customer.RollbackTransaction();
+                throw e;
+            }
+
+        }
     }
 }
