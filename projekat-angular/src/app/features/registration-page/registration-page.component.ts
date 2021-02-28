@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SingUp } from '../../models/singup';
 import { LoginService } from '../../core/services/login-service/login.service';
 import { User } from '../../models/user';
+import { Validators, FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-registration-page',
   templateUrl: './registration-page.component.html',
@@ -17,6 +18,8 @@ export class RegistrationPageComponent implements OnInit {
     addressId: '',
     email: '',
     password: '',
+    id: '',
+    role: false
   };
 
   public singup: SingUp = {
@@ -96,6 +99,20 @@ export class RegistrationPageComponent implements OnInit {
         console.log(error.error);
       }
     );
+  }
+
+  fillOutForm(): void {
+    this.singup.UserDto.firstName = this.singupForm.value.firstName;
+    this.singup.UserDto.lastName = this.singupForm.value.lastName;
+    this.singup.UserDto.gender = this.singupForm.value.gender;
+    this.singup.UserDto.dateOfBirth = this.singupForm.value.date;
+    this.singup.UserDto.email = this.singupForm.value.emailSingUp;
+    this.singup.UserDto.phone = this.singupForm.value.phoneNumber;
+    this.singup.UserDto.password = this.singupForm.value.passwordSingUp;
+    this.singup.AddressDto.country = this.singupForm.value.country;
+    this.singup.AddressDto.city = this.singupForm.value.city;
+    this.singup.AddressDto.postcode = this.singupForm.value.postcode;
+    this.singup.AddressDto.line = this.singupForm.value.line;
   }
 
   checkPasswords(): boolean {

@@ -12,11 +12,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  //TODO: add login method in C#
-  login(loginForm: Login): Observable<Login> {
-    return this.http.post<Login>(`http://localhost:57339/api/User/logIn`, loginForm);
+  login(login: Login): Observable<User> {
+    return this.http.post<User>(`http://localhost:28846/api/User/logIn`, login);
   }
-
 
   singup(singupForm: SingUp): Observable<User> {
     return this.http.post<User>(`http://localhost:28846/api/User/singUp`, singupForm);
