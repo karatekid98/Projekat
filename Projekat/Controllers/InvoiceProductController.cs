@@ -56,13 +56,28 @@ namespace Projekat.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddInvoiceProduct([FromBody] InvoiceProduct invoiceProduct)
+        public ActionResult<InvoiceProduct> AddInvoiceProduct([FromBody] InvoiceProduct invoiceProduct)
         {
             try
             {
-                _invoiceProductService.AddInvoiceProduct(invoiceProduct);
+                var newInvoiceProduct = _invoiceProductService.AddInvoiceProduct(invoiceProduct);
 
-                return Ok();
+                return Ok(newInvoiceProduct);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPost("addInvoiceProducts")]
+        public ActionResult<List<InvoiceProduct>> AddInvoiceProducts([FromBody] List<InvoiceProduct> invoiceProducts)
+        {
+            try
+            {
+                var newInvoiceProducts = _invoiceProductService.AddInvoiceProducts(invoiceProducts);
+          
+                return Ok(newInvoiceProducts);
             }
             catch (Exception e)
             {

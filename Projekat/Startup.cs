@@ -74,6 +74,7 @@ namespace Projekat
             services.AddTransient<IShipmentService, ShipmentService>();
             services.AddTransient<IUserService, UserService>();
      
+            services.AddSingleton<ILockService, LockService>();
 
         }
 

@@ -13,5 +13,6 @@ namespace Contracts.Services
         void UpdateProduct(Product existingProduct, Product newProduct);
         void SoftDelete(Product product);
         void UndoDelete(Product product);
+        void AddQuantity(Product existingProduct, int quantity);
     }
 }

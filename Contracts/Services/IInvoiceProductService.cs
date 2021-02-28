@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Contracts.Services
@@ -11,5 +12,6 @@ namespace Contracts.Services
         void UpdateInvoiceProduct(InvoiceProduct existingInvoiceProduct, InvoiceProduct newInvoiceProduct);
         void SoftDelete(InvoiceProduct invoiceProduct);
         void UndoDelete(InvoiceProduct invoiceProduct);
+        List<InvoiceProduct> AddInvoiceProducts(List<InvoiceProduct> invoiceProducts);
     }
 }

@@ -56,6 +56,21 @@ namespace Projekat.Controllers
 
                 return BadRequest(e.GetBaseException().Message);
             }
+        }
+
+        [HttpGet("getDeletedUsers")]
+        public ActionResult<List<User>> GetDeletedUsers()
+        {
+            try
+            {
+                var deletedUsers = _userService.AsQueryable().Where(x => x.IsDeleted == true).ToList();
+
+                return Ok(deletedUsers);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
 
         }
 

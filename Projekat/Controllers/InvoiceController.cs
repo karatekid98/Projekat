@@ -60,7 +60,7 @@ namespace Projekat.Controllers
         }
 
         [HttpPost]
-        public ActionResult<List<Invoice>> AddInvoice([FromBody] Invoice invoice)
+        public ActionResult AddInvoice([FromBody] Invoice invoice)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace Projekat.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<Invoice>> UpdateInvoice(Guid id, [FromBody] Invoice newInvoice)
+        public ActionResult UpdateInvoice(Guid id, [FromBody] Invoice newInvoice)
         {
             try
             {

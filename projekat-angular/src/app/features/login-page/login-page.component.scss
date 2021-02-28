@@ -14,13 +14,13 @@
 #left-side {
   display: flex;
   width: 50%;
-  background-color: whitesmoke;
+  background-color: #212121;
 }
 
 #right-side {
   @include flexCenter;
   width: 50%;
-  background-color: #8DB596;
+  background-color: whitesmoke;
 }
 
 //mat-card
@@ -31,9 +31,12 @@
 
 //input
 .input-full-width {
-  width: 90%;
+  width: 100%;
 }
 
+#loginButton {
+  width: 100%;
+}
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }

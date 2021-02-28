@@ -40,6 +40,27 @@ namespace Services.Services
            
         }
 
+        public List<InvoiceProduct> AddInvoiceProducts(List<InvoiceProduct> invoiceProducts)
+        {
+            try
+            {
+                _repositoryWrapper.InvoiceProduct.BeginTransaction();
+                foreach (var invoiceProduct in invoiceProducts)
+                {
+                    _repositoryWrapper.InvoiceProduct.AddInvoiceProduct(invoiceProduct);
+                }
+
+                _repositoryWrapper.InvoiceProduct.CommitTransaction();
+                return invoiceProducts;
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.InvoiceProduct.RollbackTransaction();
+                throw e;
+            }
+
+        }
+
         public void UpdateInvoiceProduct(InvoiceProduct existingInvoiceProduct, InvoiceProduct newInvoiceProduct)
         {
             try

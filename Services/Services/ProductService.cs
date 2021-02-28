@@ -61,6 +61,8 @@ namespace Services.Services
             }
 
         }
+
+
         public void UpdateProduct(Product existingProduct, Product newProduct)
         {
             try
@@ -123,6 +125,21 @@ namespace Services.Services
                 throw e;
             }
 
+        }
+
+        public void AddQuantity(Product existingProduct, int quantity)
+        {
+            try
+            {
+                _repositoryWrapper.Product.BeginTransaction();
+                _repositoryWrapper.Product.AddQuantity(existingProduct, quantity);
+                _repositoryWrapper.Product.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                _repositoryWrapper.Product.RollbackTransaction();
+                throw e;
+            }
         }
     }
 }

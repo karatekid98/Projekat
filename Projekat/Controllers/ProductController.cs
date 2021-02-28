@@ -108,6 +108,27 @@ namespace Projekat.Controllers
             }
         }
 
+        // ovaj quantity stize kroz url
+        [HttpPatch("{id}/{quantity}")]
+        public ActionResult UpdateProductQuantity(Guid id, int quantity)
+        {
+            try
+            {
+
+                var existingProduct = _productService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                if (existingProduct == null)
+                {
+                    return NotFound();
+                }
+
+                _productService.AddQuantity(existingProduct, quantity);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteProduct(Guid id)

@@ -34,19 +34,15 @@ namespace Repositories.Base
         //pronalazi entity ako postoji i promeni ga na novi(detached mora)
         public void Update(T existing, T entity)
         {
-      
             DatabaseContext.Entry(existing).State = EntityState.Detached;
             DatabaseContext.Entry(entity).State = EntityState.Modified;
             SaveChanges();
-    
         }
 
         public void SoftDelete(T entity)
         {
-  
             DatabaseContext.Entry(entity).State = EntityState.Modified;
             SaveChanges();
-
         }
 
         public void UndoDelete(T entity)

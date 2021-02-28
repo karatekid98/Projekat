@@ -1,6 +1,7 @@
 ﻿using Contracts.Repositories;
 using DataAccess;
 using DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Base;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,12 @@ namespace Repositories.Repositories
         {
             Update(existingProduct, newProduct);
         }
-
+        public void AddQuantity(Product existingProduct, int quantity)
+        {
+            existingProduct.AvailableQuantity += quantity;
+            DatabaseContext.Entry(existingProduct).State = EntityState.Modified;
+            SaveChanges();
+        }
         public void SoftDelete(Product product)
         {
             product.IsDeleted = true;

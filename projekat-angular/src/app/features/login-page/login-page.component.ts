@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/login-service/login.service';
 import { Login } from '../../models/login';
-import { User } from '../../models/user';
-import { SingUp } from '../../models/singup';
 import { computeMsgId } from '@angular/compiler';
 
 @Component({
@@ -12,33 +10,8 @@ import { computeMsgId } from '@angular/compiler';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  public singup: SingUp = {
-    AddressDto: {
-      country: '',
-      city: '',
-      line: '',
-      postcode: '',
-    },
-    UserDto: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      password: '',
-      gender: '',
-      dateOfBirth: new Date(),
-    },
-  };
-  public user: User = {
-    firstName: '',
-    lastName: '',
-    phone: '',
-    dateOfBirth: new Date(),
-    gender: '',
-    addressId: '',
-    email: '',
-    password: '',
-  };
+
+
 
   public login: Login = {
     email: '',
@@ -46,35 +19,14 @@ export class LoginPageComponent implements OnInit {
   };
 
   email: string = '';
-  gender = ['Female', 'Male'];
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required, Validators.min(3)]),
   });
 
-  singupForm: FormGroup = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    phoneNumber: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
-    postcode: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    line: new FormControl('', Validators.required),
-    emailSingUp: new FormControl('', [Validators.email, Validators.required]),
-    passwordSingUp: new FormControl('', [
-      Validators.required,
-      Validators.min(3),
-    ]),
-    confirmPassword: new FormControl('', [
-      Validators.required,
-      Validators.min(3),
-    ]),
-  });
+
   hide = true;
-  confirmhide = true;
 
   // get isDateChecked() {
   //   return this.singupForm.get('dateOfBirth');
@@ -86,38 +38,12 @@ export class LoginPageComponent implements OnInit {
   get passwordInput() {
     return this.loginForm.get('password');
   }
-  get emailInputSingup() {
-    return this.singupForm.get('emailSingUp');
-  }
-  get passwordInputSingUp() {
-    return this.singupForm.get('passwordSingUp');
-  }
-  get passwordInputConfirm() {
-    return this.singupForm.get('confirmPassword');
-  }
+
 
   constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {}
 
-  // TODO: add message if passwords don't match
-  finishSingup(): void {
-    this.fillOutForm();
-    this.loginService.singup(this.singup).subscribe(
-      (response) => {
-        this.user.firstName = response.firstName;
-        this.user.lastName = response.lastName;
-        this.user.gender = response.gender;
-        this.user.dateOfBirth = response.dateOfBirth;
-        this.user.password = response.password;
-        this.user.email = response.email;
-        this.user.phone = response.phone;
-      },
-      (error) => {
-        console.log(error.error);
-      }
-    );
-  }
   finishLogin(): void {}
 
   fillOutForm(): void {
@@ -134,19 +60,5 @@ export class LoginPageComponent implements OnInit {
     this.singup.AddressDto.line = this.singupForm.value.line;
   }
 
-  // checkDate() {
-  //   if (this.isDateChecked) {
-  //     this.singupForm.controls['date'].disable();
-  //   } else {
-  //     this.singupForm.controls['date'].enable();
-  //   }
-  // }
 
-  checkPasswords(): boolean {
-    if (this.passwordInputSingUp === this.passwordInputConfirm) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
