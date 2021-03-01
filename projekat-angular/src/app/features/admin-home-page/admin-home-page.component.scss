@@ -1,0 +1,24 @@
+.sidenav-container {
+  width: 100%;
+  height: 100%;
+
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav {
+  padding: 20px;
+  width: 50px;
+  transition: width 0.2s;
+  overflow: hidden !important;
+}
+
+.sidenav-after {
+  width: 300px;
+}
+
