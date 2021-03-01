@@ -45,7 +45,11 @@ export class LoginPageComponent implements OnInit {
     this.loginService.login(this.loginForm.value).subscribe(
       (response) => {
         if (response != null) {
-          this.router.navigate([`/home-page/${response.id}`]);
+          if (response.role === false) {
+            this.router.navigate([`/home-page/${response.id}`]);
+          } else {
+            this.router.navigate([`/admin-home-page/${response.id}`]);
+          }
         } else {
           const wrongCredentials = document.getElementById(
             'wrongData'
