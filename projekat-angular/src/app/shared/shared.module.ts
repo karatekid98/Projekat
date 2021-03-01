@@ -10,7 +10,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [],
   imports: [
@@ -25,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatCardModule,
@@ -38,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }

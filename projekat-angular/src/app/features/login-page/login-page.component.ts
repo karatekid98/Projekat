@@ -44,13 +44,14 @@ export class LoginPageComponent implements OnInit {
   finishLogin(): void {
     this.loginService.login(this.loginForm.value).subscribe(
       (response) => {
-        console.log(response);
         if (response != null) {
           this.router.navigate([`/home-page/${response.id}`]);
         } else {
-          console.log('user with that email and password does not exist');
+          const wrongCredentials = document.getElementById(
+            'wrongData'
+          ) as HTMLDivElement;
+          wrongCredentials.innerHTML = 'The password or email address you’ve entered is incorrect. Try again.';
         }
-
       },
       (error) => {
         console.log(error.error);
