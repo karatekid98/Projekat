@@ -6,5 +6,6 @@ namespace Contracts.Services
     {
         bool Lock(Guid itemId, Guid userId);
         void Unlock(Guid itemId);
+        bool IsItemLocked(Guid itemId);
     }
 }

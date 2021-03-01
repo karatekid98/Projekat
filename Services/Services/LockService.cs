@@ -15,8 +15,9 @@ namespace Services.Services
 
         public bool Lock(Guid itemId, Guid userId)
         {
-            var lockedItem = _lockedItems[itemId];
-            if(lockedItem != null)
+     
+            var itemAlreadyLocked = _lockedItems.ContainsKey(itemId);
+            if(itemAlreadyLocked)
             {
                 return false;
             }
@@ -29,6 +30,13 @@ namespace Services.Services
         {
             _lockedItems.Remove(itemId);
         }
+
+        public bool IsItemLocked(Guid itemId)
+        {
+            var isLocked = _lockedItems.ContainsKey(itemId);
+            return isLocked;
+        }
+
     }
 
 

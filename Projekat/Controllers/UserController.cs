@@ -195,7 +195,7 @@ namespace Projekat.Controllers
 
                     _addressService.AddAddress(address);
                     user.AddressId = address.Id;
-                } 
+                }
                 else
                 {
                     user.AddressId = existingAddress.Id;
@@ -208,17 +208,10 @@ namespace Projekat.Controllers
                     return Ok(false);
                 }
 
-                user.DateOfBirth = signupRequest.UserDto.DateOfBirth;
-                user.Email = signupRequest.UserDto.Email;
-                user.FirstName= signupRequest.UserDto.FirstName;
-                user.LastName= signupRequest.UserDto.LastName;
-                user.Phone= signupRequest.UserDto.Phone;
-                user.Gender = signupRequest.UserDto.Gender;
-                user.Password= signupRequest.UserDto.Password;
-                user.Role = false;
+                MapRequestToUser(signupRequest, user);
 
                 _userService.AddUser(user);
-                
+
                 return Ok(true);
             }
             catch (Exception e)
@@ -226,6 +219,8 @@ namespace Projekat.Controllers
                 return BadRequest(e.GetBaseException().Message);
             }
         }
+
+
 
         // ukoliko dobijem null, user ne postoji, u suprotnom postoji i vraca celog User-a u responsu
         [HttpPost("logIn")]
@@ -247,6 +242,18 @@ namespace Projekat.Controllers
                 return BadRequest(e.GetBaseException().Message);
             }
           
+        }
+
+        private void MapRequestToUser(SignupRequest signupRequest, User user)
+        {
+            user.DateOfBirth = signupRequest.UserDto.DateOfBirth;
+            user.Email = signupRequest.UserDto.Email;
+            user.FirstName = signupRequest.UserDto.FirstName;
+            user.LastName = signupRequest.UserDto.LastName;
+            user.Phone = signupRequest.UserDto.Phone;
+            user.Gender = signupRequest.UserDto.Gender;
+            user.Password = signupRequest.UserDto.Password;
+            user.Role = false;
         }
 
     }
