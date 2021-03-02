@@ -84,6 +84,24 @@ namespace Projekat.Controllers
             }
         }
 
+        [HttpPost("addCustomers")]
+        public ActionResult AddCustomers([FromBody] List<Customer> customers)
+        {
+            try
+            {
+                foreach (var customer in customers)
+                {
+                    _customerService.AddCustomer(customer);
+                }
+              
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
         [HttpPut("{id}")]
         public ActionResult UpdateCustomer(Guid id, [FromBody] Customer newCustomer)
         {

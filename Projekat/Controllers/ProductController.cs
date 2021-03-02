@@ -65,7 +65,6 @@ namespace Projekat.Controllers
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.GetBaseException().Message);
             }
 

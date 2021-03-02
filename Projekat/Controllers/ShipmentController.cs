@@ -88,6 +88,25 @@ namespace Projekat.Controllers
         }
 
 
+        [HttpPost("addShipments")]
+        public ActionResult AddShipments([FromBody] List<Shipment> shipments)
+        {
+            try
+            {
+                foreach (var shipment in shipments)
+                {
+                    _shipmentService.AddShipment(shipment);
+                }
+              
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+
         [HttpPut("{id}")]
         public ActionResult UpdateShipment(Guid id, [FromBody] Shipment newShipment)
         {

@@ -87,6 +87,24 @@ namespace Projekat.Controllers
             }
         }
 
+        [HttpPost("addInvoices")]
+        public ActionResult AddInvoices([FromBody] List<Invoice> invoices)
+        {
+            try
+            {
+                foreach (var invoice in invoices)
+                {
+                    _invoiceService.AddInvoice(invoice);
+                }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
         [HttpPut("{id}")]
         public ActionResult UpdateInvoice(Guid id, [FromBody] Invoice newInvoice)
         {

@@ -86,7 +86,24 @@ namespace Projekat.Controllers
             }
         }
 
-   
+        [HttpPost("addAddresses")]
+        public ActionResult AddAddresses([FromBody] List<Address> addresses)
+        {
+            try
+            {
+                foreach (var address in addresses)
+                {
+                    _addressService.AddAddress(address);
+                }
+                
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
 
 
         [HttpPut("{id}")]
