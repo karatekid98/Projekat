@@ -1,6 +1,8 @@
 ﻿using Contracts.Services;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Projekat.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,13 +42,27 @@ namespace Projekat.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Address>> GetAddresses()
+        public ActionResult<PagedList<Address>> GetAddresses([FromQuery] PaginationParameters parameters)
         {
             try
             {
-                var addresses = _addressService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
+                var addresses = _addressService.AsQueryable().Where(x => x.IsDeleted == false);
 
-                return Ok(addresses);
+                var pagedAddresses= PagedList<Address>.ToPagedList(addresses, parameters.PageNumber, parameters.PageSize);
+
+                var metadata = new
+                {
+                    pagedAddresses.PageSize,
+                    pagedAddresses.TotalCount,
+                    pagedAddresses.CurrentPage,
+                    pagedAddresses.TotalPages,
+                    pagedAddresses.HasNext,
+                    pagedAddresses.HasPrevious
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+                return Ok(pagedAddresses);
             }
             catch (Exception e)
             {
@@ -69,6 +85,8 @@ namespace Projekat.Controllers
                 return BadRequest(e.GetBaseException().Message);
             }
         }
+
+   
 
 
         [HttpPut("{id}")]

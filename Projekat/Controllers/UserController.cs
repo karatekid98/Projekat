@@ -1,6 +1,8 @@
 ﻿using Contracts.Services;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Projekat.Pagination;
 using Projekat.Requests;
 using System;
 using System.Collections.Generic;
@@ -43,13 +45,26 @@ namespace Projekat.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<User>> GetUsers()
+        public ActionResult<PagedList<User>> GetUsers([FromQuery] PaginationParameters parameters)
         {
             try
             {
-                var users = _userService.AsQueryable().Where(x => x.IsDeleted == false).ToList();
+                var users = _userService.AsQueryable().Where(x => x.IsDeleted == false).OrderBy(x => x.FirstName);
 
-                return Ok(users);
+                var pagedUsers = PagedList<User>.ToPagedList(users, parameters.PageNumber, parameters.PageSize);
+
+                var metadata = new
+                {
+                    pagedUsers.TotalCount,
+                    pagedUsers.PageSize,
+                    pagedUsers.CurrentPage,
+                    pagedUsers.TotalPages,
+                    pagedUsers.HasNext,
+                    pagedUsers.HasPrevious
+                };
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+                return Ok(pagedUsers);
             }
             catch (Exception e)
             {
@@ -80,6 +95,24 @@ namespace Projekat.Controllers
             try
             {
                 _userService.AddUser(user);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPost("addUsers")]
+        public ActionResult AddUsers([FromBody] List<User> users)
+        {
+            try
+            {
+                foreach (var user in users)
+                {
+                    _userService.AddUser(user);
+                }
 
                 return Ok();
             }
