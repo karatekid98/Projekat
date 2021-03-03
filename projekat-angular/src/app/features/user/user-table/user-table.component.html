@@ -1,0 +1,65 @@
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+         Search here...
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+    "Name"
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element" appHighlightTitle>
+      {{ element.firstName }} {{ element.lastName }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="adress">
+    <mat-header-cell *matHeaderCellDef>
+    "Address"
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.address }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>
+    "E-mail"
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <mat-header-cell
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      *matHeaderCellDef
+    >
+ "Delete"
+    </mat-header-cell>
+    <mat-cell class="deletebtn"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      *matCellDef="let element"
+
+    >
+      <mat-icon >delete</mat-icon></mat-cell
+    >
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
