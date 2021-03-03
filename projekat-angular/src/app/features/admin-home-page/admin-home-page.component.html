@@ -1,12 +1,50 @@
-<mat-drawer-container class="sidenav-container">
-  <mat-drawer #drawer class="sidenav" mode="side" opened="true" (mouseover)="resizeDrawer($event)" [ngClass]="status ? 'sidenav-after' : 'sidenav'">
-    <p></p>
+<mat-drawer-container
+  [class.drawer-opened]="drawer.opened"
+  class="example-container"
+>
+  <mat-drawer #drawer class="drawer" mode="side" opened="true">
+    <mat-toolbar class="header">
+      <div>Logo</div>
+      <mat-icon class="close" (click)="drawer.close()">close</mat-icon>
+    </mat-toolbar>
+    <div class="contents">
+      <mat-toolbar-row>
+        <mat-icon aria-hidden="false">location_city</mat-icon>
+        <span class="mat-icon-span">Address</span>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-icon aria-hidden="false">description</mat-icon>
+        <span  class="mat-icon-span">Invoice</span>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-icon aria-hidden="false" >production_quantity_limits</mat-icon>
+        <span  class="mat-icon-span">Product</span>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-icon aria-hidden="false">supervised_user_circle</mat-icon>
+        <span  class="mat-icon-span">User</span>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-icon aria-hidden="false">tag_faces</mat-icon>
+        <span  class="mat-icon-span">Customer</span>
+      </mat-toolbar-row>
+
+    </div>
   </mat-drawer>
 
-  <div class="sidenav-content">
-    <!-- <button type="button" mat-button (click)="drawer.open()">
-      Toggle sidenav
-    </button> -->
+  <mat-toolbar class="main header">
+    <mat-icon *ngIf="!drawer.opened" (click)="drawer.toggle()"> menu </mat-icon>
+    <div>Header</div>
+  </mat-toolbar>
+
+  <div class="main contents">
+
+    <div>
+      Contents xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
+      xxxxxxx xxxxxx xxxxxx
+    </div>
+    <div style="height: 1000px">&nbsp;</div>
   </div>
 
+  <mat-toolbar class="main footer"> Footer </mat-toolbar>
 </mat-drawer-container>
