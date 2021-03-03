@@ -10,11 +10,12 @@ import { RegistrationPageComponent } from './features/registration-page/registra
 import { CoreModule } from './core/modules/CoreModule';
 import { HomePageModule } from './features/home-page/home-page.module';
 import { AdminHomePageModule,  } from './features/admin-home-page/admin-home-page.module';
+import { UserModule } from './features/user/user.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationPageComponent,
+    RegistrationPageComponent
   ],
   imports: [
     SharedModule,
@@ -24,7 +25,8 @@ import { AdminHomePageModule,  } from './features/admin-home-page/admin-home-pag
     BrowserAnimationsModule,
     CoreModule,
     HomePageModule,
-    AdminHomePageModule
+    AdminHomePageModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

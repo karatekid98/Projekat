@@ -12,6 +12,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import { HttpClientModule } from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatTableModule} from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -28,7 +32,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatRadioModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatExpansionModule
   ],
   exports: [
     MatCardModule,
@@ -43,7 +50,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatRadioModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatExpansionModule
   ]
 })
 export class SharedModule { }

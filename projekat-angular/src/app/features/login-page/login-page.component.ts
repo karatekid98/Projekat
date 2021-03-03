@@ -12,6 +12,7 @@ import { User } from '../../models/user';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
+  public tokenKey: string = 'app_token';
   public login: Login = {
     email: '',
     password: '',
@@ -46,14 +47,14 @@ export class LoginPageComponent implements OnInit {
       (response) => {
         if (response != null) {
           if (response.role === false) {
-            this.router.navigate([`/home-page/${response.id}`]);
+            this.router.navigate([`/home-page`]);
           } else {
-            this.router.navigate([`/admin-home-page/${response.id}`]);
+            this.router.navigate([`/admin-home-page`]);
           }
+          this.storeToLocalStorage(response);
         } else {
-          const wrongCredentials = document.getElementById(
-            'wrongData'
-          ) as HTMLDivElement;
+          localStorage.setItem('isLoggedIn', 'false');
+          const wrongCredentials = document.getElementById('wrongData') as HTMLDivElement;
           wrongCredentials.innerHTML = 'The password or email address you’ve entered is incorrect. Try again.';
         }
       },
@@ -61,5 +62,10 @@ export class LoginPageComponent implements OnInit {
         console.log(error.error);
       }
     );
+  }
+
+  storeToLocalStorage(user): void {
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userObject', JSON.stringify(user));
   }
 }
