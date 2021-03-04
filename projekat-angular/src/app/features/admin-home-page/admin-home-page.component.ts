@@ -16,4 +16,8 @@ export class AdminHomePageComponent implements OnInit {
   openUsers(): void {
     this.router.navigate([`/user`]);
   }
+
+  openAddress(): void {
+
+  }
 }
