@@ -8,12 +8,14 @@ import { UserComponent } from './features/user/user.component';
 import { UserTableComponent } from './features/user/user-table/user-table.component';
 import { AddressComponent } from './features/address/address.component';
 import { AdminHomePageComponent } from './features/admin-home-page/admin-home-page.component';
+import { InvoiceComponent } from './features/invoice/invoice.component';
+import { ProductComponent } from './features/product/product.component';
+import { CustomerComponent } from './features/customer/customer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login-page', pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'home-page', component: HomePageComponent },
-  { path: 'admin-home-page', component: AdminHomePageComponent},
   // { path: 'user',
   // loadChildren: () => import('../app/features/user/user.module').then(m => m.UserModule)},
   {
@@ -21,7 +23,9 @@ const routes: Routes = [
       { path: '', component: AddressComponent },
       { path: 'address', component: AddressComponent },
       { path: 'user', component: UserComponent },
-
+      { path: 'invoice', component: InvoiceComponent },
+      { path: 'product', component: ProductComponent },
+      { path: 'customer', component: CustomerComponent },
     ]
 },
 ];

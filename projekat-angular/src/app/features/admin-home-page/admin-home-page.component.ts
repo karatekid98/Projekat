@@ -9,7 +9,6 @@ import { TemplateRef } from '@angular/core';
   styleUrls: ['./admin-home-page.component.scss'],
 })
 export class AdminHomePageComponent implements OnInit, AfterViewInit {
-  @ViewChild('panel', { static: true }) private panel: MatSidenav;
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
   @ViewChild('isLoggedInTemplate', { read: TemplateRef }) template: TemplateRef<any>;
   clicked = false;
@@ -24,7 +23,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-
     const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
     this.viewContainer.createComponent(componentFactory);
   }
@@ -37,8 +35,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
     }
 
     this.clicked = true;
-
-    this.router.navigate([`/${this.row}`]);
   }
 
   getClickedRow(id: string): string {

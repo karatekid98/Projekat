@@ -11,13 +11,14 @@ import { CoreModule } from './core/modules/CoreModule';
 import { HomePageModule } from './features/home-page/home-page.module';
 import { AdminHomePageModule,  } from './features/admin-home-page/admin-home-page.module';
 import { UserModule } from './features/user/user.module';
-import { AddressComponent } from './features/address/address.component';
-import { UserComponent } from './features/user/user.component';
+import { InvoiceComponent } from './features/invoice/invoice.component';
+import { ProductComponent } from './features/product/product.component';
+import { CustomerComponent } from './features/customer/customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationPageComponent
+    RegistrationPageComponent,
   ],
   imports: [
     SharedModule,
