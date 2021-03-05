@@ -9,8 +9,9 @@ import { LoadingSpinnerService } from './core/services/loading-spinner-service/l
 })
 export class AppComponent {
   title = 'projekat-angular';
-
+  logged = '';
   constructor(private spinnerService: LoadingSpinnerService) {}
 
   showSpinner = this.spinnerService.visibility.pipe(delay(0));
+
 }

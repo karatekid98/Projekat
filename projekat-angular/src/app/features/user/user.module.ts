@@ -5,9 +5,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { CoreModule } from '../../core/modules/CoreModule';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserService } from '../../core/services/user-service/user.service';
-
-
-
+import { AdminHomePageModule } from '../admin-home-page/admin-home-page.module';
 
 @NgModule({
   declarations: [UserComponent, UserTableComponent],

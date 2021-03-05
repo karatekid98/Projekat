@@ -8,45 +8,42 @@
       <mat-icon class="close" (click)="drawer.close()">close</mat-icon>
     </mat-toolbar>
     <div class="contents">
-      <mat-toolbar-row>
+      <mat-toolbar-row id="address-row" [routerLink]="['address']">
         <mat-icon aria-hidden="false">location_city</mat-icon>
-        <span class="mat-icon-span" (click)="openAddress()">Address</span>
+        <span class="mat-icon-span">Address</span>
       </mat-toolbar-row>
-      <mat-toolbar-row>
+      <mat-toolbar-row id="invoice-row" [routerLink]="['invoice']">
         <mat-icon aria-hidden="false">description</mat-icon>
         <span  class="mat-icon-span">Invoice</span>
       </mat-toolbar-row>
-      <mat-toolbar-row>
+      <mat-toolbar-row id="product-row" [routerLink]="['product']">
         <mat-icon aria-hidden="false" >production_quantity_limits</mat-icon>
         <span  class="mat-icon-span">Product</span>
       </mat-toolbar-row>
-      <mat-toolbar-row>
-        <mat-icon aria-hidden="false">supervised_user_circle</mat-icon>
-        <span  class="mat-icon-span">User</span>
+      <mat-toolbar-row id="user-row" [routerLink]="['user-table']">
+        <mat-icon aria-hidden="false" >supervised_user_circle</mat-icon>
+        <span class="mat-icon-span">User</span>
       </mat-toolbar-row>
-      <mat-toolbar-row>
+      <mat-toolbar-row id="customer-row" (click)="open($event)">
         <mat-icon aria-hidden="false">tag_faces</mat-icon>
         <span  class="mat-icon-span">Customer</span>
       </mat-toolbar-row>
 
     </div>
+
   </mat-drawer>
 
   <mat-toolbar class="main header">
     <mat-icon *ngIf="!drawer.opened" (click)="drawer.toggle()"> menu </mat-icon>
     <div>Header</div>
   </mat-toolbar>
+  <div class="main contents" >
 
-  <div class="main contents">
-
-    <div>
-      Contents xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx xxxxxx
-      xxxxxxx xxxxxx xxxxxx
-      bu
-      <mat-icon class="close" (click)="openUsers()">close</mat-icon>
-    </div>
-    <div style="height: 1000px">&nbsp;</div>
+    <ng-container #viewContainer>
+      <ng-template #isLoggedInTemplate>  </ng-template>
+    </ng-container>
   </div>
 
   <mat-toolbar class="main footer"> Footer </mat-toolbar>
 </mat-drawer-container>
+

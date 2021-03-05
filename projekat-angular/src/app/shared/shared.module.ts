@@ -15,7 +15,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import { RouterModule, Routes } from '@angular/router';
+import {PortalModule} from '@angular/cdk/portal';
 @NgModule({
   declarations: [],
   imports: [
@@ -35,7 +36,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatSidenavModule,
     MatToolbarModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    RouterModule,
+    PortalModule
   ],
   exports: [
     MatCardModule,
@@ -53,7 +56,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatSidenavModule,
     MatToolbarModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    RouterModule,
+    PortalModule
   ]
 })
 export class SharedModule { }

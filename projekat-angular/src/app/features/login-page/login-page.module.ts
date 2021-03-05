@@ -22,6 +22,7 @@ import { LoginService } from '../../core/services/login-service/login.service';
     useClass: LoadingDataInterceptor,
     multi: true,
   }, LoadingSpinnerService, LoginService
-  ]
+  ],
+  exports: [LoginPageComponent]
 })
 export class LoginPageModule { }
