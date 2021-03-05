@@ -8,23 +8,23 @@
       <mat-icon class="close" (click)="drawer.close()">close</mat-icon>
     </mat-toolbar>
     <div class="contents">
-      <mat-toolbar-row id="address-row" [routerLink]="['address']">
+      <mat-toolbar-row id="Address" [routerLink]="['address']" (click)="openComponent($event)">
         <mat-icon aria-hidden="false">location_city</mat-icon>
         <span class="mat-icon-span">Address</span>
       </mat-toolbar-row>
-      <mat-toolbar-row id="invoice-row" [routerLink]="['invoice']">
+      <mat-toolbar-row id="Invoice" [routerLink]="['invoice']" (click)="openComponent($event)">
         <mat-icon aria-hidden="false">description</mat-icon>
         <span  class="mat-icon-span">Invoice</span>
       </mat-toolbar-row>
-      <mat-toolbar-row id="product-row" [routerLink]="['product']">
+      <mat-toolbar-row id="Product" [routerLink]="['product']" (click)="openComponent($event)">
         <mat-icon aria-hidden="false" >production_quantity_limits</mat-icon>
         <span  class="mat-icon-span">Product</span>
       </mat-toolbar-row>
-      <mat-toolbar-row id="user-row" [routerLink]="['user-table']">
+      <mat-toolbar-row id="User" [routerLink]="['user']" (click)="openComponent($event)">
         <mat-icon aria-hidden="false" >supervised_user_circle</mat-icon>
         <span class="mat-icon-span">User</span>
       </mat-toolbar-row>
-      <mat-toolbar-row id="customer-row" (click)="open($event)">
+      <mat-toolbar-row id="Customer" [routerLink]="['customer']" (click)="openComponent($event)">
         <mat-icon aria-hidden="false">tag_faces</mat-icon>
         <span  class="mat-icon-span">Customer</span>
       </mat-toolbar-row>

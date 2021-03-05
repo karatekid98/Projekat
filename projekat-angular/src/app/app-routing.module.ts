@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './features/home-page/home-page.component';
 import { AuthGuard } from './core/services/auth-gard-service/auth-gard';
 import { UserComponent } from './features/user/user.component';
-import { UserTableComponent } from './features/user/user-table/user-table.component';
 import { AddressComponent } from './features/address/address.component';
 import { AdminHomePageComponent } from './features/admin-home-page/admin-home-page.component';
 import { InvoiceComponent } from './features/invoice/invoice.component';
