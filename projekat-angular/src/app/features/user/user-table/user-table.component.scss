@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  justify-content: center;
+}
+.add-button:hover, .read-button:hover, .edit-button:hover , .delete-button:hover {
+  cursor: pointer;
+  user-select: none;
+  background-color: whitesmoke;
+}
+

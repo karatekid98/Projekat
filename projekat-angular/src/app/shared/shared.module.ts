@@ -17,6 +17,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { RouterModule, Routes } from '@angular/router';
 import {PortalModule} from '@angular/cdk/portal';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -38,7 +40,8 @@ import {PortalModule} from '@angular/cdk/portal';
     MatTableModule,
     MatExpansionModule,
     RouterModule,
-    PortalModule
+    PortalModule,
+    MatPaginatorModule
   ],
   exports: [
     MatCardModule,
@@ -58,7 +61,8 @@ import {PortalModule} from '@angular/cdk/portal';
     MatTableModule,
     MatExpansionModule,
     RouterModule,
-    PortalModule
+    PortalModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }

@@ -23,9 +23,8 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   constructor(private router: Router, private resolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
-
-
   }
+
   ngAfterViewInit(): void {
     const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
     this.viewContainer.createComponent(componentFactory);

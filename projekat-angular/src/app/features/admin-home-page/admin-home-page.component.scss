@@ -50,8 +50,10 @@
   padding: 15px !important;
 }
 
-.mat-toolbar-row:hover {
+
+.mat-toolbar-row:hover{
   cursor: pointer;
+  user-select: none;
   background-color: #161616;
   border-bottom: whitesmoke 0.5px solid;
 }

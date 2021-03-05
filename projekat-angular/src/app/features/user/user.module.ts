@@ -6,9 +6,10 @@ import { CoreModule } from '../../core/modules/CoreModule';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserService } from '../../core/services/user-service/user.service';
 import { AdminHomePageModule } from '../admin-home-page/admin-home-page.module';
+import { UserDeleteModalComponent } from './user-table/user-delete-modal/user-delete-modal.component';
 
 @NgModule({
-  declarations: [UserComponent, UserTableComponent],
+  declarations: [UserComponent, UserTableComponent, UserDeleteModalComponent],
   imports: [
     CommonModule,
     SharedModule,
