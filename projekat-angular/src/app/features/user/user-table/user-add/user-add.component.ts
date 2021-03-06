@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { SingUp } from '../../models/singup';
-import { LoginService } from '../../core/services/login-service/login.service';
-import { User } from '../../models/user';
-import { Validators, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { config } from 'rxjs';
+import { SingUp } from 'src/app/models/singup';
+import { User } from 'src/app/models/user';
+import { UserService } from '../../../../core/services/user-service/user.service';
+
 @Component({
-  selector: 'app-registration-page',
-  templateUrl: './registration-page.component.html',
-  styleUrls: ['./registration-page.component.scss']
+  selector: 'app-user-add',
+  templateUrl: './user-add.component.html',
+  styleUrls: ['./user-add.component.scss']
 })
-export class RegistrationPageComponent implements OnInit {
+export class UserAddComponent implements OnInit {
   public user: User = {
     firstName: '',
     lastName: '',
@@ -77,7 +81,7 @@ export class RegistrationPageComponent implements OnInit {
     return this.singupForm.get('confirmPassword');
   }
 
-  constructor(private loginService: LoginService) { }
+  constructor(private userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -85,7 +89,7 @@ export class RegistrationPageComponent implements OnInit {
   // TODO: add message if passwords don't match
   finishSingup(): void {
     this.fillOutForm();
-    this.loginService.singup(this.singup).subscribe(
+    this.userService.addUser(this.singup).subscribe(
       (response) => {
         this.user.firstName = response.firstName;
         this.user.lastName = response.lastName;
@@ -94,6 +98,8 @@ export class RegistrationPageComponent implements OnInit {
         this.user.password = response.password;
         this.user.email = response.email;
         this.user.phone = response.phone;
+        this.openSnackBar();
+
       },
       (error) => {
         console.log(error.error);
@@ -113,6 +119,17 @@ export class RegistrationPageComponent implements OnInit {
     this.singup.AddressDto.city = this.singupForm.value.city;
     this.singup.AddressDto.postcode = this.singupForm.value.postcode;
     this.singup.AddressDto.line = this.singupForm.value.line;
+  }
+
+  openSnackBar(): void {
+    this._snackBar.open('User successfully added!', 'Close', {
+      duration: 2000,
+      panelClass: ['snackbar']
+    });
+  }
+
+  backToUserTable(): void  {
+    window.location.reload();
   }
 
   checkPasswords(): boolean {

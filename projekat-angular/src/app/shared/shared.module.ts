@@ -18,7 +18,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { RouterModule, Routes } from '@angular/router';
 import {PortalModule} from '@angular/cdk/portal';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { FlexLayoutModule } from "@angular/flex-layout";
 @NgModule({
   declarations: [],
   imports: [
@@ -41,7 +42,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatExpansionModule,
     RouterModule,
     PortalModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule,
+    FlexLayoutModule
   ],
   exports: [
     MatCardModule,
@@ -62,7 +65,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatExpansionModule,
     RouterModule,
     PortalModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule,
+    FlexLayoutModule
   ]
 })
 export class SharedModule { }

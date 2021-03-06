@@ -1,131 +1,137 @@
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-         Search here...
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
-    </mat-form-field>
-  </mat-expansion-panel>
-</mat-accordion>
+<ng-container #viewContainer>
+    <ng-template [ngIf]="tableOpened">
+
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Search here...
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="" #input />
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
 
 
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="id">
-    <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
-  </ng-container>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="lastName">
-    <mat-header-cell *matHeaderCellDef>
-    Last Name
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element" appHighlightTitle>
-      {{ element.lastName }}
-    </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef>
+        Last Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" appHighlightTitle>
+          {{ element.lastName }}
+        </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="firstName">
-    <mat-header-cell *matHeaderCellDef>
-    First Name
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element" appHighlightTitle>
-      {{ element.firstName }}
-    </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef>
+        First Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" appHighlightTitle>
+          {{ element.firstName }}
+        </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="address">
-    <mat-header-cell *matHeaderCellDef>
-    Address
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.addressId }} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef>
+        Address
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.addressId }} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef>
-    E-mail
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>
+        E-mail
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="phone">
-    <mat-header-cell *matHeaderCellDef>
-    Phone
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.phone }} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef>
+        Phone
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.phone }} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="role">
-    <mat-header-cell *matHeaderCellDef>
-    Role
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.role }} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef>
+        Role
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.role }} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="dateOfBirth">
-    <mat-header-cell *matHeaderCellDef>
-    Date of birth
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.dateOfBirth }} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="dateOfBirth">
+        <mat-header-cell *matHeaderCellDef>
+        Date of birth
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.dateOfBirth }} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="gender">
-    <mat-header-cell *matHeaderCellDef>
-    Gender
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.gender }} </mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef>
+        Gender
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.gender }} </mat-cell>
+      </ng-container>
 
-  <ng-container matColumnDef="password">
-    <mat-header-cell *matHeaderCellDef>
-    Password
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{ element.password }} </mat-cell>
-  </ng-container>
-
-
-  <ng-container matColumnDef="delete">
-    <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
-    Delete
-    </mat-header-cell>
-    <mat-cell class="delete-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element"  (click)="openDeleteModal(element.id)">
-      <mat-icon >delete</mat-icon></mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="add">
-    <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
-    Add
-    </mat-header-cell>
-    <mat-cell class="add-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element">
-      <mat-icon >add</mat-icon></mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="read">
-    <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
-    Read
-    </mat-header-cell>
-    <mat-cell class="read-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element">
-      <mat-icon >remove_red_eye</mat-icon></mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="edit">
-    <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
-    Add
-    </mat-header-cell>
-    <mat-cell class="edit-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element">
-      <mat-icon >mode_edit</mat-icon></mat-cell>
-  </ng-container>
+      <ng-container matColumnDef="password">
+        <mat-header-cell *matHeaderCellDef>
+        Password
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.password }} </mat-cell>
+      </ng-container>
 
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      <ng-container matColumnDef="delete">
+        <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
+        Delete
+        </mat-header-cell>
+        <mat-cell class="delete-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element"  (click)="openDeleteModal(element.id)">
+          <mat-icon >delete</mat-icon></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="add">
+        <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
+        Add
+        </mat-header-cell>
+        <mat-cell class="add-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element">
+          <mat-icon [routerLink]="['user/add-user']" (click)="openAddUser($event)">add</mat-icon></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="read">
+        <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
+        Read
+        </mat-header-cell>
+        <mat-cell class="read-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element">
+          <mat-icon >remove_red_eye</mat-icon></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <mat-header-cell fxLayout="row" fxLayoutAlign="center center" *matHeaderCellDef>
+        Edit
+        </mat-header-cell>
+        <mat-cell class="edit-button" fxLayout="row"  fxLayoutAlign="center center" *matCellDef="let element">
+          <mat-icon >mode_edit</mat-icon></mat-cell>
+      </ng-container>
 
 
-</mat-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
-<mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSizeOfPages"
-[pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
-</mat-paginator>
+
+    </mat-table>
+
+    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSizeOfPages"
+    [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+    </mat-paginator>
+  </ng-template>
+</ng-container>
+

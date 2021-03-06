@@ -11,3 +11,7 @@ table {
   background-color: whitesmoke;
 }
 
+.mat-column-edit, .mat-column-delete, .mat-column-add, .mat-column-read {
+  flex: 0 0 4% !important;
+  width: 4% !important;
+ }

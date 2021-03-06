@@ -10,6 +10,7 @@ import { AdminHomePageComponent } from './features/admin-home-page/admin-home-pa
 import { InvoiceComponent } from './features/invoice/invoice.component';
 import { ProductComponent } from './features/product/product.component';
 import { CustomerComponent } from './features/customer/customer.component';
+import { UserAddComponent } from './features/user/user-table/user-add/user-add.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login-page', pathMatch: 'full' },
@@ -21,12 +22,14 @@ const routes: Routes = [
     path: 'admin-home-page', component: AdminHomePageComponent, children: [
       { path: '', component: AddressComponent },
       { path: 'address', component: AddressComponent },
-      { path: 'user', component: UserComponent },
+      { path: 'user', component: UserComponent, children: [
+        { path: 'add-user', component: UserAddComponent },
+      ] },
       { path: 'invoice', component: InvoiceComponent },
       { path: 'product', component: ProductComponent },
       { path: 'customer', component: CustomerComponent },
     ]
-},
+  },
 ];
 
 @NgModule({

@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageModule } from './features/login-page/login-page.module';
 import { SharedModule } from './shared/shared.module';
-import { RegistrationPageComponent } from './features/registration-page/registration-page.component';
 import { CoreModule } from './core/modules/CoreModule';
 import { HomePageModule } from './features/home-page/home-page.module';
 import { AdminHomePageModule,  } from './features/admin-home-page/admin-home-page.module';
@@ -15,7 +14,6 @@ import { UserModule } from './features/user/user.module';
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationPageComponent,
   ],
   imports: [
     SharedModule,

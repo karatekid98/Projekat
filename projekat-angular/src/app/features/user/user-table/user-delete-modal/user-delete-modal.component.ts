@@ -21,4 +21,9 @@ export class UserDeleteModalComponent implements OnInit {
     this.userService.deleteUser(id).subscribe();
     this.dialogRef.close();
   }
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
 }
+
+
