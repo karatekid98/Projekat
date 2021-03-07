@@ -16,7 +16,7 @@ import { UserAddComponent } from './user-table/user-add/user-add.component';
     SharedModule,
     CoreModule
   ],
-  exports: [UserComponent, UserTableComponent],
+  exports: [UserComponent, UserTableComponent, UserAddComponent],
   providers: [UserService]
 })
 export class UserModule { }
