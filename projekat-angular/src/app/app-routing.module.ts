@@ -11,6 +11,7 @@ import { InvoiceComponent } from './features/invoice/invoice.component';
 import { ProductComponent } from './features/product/product.component';
 import { CustomerComponent } from './features/customer/customer.component';
 import { UserAddComponent } from './features/user/user-table/user-add/user-add.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login-page', pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'customer', component: CustomerComponent },
     ]
   },
+  { path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({
