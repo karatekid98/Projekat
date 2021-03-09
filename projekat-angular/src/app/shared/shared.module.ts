@@ -19,8 +19,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {PortalModule} from '@angular/cdk/portal';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { PageNotFoundComponent } from '../features/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [PageNotFoundComponent],
   imports: [

@@ -1,4 +1,3 @@
-import { UserModule } from './features/user/user.module';
 import { LoginPageComponent } from './features/login-page/login-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,7 +10,7 @@ import { InvoiceComponent } from './features/invoice/invoice.component';
 import { ProductComponent } from './features/product/product.component';
 import { CustomerComponent } from './features/customer/customer.component';
 import { UserAddComponent } from './features/user/user-table/user-add/user-add.component';
-import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login-page', pathMatch: 'full' },
