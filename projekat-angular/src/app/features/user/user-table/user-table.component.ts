@@ -49,6 +49,7 @@ export class UserTableComponent implements OnInit {
 
   private showUsers(): void{
     this.userService.getUsers(this.parametars).subscribe((users) => {
+      console.log('users', users);
       this.dataSource = new MatTableDataSource(users);
     });
   }

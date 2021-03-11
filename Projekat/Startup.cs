@@ -47,16 +47,30 @@ namespace Projekat
                 });
             });
 
-
-
+            // exposing headers for pagination
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .AllowAnyOrigin()
+                           .AllowCredentials();
+                });
             });
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAll", builder =>
+            //    {
+            //        builder.AllowAnyHeader()
+            //               .AllowAnyMethod()
+            //               .AllowAnyOrigin()
+            //               .AllowCredentials()
+            //               .WithExposedHeaders("Location"); // params string[]
+            //    });
+            //});
+
 
             // services.AddIdentityServerConfig(Configuration);
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("InvoiceManagement")), ServiceLifetime.Transient);
