@@ -49,8 +49,8 @@ namespace Projekat.Controllers
         {
             try
             {
-                var users = _userService.AsQueryable().Where(x => x.IsDeleted == false).OrderBy(x => x.FirstName);
-
+                var users = _userService.AsQueryable().OrderBy(x => x.FirstName);
+                //var users = _userService.AsQueryable().Where(x => x.IsDeleted == false).OrderBy(x => x.FirstName);
                 var pagedUsers = PagedList<User>.ToPagedList(users, parameters.PageNumber, parameters.PageSize);
 
                 var metadata = new

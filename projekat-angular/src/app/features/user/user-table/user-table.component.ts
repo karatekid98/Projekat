@@ -70,6 +70,6 @@ export class UserTableComponent implements OnInit {
    }
 
   handlePage(event: any): void {
-    console.log(event);
+    console.log('klik detektovan', event);
   }
 }
