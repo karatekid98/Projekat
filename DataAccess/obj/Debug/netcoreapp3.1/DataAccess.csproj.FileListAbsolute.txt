@@ -6,7 +6,6 @@ G:\MyRepositores\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfo.cs
 G:\MyRepositores\ProjekatDipl\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.deps.json
 G:\MyRepositores\ProjekatDipl\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.dll
 G:\MyRepositores\ProjekatDipl\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.pdb
-G:\MyRepositores\ProjekatDipl\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csprojAssemblyReference.cache
 G:\MyRepositores\ProjekatDipl\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfoInputs.cache
 G:\MyRepositores\ProjekatDipl\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfo.cs
 G:\MyRepositores\ProjekatDipl\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csproj.CoreCompileInputs.cache

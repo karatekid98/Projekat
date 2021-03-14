@@ -31,5 +31,24 @@ namespace Projekat.Pagination
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
+
+        public static PaginationResponse<T> ToPaginationResponse(PagedList<T> pagedList)
+        {
+            var paginationResponse = new PaginationResponse<T>
+            {
+                Metadata = new PagedListMetadata
+                {
+                    TotalCount = pagedList.TotalCount,
+                    PageSize = pagedList.PageSize,
+                    CurrentPage = pagedList.CurrentPage,
+                    TotalPages = pagedList.TotalPages,
+                    HasNext = pagedList.HasNext,
+                    HasPrevious = pagedList.HasPrevious
+                },
+                PagedList = pagedList
+            };
+
+            return paginationResponse;
+        }
     }
 }
