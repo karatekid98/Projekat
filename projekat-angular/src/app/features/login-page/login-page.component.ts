@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/login-service/login.service';
-import { Login } from '../../models/login';
+import { Login } from '../../models/Login';
 import { computeMsgId } from '@angular/compiler';
 import { Router } from '@angular/router';
-import { User } from '../../models/user';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-login-page',

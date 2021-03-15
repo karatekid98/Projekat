@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef, ViewChild, OnChanges } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../core/services/user-service/user.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,46 +19,46 @@ export class UserTableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'lastName', 'firstName',
    'address', 'email', 'phone', 'role', 'dateOfBirth', 'gender',
     'delete', 'add', 'read', 'edit'];
-  users: User[];
-  // pagination
-  pageSize;
-  currentPage;
-  totalSizeOfPages;
-  pageEvent;
-  headers: 'X-Pagination';
-  //
+
   dataSource;
-
-
+  pageSize;
+  totalSizeOfItems;
+  currentPage;
+  pageEvent;
   parametars: any = {
     pageNumber: 1,
     pageSize: 5
   };
 
-  constructor(private router: Router,private userService: UserService,
+  constructor(private router: Router, private userService: UserService,
               public dialog: MatDialog, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    this.showUsers();
+    this.showUsers(this.parametars);
   }
+
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  private showUsers(): void{
+  private showUsers(parametars: any): void{
     this.userService.getUsers(this.parametars).subscribe((users) => {
-      console.log('users', users);
-      this.dataSource = new MatTableDataSource(users);
+      const metadata = users['metadata'];
+      this.pageSize = metadata.pageSize;
+      this.currentPage = metadata.currentPage;
+      this.currentPage = this.currentPage - 1;
+      this.totalSizeOfItems = metadata.totalCount;
+      const listOfUsers = users['pagedList'];
+      this.dataSource = new MatTableDataSource(listOfUsers);
     });
   }
 
   openDeleteModal(id: any): void{
-    console.log(id);
     const dialogRef = this.dialog.open(UserDeleteModalComponent, {data: {id : id}});
     dialogRef.afterClosed().subscribe(x => {
-      this.showUsers();
+      this.showUsers(this.parametars);
     });
    }
 
@@ -69,7 +69,11 @@ export class UserTableComponent implements OnInit {
     this.viewContainer.createComponent(componentFactory);
    }
 
+   //TODO: finish pagination
   handlePage(event: any): void {
-    console.log('klik detektovan', event);
+    this.parametars.pageSize = event.pageSize;
+    this.parametars.pageNumber = event.pageIndex + 1;
+    this.showUsers(this.parametars);
   }
+
 }

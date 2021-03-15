@@ -129,7 +129,7 @@
 
     </mat-table>
 
-    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSizeOfPages"
+    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSizeOfItems"
     [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
     </mat-paginator>
   </ng-template>
