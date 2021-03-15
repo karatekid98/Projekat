@@ -42,7 +42,7 @@ namespace Projekat.Controllers
         }
 
         [HttpGet]
-        public ActionResult<PagedList<Invoice>> GetInvoices([FromQuery] PaginationParameters parameters)
+        public ActionResult<PaginationResponse<Invoice>> GetInvoices([FromQuery] PaginationParameters parameters)
         {
             try
             {
@@ -52,19 +52,9 @@ namespace Projekat.Controllers
 
                 var pagedInvoices = PagedList<Invoice>.ToPagedList(invoices, parameters.PageNumber, parameters.PageSize);
 
-                var metadata = new
-                {
-                    pagedInvoices.PageSize,
-                    pagedInvoices.TotalCount,
-                    pagedInvoices.CurrentPage,
-                    pagedInvoices.TotalPages,
-                    pagedInvoices.HasNext,
-                    pagedInvoices.HasPrevious
-                };
-                 
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-            
-                return Ok(pagedInvoices);
+                var paginationResponse = PagedList<Invoice>.ToPaginationResponse(pagedInvoices);
+
+                return Ok(paginationResponse);
             }
             catch (Exception e)
             {

@@ -42,7 +42,7 @@ namespace Projekat.Controllers
         }
 
         [HttpGet]
-        public ActionResult<PagedList<Product>> GetProducts([FromQuery] PaginationParameters parameters)
+        public ActionResult<PaginationResponse<Product>> GetProducts([FromQuery] PaginationParameters parameters)
         {
             try
             {
@@ -50,18 +50,9 @@ namespace Projekat.Controllers
 
                 var pagedProducts = PagedList<Product>.ToPagedList(products, parameters.PageNumber, parameters.PageSize);
 
-                var metadata = new
-                {
-                    pagedProducts.PageSize,
-                    pagedProducts.TotalCount,
-                    pagedProducts.CurrentPage,
-                    pagedProducts.TotalPages,
-                    pagedProducts.HasNext,
-                    pagedProducts.HasPrevious
-                };
+                var paginationResponse = PagedList<Product>.ToPaginationResponse(pagedProducts);
 
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-                return Ok(pagedProducts);
+                return Ok(paginationResponse);
             }
             catch (Exception e)
             {

@@ -42,26 +42,17 @@ namespace Projekat.Controllers
         }
 
         [HttpGet]
-        public ActionResult<PagedList<Customer>> GetCustomers([FromQuery] PaginationParameters parameters)
+        public ActionResult<PaginationResponse<Customer>> GetCustomers([FromQuery] PaginationParameters parameters)
         {
             try
             {
                 var customers = _customerService.AsQueryable().Where(x => x.IsDeleted == false);
 
                 var pagedCustomers= PagedList<Customer>.ToPagedList(customers, parameters.PageNumber, parameters.PageSize);
+                
+                var paginationResponse = PagedList<Customer>.ToPaginationResponse(pagedCustomers);
 
-                var metadata = new
-                {
-                    pagedCustomers.PageSize,
-                    pagedCustomers.TotalCount,
-                    pagedCustomers.CurrentPage,
-                    pagedCustomers.TotalPages,
-                    pagedCustomers.HasNext,
-                    pagedCustomers.HasPrevious
-                };
-
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-                return Ok(pagedCustomers);
+                return Ok(paginationResponse);
             }
             catch (Exception e)
             {

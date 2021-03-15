@@ -42,7 +42,7 @@ namespace Projekat.Controllers
         }
 
         [HttpGet]
-        public ActionResult<PagedList<Address>> GetAddresses([FromQuery] PaginationParameters parameters)
+        public ActionResult<PaginationResponse<Address>> GetAddresses([FromQuery] PaginationParameters parameters)
         {
             try
             {
@@ -50,19 +50,9 @@ namespace Projekat.Controllers
 
                 var pagedAddresses= PagedList<Address>.ToPagedList(addresses, parameters.PageNumber, parameters.PageSize);
 
-                var metadata = new
-                {
-                    pagedAddresses.PageSize,
-                    pagedAddresses.TotalCount,
-                    pagedAddresses.CurrentPage,
-                    pagedAddresses.TotalPages,
-                    pagedAddresses.HasNext,
-                    pagedAddresses.HasPrevious
-                };
+                var paginationResponse = PagedList<Address>.ToPaginationResponse(pagedAddresses);
 
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
-
-                return Ok(pagedAddresses);
+                return Ok(paginationResponse);
             }
             catch (Exception e)
             {
