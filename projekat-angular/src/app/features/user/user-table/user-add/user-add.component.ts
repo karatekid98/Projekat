@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { config } from 'rxjs';
-import { SingUp } from 'src/app/models/Singup';
+import { SingUp } from 'src/app/models/singup';
+
 import { User } from 'src/app/models/user';
 import { UserService } from '../../../../core/services/user-service/user.service';
 
@@ -81,7 +82,7 @@ export class UserAddComponent implements OnInit {
     return this.singupForm.get('confirmPassword');
   }
 
-  constructor(private userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(private userService: UserService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -99,7 +100,7 @@ export class UserAddComponent implements OnInit {
         this.user.email = response.email;
         this.user.phone = response.phone;
         this.openSnackBar();
-
+        this.router.navigate(['admin-home-page/user']);
       },
       (error) => {
         console.log(error.error);
@@ -122,14 +123,15 @@ export class UserAddComponent implements OnInit {
   }
 
   openSnackBar(): void {
-    this._snackBar.open('User successfully added!', 'Close', {
+    this.snackBar.open('User successfully added!', 'Close', {
       duration: 2000,
       panelClass: ['snackbar']
     });
+
   }
 
   backToUserTable(): void  {
-    window.location.reload();
+    this.router.navigate(['admin-home-page/user']);
   }
 
   checkPasswords(): boolean {

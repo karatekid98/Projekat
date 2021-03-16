@@ -17,8 +17,9 @@ export class UserDeleteModalComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  deleteUser(id: any): void{
-    this.userService.deleteUser(id).subscribe();
+
+  softDeleteUser(id: any): void{
+    this.userService.softDeleteUser(id).subscribe();
     this.dialogRef.close();
   }
   closeDialog(): void {

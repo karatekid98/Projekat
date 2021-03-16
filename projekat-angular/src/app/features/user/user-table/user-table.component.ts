@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef, ViewChild, OnChanges } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef, ViewChild, OnChanges, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../core/services/user-service/user.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { UserDeleteModalComponent } from './user-delete-modal/user-delete-modal.
 import { MatDialog } from '@angular/material/dialog';
 import { UserAddComponent } from './user-add/user-add.component';
 import { Router } from '@angular/router';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-user-table',
@@ -15,10 +16,10 @@ import { Router } from '@angular/router';
 export class UserTableComponent implements OnInit {
   tableOpened: boolean = true;
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
-
+  @Output() selectedTabChange: EventEmitter<MatTabChangeEvent>;
   displayedColumns: string[] = ['id', 'lastName', 'firstName',
    'address', 'email', 'phone', 'role', 'dateOfBirth', 'gender',
-    'delete', 'add', 'read', 'edit'];
+    'delete', 'read', 'edit'];
 
   dataSource;
   pageSize;
@@ -37,6 +38,13 @@ export class UserTableComponent implements OnInit {
     this.showUsers(this.parametars);
   }
 
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    if (tabChangeEvent.index === 0) {
+      this.showUsers(this.parametars);
+    } else {
+      this.showDeletedUsers(this.parametars);
+    }
+  }
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -45,6 +53,18 @@ export class UserTableComponent implements OnInit {
 
   private showUsers(parametars: any): void{
     this.userService.getUsers(this.parametars).subscribe((users) => {
+      const metadata = users['metadata'];
+      this.pageSize = metadata.pageSize;
+      this.currentPage = metadata.currentPage;
+      this.currentPage = this.currentPage - 1;
+      this.totalSizeOfItems = metadata.totalCount;
+      const listOfUsers = users['pagedList'];
+      this.dataSource = new MatTableDataSource(listOfUsers);
+    });
+  }
+
+  private showDeletedUsers(parametars: any): void {
+    this.userService.getDeletedUsers(this.parametars).subscribe((users) => {
       const metadata = users['metadata'];
       this.pageSize = metadata.pageSize;
       this.currentPage = metadata.currentPage;
@@ -69,7 +89,6 @@ export class UserTableComponent implements OnInit {
     this.viewContainer.createComponent(componentFactory);
    }
 
-   //TODO: finish pagination
   handlePage(event: any): void {
     this.parametars.pageSize = event.pageSize;
     this.parametars.pageNumber = event.pageIndex + 1;
