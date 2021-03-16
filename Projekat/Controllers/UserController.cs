@@ -49,8 +49,8 @@ namespace Projekat.Controllers
         {
             try
             {
-                var users = _userService.AsQueryable().OrderBy(x => x.FirstName);
-                //var users = _userService.AsQueryable().Where(x => x.IsDeleted == false).OrderBy(x => x.FirstName);
+                var users = _userService.AsQueryable().Where(x => x.IsDeleted == false).OrderBy(x => x.FirstName);
+
                 var pagedUsers = PagedList<User>.ToPagedList(users, parameters.PageNumber, parameters.PageSize);
 
                 var paginationResponse = PagedList<User>.ToPaginationResponse(pagedUsers);
@@ -64,14 +64,20 @@ namespace Projekat.Controllers
             }
         }
 
+
         [HttpGet("getDeletedUsers")]
-        public ActionResult<List<User>> GetDeletedUsers()
+        public ActionResult<PaginationResponse<User>> GetDeletedUsers([FromQuery] PaginationParameters parameters)
         {
             try
             {
-                var deletedUsers = _userService.AsQueryable().Where(x => x.IsDeleted == true).ToList();
+                var deletedUsers = _userService.AsQueryable().Where(x => x.IsDeleted == true);
 
-                return Ok(deletedUsers);
+                var pagedDeletedUsers = PagedList<User>.ToPagedList(deletedUsers, parameters.PageNumber, parameters.PageSize);
+
+                var paginationResponse = PagedList<User>.ToPaginationResponse(pagedDeletedUsers);
+
+                return Ok(paginationResponse);
+ 
             }
             catch (Exception e)
             {
