@@ -13,6 +13,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getUser(id: any): Observable<User>  {
+    return this.http.get<User>(`http://localhost:28846/api/User/${id}`);
+  }
+
   getUsers(parametars: any): Observable<PaginationResponse<User[]>>  {
     return this.http.get<PaginationResponse<User[]>>(`http://localhost:28846/api/User?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }
