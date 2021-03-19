@@ -37,4 +37,13 @@ export class UserService {
     return this.http.post<User>(`http://localhost:28846/api/User/singUp`, singupForm);
   }
 
+
+  //TODO: create update form in ts file and fix this method
+  updateUser(updateForm: SingUp, id: any): Observable<User> {
+    return this.http.put<User>(`http://localhost:28846/api/User/${id}`, updateForm);
+  }
+
+  undoDeleteUser(id: any): Observable<User> {
+    return this.http.patch<User>(`http://localhost:28846/api/User/${id}`, id);
+  }
 }
