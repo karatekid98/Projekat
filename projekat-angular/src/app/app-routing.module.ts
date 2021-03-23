@@ -11,19 +11,22 @@ import { ProductComponent } from './features/product/product.component';
 import { CustomerComponent } from './features/customer/customer.component';
 import { UserAddComponent } from './features/user/user-table/user-add/user-add.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
+import { UserEditComponent } from './features/user/user-edit/user-edit.component';
+import { AdminHomePageModule } from './features/admin-home-page/admin-home-page.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login-page', pathMatch: 'full' },
+  { path: '', redirectTo: '/login-page', pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'home-page', component: HomePageComponent },
-  // { path: 'user',
-  // loadChildren: () => import('../app/features/user/user.module').then(m => m.UserModule)},
+  // { path: 'admin-home-page',
+  // loadChildren: () => import('../app/features/admin-home-page/admin-home-page.module').then(m => m.AdminHomePageModule)},
   {
     path: 'admin-home-page', component: AdminHomePageComponent, children: [
       { path: '', component: AddressComponent },
       { path: 'address', component: AddressComponent },
       { path: 'user', component: UserComponent, children: [
         { path: 'add-user', component: UserAddComponent },
+        { path: 'edit-user/:id', component: UserEditComponent },
       ] },
       { path: 'invoice', component: InvoiceComponent },
       { path: 'product', component: ProductComponent },
