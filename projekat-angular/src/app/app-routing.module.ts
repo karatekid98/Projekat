@@ -18,27 +18,15 @@ const routes: Routes = [
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'home-page', component: HomePageComponent },
-  // { path: 'admin-home-page',
-  // loadChildren: () => import('../app/features/admin-home-page/admin-home-page.module').then(m => m.AdminHomePageModule)},
-  {
-    path: 'admin-home-page', component: AdminHomePageComponent, children: [
-      { path: '', component: AddressComponent },
-      { path: 'address', component: AddressComponent },
-      { path: 'user', component: UserComponent, children: [
-        { path: 'add-user', component: UserAddComponent },
-        { path: 'edit-user/:id', component: UserEditComponent },
-      ] },
-      { path: 'invoice', component: InvoiceComponent },
-      { path: 'product', component: ProductComponent },
-      { path: 'customer', component: CustomerComponent },
-    ]
-  },
+  { path: 'admin-home-page',
+  loadChildren: () => import('../app/features/admin-home-page/admin-home-page.module').then(m => m.AdminHomePageModule)},
+
   { path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: []
 })
 export class AppRoutingModule { }
