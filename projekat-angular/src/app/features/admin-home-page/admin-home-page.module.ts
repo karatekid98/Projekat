@@ -8,15 +8,33 @@ import { AddressComponent } from '../address/address.component';
 import { ProductComponent } from '../product/product.component';
 import { CustomerComponent } from '../customer/customer.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
+import { RouterModule } from '@angular/router';
+import { AdminPageRoutingModule } from './admin-page-routing.module';
 
 
 @NgModule({
-  declarations: [AdminHomePageComponent, AddressComponent, ProductComponent, CustomerComponent, InvoiceComponent],
+  declarations: [
+    AdminHomePageComponent,
+    AddressComponent,
+    ProductComponent,
+    CustomerComponent,
+    InvoiceComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
-    UserModule
+    UserModule,
+    RouterModule,
+    AdminPageRoutingModule
   ],
-  entryComponents: [ UserComponent, AddressComponent, ProductComponent, CustomerComponent, InvoiceComponent],
+  exports: [
+    AdminHomePageComponent
+  ],
+  entryComponents: [
+    UserComponent,
+    AddressComponent,
+    ProductComponent,
+    CustomerComponent,
+    InvoiceComponent],
 })
 export class AdminHomePageModule { }
