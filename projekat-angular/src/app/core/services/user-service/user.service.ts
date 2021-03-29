@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { SingUp } from 'src/app/models/singup';
 import { User } from 'src/app/models/user';
 import { PaginationResponse } from '../../../models/paginationResponse';

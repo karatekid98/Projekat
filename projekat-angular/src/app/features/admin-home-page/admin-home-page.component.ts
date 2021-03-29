@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router, RouterLinkWithHref } from '@angular/router';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { AddressComponent } from '../address/address.component';
 import { TemplateRef } from '@angular/core';
 import { CustomerComponent } from '../customer/customer.component';

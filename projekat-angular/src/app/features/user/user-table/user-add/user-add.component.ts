@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { config } from 'rxjs';
 import { SingUp } from 'src/app/models/singup';
-
 import { User } from 'src/app/models/user';
 import { UserService } from '../../../../core/services/user-service/user.service';
 

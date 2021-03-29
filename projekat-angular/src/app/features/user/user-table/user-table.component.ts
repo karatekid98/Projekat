@@ -1,5 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef, ViewChild, OnChanges, AfterViewInit, EventEmitter, Output } from '@angular/core';
-import { User } from '../../../models/user';
+import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../../core/services/user-service/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserDeleteModalComponent } from './user-delete-modal/user-delete-modal.component';
