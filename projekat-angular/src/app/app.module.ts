@@ -11,11 +11,13 @@ import { HomePageModule } from './features/home-page/home-page.module';
 import { AdminHomePageModule,  } from './features/admin-home-page/admin-home-page.module';
 import { UserModule } from './features/user/user.module';
 import { ProductTableComponent } from './features/product/product-table/product-table.component';
+import { SettingsComponent } from './features/settings-page/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductTableComponent,
+    SettingsComponent,
   ],
   imports: [
     SharedModule,

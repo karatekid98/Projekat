@@ -65,8 +65,13 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/login-page']);
   }
 
+  goToSettings(): void {
+    this.router.navigate(['/settings-page']);
+  }
+
   getClickedRow(id: string): string {
     this.row = id;
     return this.row;
   }
+
 }

@@ -4,7 +4,8 @@
 >
   <mat-drawer #drawer class="drawer" mode="side" opened="true">
     <mat-toolbar class="header">
-      <div>Logo</div>
+      <img src="../../../assets/img/logo.png" alt="">
+      <div id="logo-image"> CName</div>
       <mat-icon class="close" (click)="drawer.close()">close</mat-icon>
     </mat-toolbar>
     <div id="contents-wrapper" fxLayout="column" fxLayoutAlign="space-between">
@@ -36,16 +37,16 @@
           <mat-icon aria-hidden="false" aria-label="Example home icon">admin_panel_settings</mat-icon>
         </button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">
-          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" >Settings
-            <mat-icon class="mat-icon"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
-          </button>
-          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
-            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon">person</mat-icon>
-          </button>
-          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" (click)="logOut()"
-          >Log out
-            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
-          </button>
+            <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" (click)="goToSettings()">Account Settings
+              <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
+            </button>
+            <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
+              <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+            </button>
+            <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" (click)="logOut()"
+            >Log out
+              <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
+            </button>
         </mat-menu>
       </div>
   </div>
@@ -55,7 +56,28 @@
 
   <mat-toolbar class="main header">
     <mat-icon *ngIf="!drawer.opened" (click)="drawer.toggle()"> menu </mat-icon>
-    <div>Header</div>
+    <div id="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" >
+      <div>Admin panel</div>
+      <div id="user-button">
+        <button mat-mini-fab color="primary"  [matMenuTriggerFor]="belowMenu" aria-label="Example icon button with a delete icon">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #belowMenu="matMenu" yPosition="below">
+          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" (click)="goToSettings()">Account Settings
+            <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
+          </button>
+          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
+            <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+          </button>
+          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" (click)="logOut()"
+          >Log out
+            <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
+          </button>
+        </mat-menu>
+
+      </div>
+
+    </div>
   </mat-toolbar>
   <div class="main contents" >
 

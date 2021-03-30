@@ -7,6 +7,7 @@ import { CustomerComponent } from '../customer/customer.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
 import { AdminHomePageComponent } from './admin-home-page.component';
+import { SettingsComponent } from '../settings-page/settings.component';
 
 const routes: Routes = [
   { path: '', component: AddressComponent },

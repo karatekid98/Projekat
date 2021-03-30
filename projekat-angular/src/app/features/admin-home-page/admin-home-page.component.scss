@@ -11,7 +11,7 @@
 .drawer .header {
   position: absolute;
   right: 0;
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 
 .close:hover {
@@ -31,8 +31,15 @@
   color: #ccc;
   background-color: #161616;
   border-bottom: 1px solid #ccc;
+  justify-content: space-between;
 }
-
+#logo-image {
+  color: white;
+}
+.header img {
+  width: 70px;
+  height: 70px;
+}
 .contents {
   height: fit-content;
   margin-top: 80px !important ;
@@ -81,8 +88,16 @@
   padding: 5px;
 }
 
-.mat-icon {
+.mat-icons-settings {
   padding: 0;
   margin: 0 !important;
-  margin-left: 20px !important;
+  margin-left: 40px !important;
+}
+
+#header-wrapper {
+  width: 100%;
+}
+
+#user-button {
+
 }

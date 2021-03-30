@@ -13,11 +13,13 @@ import { UserAddComponent } from './features/user/user-table/user-add/user-add.c
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 import { UserEditComponent } from './features/user/user-edit/user-edit.component';
 import { AdminHomePageModule } from './features/admin-home-page/admin-home-page.module';
+import { SettingsComponent } from './features/settings-page/settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'home-page', component: HomePageComponent },
+  { path: 'settings-page', component: SettingsComponent},
   { path: 'admin-home-page', component: AdminHomePageComponent,
   loadChildren: () => import('../app/features/admin-home-page/admin-home-page.module').then(m => m.AdminHomePageModule)},
 
