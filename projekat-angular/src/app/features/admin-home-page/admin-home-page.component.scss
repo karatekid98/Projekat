@@ -14,6 +14,11 @@
   // justify-content: space-between;
 }
 
+.close {
+  transition: color 0.4s;
+}
+
+
 .close:hover {
   cursor: pointer;
   color: red;
@@ -99,5 +104,15 @@
 }
 
 #user-button {
+  margin-right: 15px;
+}
 
+#menu-icon-header {
+  margin: 0 20px 0 10px;
+  transition: color 0.4s;
+}
+
+#menu-icon-header:hover {
+  cursor: pointer;
+  color: #4caf50;
 }

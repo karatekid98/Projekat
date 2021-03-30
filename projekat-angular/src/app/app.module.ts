@@ -12,12 +12,14 @@ import { AdminHomePageModule,  } from './features/admin-home-page/admin-home-pag
 import { UserModule } from './features/user/user.module';
 import { ProductTableComponent } from './features/product/product-table/product-table.component';
 import { SettingsComponent } from './features/settings-page/settings.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductTableComponent,
     SettingsComponent,
+    DashboardComponent,
   ],
   imports: [
     SharedModule,

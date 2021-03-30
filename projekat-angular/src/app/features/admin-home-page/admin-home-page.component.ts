@@ -6,6 +6,7 @@ import { CustomerComponent } from '../customer/customer.component';
 import { UserComponent } from '../user/user.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 @Component({
   selector: 'app-admin-home-page',
   templateUrl: './admin-home-page.component.html',
@@ -24,7 +25,7 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
+    const componentFactory = this.resolver.resolveComponentFactory(DashboardComponent);
     this.viewContainer.createComponent(componentFactory);
   }
 

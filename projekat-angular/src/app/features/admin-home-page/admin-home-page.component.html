@@ -55,7 +55,7 @@
   </mat-drawer>
 
   <mat-toolbar class="main header">
-    <mat-icon *ngIf="!drawer.opened" (click)="drawer.toggle()"> menu </mat-icon>
+    <mat-icon id="menu-icon-header" *ngIf="!drawer.opened" (click)="drawer.toggle()"> menu </mat-icon>
     <div id="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" >
       <div>Admin panel</div>
       <div id="user-button">
