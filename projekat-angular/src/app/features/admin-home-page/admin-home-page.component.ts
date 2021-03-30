@@ -18,7 +18,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   row = '';
   showFiller = false;
 
-
   constructor(private router: Router, private resolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
@@ -60,6 +59,10 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
       this.viewContainer.createComponent(componentFactory);
     }
 
+  }
+  logOut(): void {
+    localStorage.removeItem('isLoggedIn');
+    this.router.navigate(['/login-page']);
   }
 
   getClickedRow(id: string): string {

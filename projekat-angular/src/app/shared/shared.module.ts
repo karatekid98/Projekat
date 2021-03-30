@@ -21,6 +21,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageNotFoundComponent } from '../features/page-not-found/page-not-found.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [PageNotFoundComponent],
   imports: [
@@ -45,7 +47,9 @@ import { PageNotFoundComponent } from '../features/page-not-found/page-not-found
     PortalModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSelectModule,
+    MatMenuModule
   ],
   exports: [
     MatCardModule,
@@ -68,7 +72,9 @@ import { PageNotFoundComponent } from '../features/page-not-found/page-not-found
     PortalModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSelectModule,
+    MatMenuModule
   ]
 })
 export class SharedModule { }
