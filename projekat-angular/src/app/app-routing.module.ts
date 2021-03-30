@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login-page', pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'home-page', component: HomePageComponent },
-  { path: 'admin-home-page',
+  { path: 'admin-home-page', component: AdminHomePageComponent,
   loadChildren: () => import('../app/features/admin-home-page/admin-home-page.module').then(m => m.AdminHomePageModule)},
 
   { path: '**', component: PageNotFoundComponent},
