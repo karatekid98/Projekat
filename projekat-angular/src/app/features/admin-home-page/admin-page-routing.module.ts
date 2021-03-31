@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AddressComponent } from '../address/address.component';
 import { UserComponent } from '../user/user.component';
 import { CustomerComponent } from '../customer/customer.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
-import { AdminHomePageComponent } from './admin-home-page.component';
-import { SettingsComponent } from '../settings-page/settings.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
 const routes: Routes = [
