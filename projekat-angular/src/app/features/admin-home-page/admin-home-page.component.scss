@@ -15,8 +15,6 @@
   right: 0;
   // justify-content: space-between;
 }
-
-
 .close {
   transition: color 0.4s;
 }
@@ -49,11 +47,18 @@
   height: 70px;
 }
 .contents {
- // height: fit-content;
-  margin-top: 80px !important ;
-  padding: 16px;
-  // margin-bottom: auto;
+  height: fit-content;
+  margin-top: 60px !important ;
+  //padding: 16px;
+  margin-bottom: auto;
   //overflow: hidden !important;
+}
+.mat-toolbar {
+  height: 60px !important;
+}
+
+.mat-drawer-content {
+  padding: 16px !important ;
 }
 
 .main.footer {

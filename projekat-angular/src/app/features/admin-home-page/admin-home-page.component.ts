@@ -26,7 +26,7 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const componentFactory = this.resolver.resolveComponentFactory(DashboardComponent);
+    const componentFactory = this.resolver.resolveComponentFactory(UserProfileComponent);
     this.viewContainer.createComponent(componentFactory);
   }
 

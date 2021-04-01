@@ -37,7 +37,7 @@
           <mat-icon aria-hidden="false" aria-label="Example home icon">admin_panel_settings</mat-icon>
         </button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">
-            <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" (click)="goToSettings()">Account Settings
+            <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center"  id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent($event)">Account Settings
               <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
             </button>
             <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
@@ -63,7 +63,7 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #belowMenu="matMenu" yPosition="below">
-          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" (click)="goToSettings()">Account Settings
+          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent($event)">Account Settings
             <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
           </button>
           <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel

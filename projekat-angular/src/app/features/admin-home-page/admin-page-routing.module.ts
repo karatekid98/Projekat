@@ -6,6 +6,7 @@ import { CustomerComponent } from '../customer/customer.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent },
   { path: 'customer', component: CustomerComponent },
   { path: 'dashboard', component: DashboardComponent},
+  { path: 'user-profile', component: UserProfileComponent},
   { path: 'user', component: UserComponent,
   loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
 ];
