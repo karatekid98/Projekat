@@ -7,6 +7,7 @@ import { UserComponent } from '../user/user.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 @Component({
   selector: 'app-admin-home-page',
   templateUrl: './admin-home-page.component.html',
@@ -34,15 +35,18 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
 
     if (event.target.id === '') {
       this.getClickedRow(event.target.parentElement.id);
+      console.log('red parent', this.row);
+
     } else {
       this.getClickedRow(event.target.id);
+      console.log('red', this.row);
     }
 
     this.clicked = true;
 
     let clickedComponent = this.row;
     clickedComponent = this.row + 'Component';
-
+    console.log('clicked', clickedComponent);
     if (clickedComponent === 'CustomerComponent') {
       const componentFactory = this.resolver.resolveComponentFactory(CustomerComponent);
       this.viewContainer.createComponent(componentFactory);
@@ -55,6 +59,10 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
     } else if (clickedComponent === 'InvoiceComponent') {
       const componentFactory = this.resolver.resolveComponentFactory(InvoiceComponent);
       this.viewContainer.createComponent(componentFactory);
+    } else if (clickedComponent === 'UserProfileComponent') {
+
+      const componentFactory = this.resolver.resolveComponentFactory(UserProfileComponent);
+      this.viewContainer.createComponent(componentFactory);
     } else {
       const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
       this.viewContainer.createComponent(componentFactory);
@@ -66,9 +74,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/login-page']);
   }
 
-  goToSettings(): void {
-    this.router.navigate(['/settings-page']);
-  }
 
   getClickedRow(id: string): string {
     this.row = id;

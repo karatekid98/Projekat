@@ -10,6 +10,7 @@ import { CustomerComponent } from '../customer/customer.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { RouterModule } from '@angular/router';
 import { AdminPageRoutingModule } from './admin-page-routing.module';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { AdminPageRoutingModule } from './admin-page-routing.module';
     AddressComponent,
     ProductComponent,
     CustomerComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    //UserComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ import { AdminPageRoutingModule } from './admin-page-routing.module';
     AddressComponent,
     ProductComponent,
     CustomerComponent,
-    InvoiceComponent],
+    InvoiceComponent,
+    UserProfileComponent],
 })
 export class AdminHomePageModule { }
