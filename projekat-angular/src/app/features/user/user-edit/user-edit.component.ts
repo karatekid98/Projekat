@@ -49,8 +49,6 @@ export class UserEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log('str');
-
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.userService.getUser(this.id).subscribe((user) => {

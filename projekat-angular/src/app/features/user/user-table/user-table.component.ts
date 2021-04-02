@@ -95,8 +95,6 @@ export class UserTableComponent implements OnInit {
   }
 
   openUserEditPage(id: any): void{
-    console.log('tu sam');
-
     this.router.navigate([`admin-home-page/user/edit-user/${id}`]);
   }
 

@@ -35,18 +35,15 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
 
     if (event.target.id === '') {
       this.getClickedRow(event.target.parentElement.id);
-      console.log('red parent', this.row);
 
     } else {
       this.getClickedRow(event.target.id);
-      console.log('red', this.row);
     }
 
     this.clicked = true;
 
     let clickedComponent = this.row;
     clickedComponent = this.row + 'Component';
-    console.log('clicked', clickedComponent);
     if (clickedComponent === 'CustomerComponent') {
       const componentFactory = this.resolver.resolveComponentFactory(CustomerComponent);
       this.viewContainer.createComponent(componentFactory);
