@@ -17,11 +17,13 @@ namespace Projekat.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAddressService _addressService;
+        private readonly IInvoiceService _invoiceService;
 
-        public UserController(IUserService userService, IAddressService addressService)
+        public UserController(IUserService userService, IAddressService addressService, IInvoiceService invoiceService)
         {
             _userService = userService;
             _addressService = addressService;
+            _invoiceService = invoiceService;
         }
 
 
@@ -31,17 +33,42 @@ namespace Projekat.Controllers
             try
             {
                 var user = _userService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var invoicesResponse = _invoiceService.AsQueryable().Where(x => x.IssuerId == id);
+
+             
                 if (user == null)
                 {
                     return NotFound();
                 }
-                return Ok(user);
+           
+                return Ok(invoicesResponse);
             }
             catch (Exception e)
             {
                 return BadRequest(e.GetBaseException().Message);
             }
 
+        }
+
+        [HttpGet("getUserInvoices/{id}")]
+        public ActionResult<Invoice> GetUserInvoices(Guid id)
+        {
+            try
+            {
+                var invoicesResponse = _invoiceService.AsQueryable().Where(x => x.IssuerId == id);
+
+
+                if (invoicesResponse == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(invoicesResponse);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
         }
 
         [HttpGet]

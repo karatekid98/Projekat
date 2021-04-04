@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Address } from 'src/app/models/address';
 import { SingUp } from 'src/app/models/singup';
 import { User } from 'src/app/models/user';
 import { PaginationResponse } from '../../../models/paginationResponse';
@@ -34,6 +35,10 @@ export class UserService {
 
   addUser(singupForm: SingUp): Observable<User> {
     return this.http.post<User>(`http://localhost:28846/api/User/singUp`, singupForm);
+  }
+
+  getUserAddress(id: any): Observable<Address> {
+    return this.http.get<Address>(`http://localhost:28846/api/Address/${id}`);
   }
 
 

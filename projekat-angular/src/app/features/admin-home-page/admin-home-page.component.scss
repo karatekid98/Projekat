@@ -1,3 +1,6 @@
+.mat-drawer-container{
+  height: 100% !important;
+}
 
 .drawer {
   position: fixed;
@@ -47,7 +50,7 @@
   height: 70px;
 }
 .contents {
-  height: fit-content;
+  height: 100%;
   margin-top: 60px !important ;
   //padding: 16px;
   margin-bottom: auto;

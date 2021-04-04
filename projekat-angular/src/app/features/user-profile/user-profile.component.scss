@@ -1,20 +1,38 @@
+// @mixin fontVerdana {
+//   font-family: Verdana;
+//   font-style: normal;
+// }
+
+* {
+  font-family: 'Lato', sans-serif !important;
+}
+
 #container {
   width: 100%;
   height: 100%;
-  padding: 20px 0 ;
+  padding: 20px 0 0 0;
   background-image: url('../../../assets/img/leaves-pattern.png');
   background-repeat: repeat;
+}
+
+#container h1 {
+  margin: 0;
+  padding: 30px;
+  font-size: 40px;
+  font-weight: bolder;
 }
 
 #transparent-background {
   margin-left: 20px;
   box-sizing: border-box;
   width: 80%;
-  padding: 20px;
-  height: 100%;
+  height: fit-content;
   background: rgba(196, 196, 196, 0.6);
+  border-radius: 25px;
   //backdrop-filter: blur(2px);
 }
+
+
 .mat-card-header-text {
   margin: 0 !important;
 
@@ -27,23 +45,41 @@
   width: 80%;
   height: 80%;
 }
-.user-card {
+
+.user-card, .address-card, .invoice-card {
   margin: 20px;
-  max-width: 400px;
+  max-width: 500px;
+  border-radius: 25px;
+  padding: 30px;
+}
+
+.address-card, .invoice-card {
+  width: 400px;
 }
 
 .mat-card-content {
   margin-top: 15px;
 }
-#userDataWrapper {
 
+.user-data-wrapper, .user-address-wrapper {
   width: 80%;
   margin: 0 !important;
-  color: rgb(40, 41, 40) !important;
-
 }
 
-#userDataWrapper div{
+.user-data-wrapper div,
+.user-address-wrapper div{
+  margin-top: 15px;
   font-size: 15px;
   height: 25px;
+  border-bottom: 0.5px solid rgb(187, 186, 186);
 }
+.user-data-wrapper h2{
+  color: rgb(167, 167, 167) !important;
+}
+.user-data-wrapper h3,
+.user-address-wrapper h3{
+  font-weight: 800;
+  color: rgb(20, 20, 20) !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');

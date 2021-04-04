@@ -1,34 +1,86 @@
 <div id="container">
+  <h1> Account overview</h1>
   <div id="transparent-background">
-    <mat-card class="user-card">
-      <mat-card-header fxLayout="column" fxLayoutAlign="center center" >
-        <img
-        src="../../../assets/img/40246082_140833950189287_8267365919452087494_n.jpg"
-        alt="Photo of a Shiba Inu"
-      />
-      </mat-card-header>
+    <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+      <div>
+        <mat-card class="user-card">
+          <mat-card-header fxLayout="column" fxLayoutAlign="center center" >
+            <img src="../../../assets/img/40246082_140833950189287_8267365919452087494_n.jpg" alt="Photo"/>
+          </mat-card-header>
+          <mat-card-content *ngIf="this.user" fxLayout="column" fxLayoutAlign="center center" >
+            <div class="user-data-wrapper">
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h2>Name </h2>
+                <h3>{{user.firstName}} {{user.lastName}}</h3>
+              </div>
 
-      <mat-card-content *ngIf="this.user" fxLayout="column" fxLayoutAlign="center center" >
-        <div id="userDataWrapper">
-          <div fxLayout="row" fxLayoutAlign="space-between center" >
-            <h3>Name</h3>
-            <h2>{{user.firstName}} {{user.lastName}}</h2>
-          </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h2>Phone number </h2>
+                <h3>{{user.phone}}</h3>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h2>Email </h2>
+                <h3>{{user.email}}</h3>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h2>Date of birth </h2>
+                <h3> {{user.dateOfBirth | date}}</h3>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
 
-          <div fxLayout="row" fxLayoutAlign="space-between center" >
-            <h3>Phone number</h3>
-            <h2>{{user.phone}}</h2>
-          </div>
-          <div fxLayout="row" fxLayoutAlign="space-between center" >
-            <h3>Email</h3>
-            <h2>{{user.email}}</h2>
-          </div>
-        </div>
+      <div>
+        <mat-card class="address-card">
+          <mat-card-header  fxLayout="row" fxLayoutAlign="start center" >
+            <h2>Address data</h2>
+          </mat-card-header>
+          <mat-card-content *ngIf="this.address"  fxLayout="column" fxLayoutAlign="center center" >
+            <div class="user-address-wrapper">
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h3>City</h3>
+                <h2>{{address.city}}</h2>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h3>Postcode</h3>
+                <h2>{{address.postcode}}</h2>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h3>Line</h3>
+                <h2>{{address.line}}</h2>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h3>Country</h3>
+                <h2>{{address.country}}</h2>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
 
-      </mat-card-content>
-      <mat-card-actions>
+        <mat-card class="invoice-card">
+          <mat-card-header fxLayout="column" fxLayoutAlign="center center" >
+            <h2>Invoice data</h2>
+          </mat-card-header>
+          <mat-card-content *ngIf="this.invoice" fxLayout="column" fxLayoutAlign="center center" >
+            <div id="userAddressWrapper">
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h3>Address</h3>
+                <h2>{{user.firstName}} {{user.lastName}}</h2>
+              </div>
 
-      </mat-card-actions>
-    </mat-card>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h3>Phone number</h3>
+                <h2>{{user.phone}}</h2>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center" >
+                <h3>Email</h3>
+                <h2>{{user.email}}</h2>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
   </div>
 </div>
