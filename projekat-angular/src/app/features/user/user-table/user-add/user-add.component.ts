@@ -129,7 +129,9 @@ export class UserAddComponent implements OnInit {
   }
 
   backToUserTable(): void  {
-    this.router.navigate(['admin-home-page/user']);
+    this.router.navigate([`/admin-home-page/user/`]).then(() => {
+      window.location.reload();
+    });
   }
 
   checkPasswords(): boolean {

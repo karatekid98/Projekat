@@ -5,6 +5,7 @@ import { Address } from 'src/app/models/address';
 import { SingUp } from 'src/app/models/singup';
 import { User } from 'src/app/models/user';
 import { PaginationResponse } from '../../../models/paginationResponse';
+import { Invoice } from '../../../models/invoice';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class UserService {
 
   getUserAddress(id: any): Observable<Address> {
     return this.http.get<Address>(`http://localhost:28846/api/Address/${id}`);
+  }
+
+  getUserInvoices(id: any): Observable<Invoice[]> {
+    return this.http.get<Invoice[]>(`http://localhost:28846/api/User/GetUserInvoices/${id}`);
   }
 
 

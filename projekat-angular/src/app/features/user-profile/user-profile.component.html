@@ -1,7 +1,7 @@
 <div id="container">
   <h1> Account overview</h1>
   <div id="transparent-background">
-    <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="space-between">
+    <div id="mat-card-wrapper" fxLayout="row" fxLayoutAlign="space-around">
       <div>
         <mat-card class="user-card">
           <mat-card-header fxLayout="column" fxLayoutAlign="center center" >
@@ -10,21 +10,21 @@
           <mat-card-content *ngIf="this.user" fxLayout="column" fxLayoutAlign="center center" >
             <div class="user-data-wrapper">
               <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <h2>Name </h2>
-                <h3>{{user.firstName}} {{user.lastName}}</h3>
+                <h3>Name </h3>
+                <h2>{{user.firstName}} {{user.lastName}}</h2>
               </div>
 
               <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <h2>Phone number </h2>
-                <h3>{{user.phone}}</h3>
+                <h3>Phone number </h3>
+                <h2>{{user.phone}}</h2>
               </div>
               <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <h2>Email </h2>
-                <h3>{{user.email}}</h3>
+                <h3>Email </h3>
+                <h2>{{user.email}}</h2>
               </div>
               <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <h2>Date of birth </h2>
-                <h3> {{user.dateOfBirth | date}}</h3>
+                <h3>Date of birth </h3>
+                <h2> {{user.dateOfBirth | date}}</h2>
               </div>
             </div>
           </mat-card-content>
@@ -62,22 +62,29 @@
           <mat-card-header fxLayout="column" fxLayoutAlign="center center" >
             <h2>Invoice data</h2>
           </mat-card-header>
-          <mat-card-content *ngIf="this.invoice" fxLayout="column" fxLayoutAlign="center center" >
-            <div id="userAddressWrapper">
-              <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <h3>Address</h3>
-                <h2>{{user.firstName}} {{user.lastName}}</h2>
-              </div>
+          <mat-card-content *ngIf="this.invoices" fxLayout="column" fxLayoutAlign="center center" >
+            <div class="user-invoice-wrapper" *ngFor="let invoice of this.invoices" fxLayout="row" fxLayoutAlign="start center">
+              <div>
+                <div *ngIf="invoice.isPrinted; else greenButton" class="indicator green">
 
-              <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <h3>Phone number</h3>
-                <h2>{{user.phone}}</h2>
+                </div>
+                <ng-template #greenButton>
+                    <div class="indicator red"></div>
+                </ng-template>
               </div>
-              <div fxLayout="row" fxLayoutAlign="space-between center" >
-                <h3>Email</h3>
-                <h2>{{user.email}}</h2>
+              <div id="date-and-customer">
+                <div fxLayout="row" fxLayoutAlign="space-between end" >
+                  <h3>Date</h3>
+                  <h2>{{invoice.date | date}} </h2>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="space-between end" >
+                  <h3>Customer</h3>
+                  <h2>{{invoice.customer}}</h2>
+                </div>
               </div>
             </div>
+
           </mat-card-content>
         </mat-card>
       </div>

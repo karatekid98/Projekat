@@ -13,6 +13,7 @@
   padding: 20px 0 0 0;
   background-image: url('../../../assets/img/leaves-pattern.png');
   background-repeat: repeat;
+  padding-bottom: 50px;
 }
 
 #container h1 {
@@ -61,25 +62,58 @@
   margin-top: 15px;
 }
 
-.user-data-wrapper, .user-address-wrapper {
+.user-data-wrapper,
+.user-address-wrapper,
+.user-invoice-wrapper {
   width: 80%;
   margin: 0 !important;
 }
 
 .user-data-wrapper div,
-.user-address-wrapper div{
+.user-address-wrapper div {
   margin-top: 15px;
   font-size: 15px;
   height: 25px;
   border-bottom: 0.5px solid rgb(187, 186, 186);
 }
-.user-data-wrapper h2{
+
+.user-invoice-wrapper {
+  border-bottom: 0.5px solid rgb(187, 186, 186);
+}
+.user-data-wrapper h2,
+.user-address-wrapper h2
+.user-invoice-wrapper h2{
   color: rgb(167, 167, 167) !important;
 }
-.user-data-wrapper h3,
-.user-address-wrapper h3{
-  font-weight: 800;
-  color: rgb(20, 20, 20) !important;
+
+#date-and-customer {
+  margin-left: 20px;
+  width: 100%;
+  height: 80px;
+}
+
+#date-and-customer h2, #date-and-customer h3{
+margin: 0;
+}
+
+.indicator {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  margin: 0 !important;
+
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  border-bottom: solid 3px #c9c8c7;
+  text-shadow: -1px -1px rgba(255, 255, 255, 0.43), 1px 1px rgba(0, 0, 0, 0.49);
+  transition: .4s;
+}
+
+.indicator.red {
+  background-color: rgb(173, 24, 24);
+}
+
+.indicator.green {
+  background-color: rgb(9, 146, 71);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
