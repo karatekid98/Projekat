@@ -7,6 +7,7 @@ import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { UserProfileEditComponent } from '../user-profile/user-profile-edit/user-profile-edit.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'customer', component: CustomerComponent },
   { path: 'dashboard', component: DashboardComponent},
   { path: 'user-profile', component: UserProfileComponent},
+  { path: 'user-profile-edit', component: UserProfileEditComponent},
   { path: 'user', component: UserComponent,
   loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
 ];

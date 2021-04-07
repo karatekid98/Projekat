@@ -7,6 +7,14 @@
   font-family: 'Lato', sans-serif !important;
 }
 
+mat-card-content h2 {
+  font-size: 17px;
+}
+
+mat-card-header h2 {
+  font-size: 25px !important;
+
+}
 #container {
   width: 100%;
   height: 100%;
@@ -79,9 +87,11 @@
 
 .user-invoice-wrapper {
   border-bottom: 0.5px solid rgb(187, 186, 186);
+  transition: background-color 1s;
+  padding: 5px;
 }
 .user-data-wrapper h2,
-.user-address-wrapper h2
+.user-address-wrapper h2,
 .user-invoice-wrapper h2{
   color: rgb(167, 167, 167) !important;
 }
@@ -90,12 +100,17 @@
   margin-left: 20px;
   width: 100%;
   height: 80px;
+
 }
 
 #date-and-customer h2, #date-and-customer h3{
 margin: 0;
 }
 
+.user-invoice-wrapper:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
 .indicator {
   height: 25px;
   width: 25px;
@@ -114,6 +129,13 @@ margin: 0;
 
 .indicator.green {
   background-color: rgb(9, 146, 71);
+}
+
+#edit-profile-button {
+  margin-left: 30px;
+  color: white;
+  font-size: 17px;
+  width: 90%
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
