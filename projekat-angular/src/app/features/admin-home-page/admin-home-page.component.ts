@@ -6,9 +6,7 @@ import { CustomerComponent } from '../customer/customer.component';
 import { UserComponent } from '../user/user.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { ElementRef } from '@angular/core';
 @Component({
   selector: 'app-admin-home-page',
   templateUrl: './admin-home-page.component.html',
@@ -33,7 +31,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   @HostListener('document:click', ['$event'])
   public clickout(event: any) {
     if (!this.wasInside) {
-      console.log('outside', event);
     }
     this.wasInside = false;
   }
@@ -49,7 +46,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   }
 
   openComponent(event): void {
-    console.log(event.target);
     this.viewContainer.clear();
 
     if (event.target.id === '') {

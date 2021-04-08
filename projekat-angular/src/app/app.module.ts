@@ -13,7 +13,6 @@ import { UserModule } from './features/user/user.module';
 import { ProductTableComponent } from './features/product/product-table/product-table.component';
 import { SettingsComponent } from './features/settings-page/settings.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
-import { UserProfileEditComponent } from './features/user-profile/user-profile-edit/user-profile-edit.component';
 
 @NgModule({
   declarations: [

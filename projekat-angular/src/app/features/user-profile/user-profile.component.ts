@@ -53,7 +53,6 @@ export class UserProfileComponent implements OnInit, AfterContentInit   {
     this.userService.getUserInvoices(this.user.id).subscribe(
       (response) => {
         this.invoices = response;
-        console.log(this.invoices);
       },
       (error) => {
         console.log(error.error);
@@ -72,7 +71,6 @@ export class UserProfileComponent implements OnInit, AfterContentInit   {
 
   openComponent(event): void {
     this.viewContainer.clear();
-    console.log('asddas');
 
     const componentFactory = this.resolver.resolveComponentFactory(UserProfileEditComponent);
     this.viewContainer.createComponent(componentFactory);

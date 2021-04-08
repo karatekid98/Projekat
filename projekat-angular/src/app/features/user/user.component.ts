@@ -17,8 +17,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   // TODO: fix complete routing in app
   ngOnInit(): void {
 
-    console.log(this.router.url);
-
   }
 
   ngAfterViewInit(): void {

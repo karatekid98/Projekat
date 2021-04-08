@@ -10,7 +10,7 @@ import { UserAddComponent } from './user-table/user-add/user-add.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { RouterModule } from '@angular/router';
 import { UserRoutingModule } from './user-routing.module';
-import { UserProfileComponent } from '../user-profile/user-profile.component';
+
 
 @NgModule({
   declarations: [UserComponent, UserTableComponent, UserDeleteModalComponent, UserAddComponent, UserEditComponent],
