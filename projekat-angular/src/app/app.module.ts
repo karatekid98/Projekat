@@ -20,7 +20,6 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
     ProductTableComponent,
     SettingsComponent,
     DashboardComponent,
-
   ],
   imports: [
     SharedModule,

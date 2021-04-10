@@ -47,7 +47,7 @@ export class UserService {
   }
 
 
-  //TODO: create update form in ts file and fix this method
+  // TODO: create update form in ts file and fix this method
   updateUser(updateForm: SingUp, id: any): Observable<User> {
     return this.http.put<User>(`http://localhost:28846/api/User/${id}`, updateForm);
   }
