@@ -7,6 +7,5 @@ export interface Invoice {
   invoiceProducts: object;
   user: object;
   customer: object;
-  id: string;
   isDeleted: boolean;
 }
