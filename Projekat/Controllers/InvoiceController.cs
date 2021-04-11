@@ -62,6 +62,27 @@ namespace Projekat.Controllers
             }
         }
 
+        [HttpGet("getDeletedInvoices")]
+        public ActionResult<PaginationResponse<Invoice>> GetDeletedInvoices([FromQuery] PaginationParameters parameters)
+        {
+            try
+            {
+                var deletedInvoices= _invoiceService.AsQueryable().Where(x => x.IsDeleted == true);
+
+                var pagedDeletedInvoices= PagedList<Invoice>.ToPagedList(deletedInvoices, parameters.PageNumber, parameters.PageSize);
+
+                var paginationResponse = PagedList<Invoice>.ToPaginationResponse(pagedDeletedInvoices);
+
+                return Ok(paginationResponse);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
+
         [HttpPost]
         public ActionResult AddInvoice([FromBody] Invoice invoice)
         {

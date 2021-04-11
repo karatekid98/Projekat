@@ -60,6 +60,26 @@ namespace Projekat.Controllers
             }
 
         }
+        [HttpGet("getDeletedProducts")]
+        public ActionResult<PaginationResponse<Product>> GetDeletedProducts([FromQuery] PaginationParameters parameters)
+        {
+            try
+            {
+                var deletedProducts = _productService.AsQueryable().Where(x => x.IsDeleted == true);
+
+                var pagedDeletedProducts = PagedList<Product>.ToPagedList(deletedProducts, parameters.PageNumber, parameters.PageSize);
+
+                var paginationResponse = PagedList<Product>.ToPaginationResponse(pagedDeletedProducts);
+
+                return Ok(paginationResponse);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
 
         [HttpPost]
         public ActionResult AddProduct([FromBody] Product product)

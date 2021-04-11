@@ -63,6 +63,27 @@ namespace Projekat.Controllers
 
         }
 
+        [HttpGet("getDeletedShipments")]
+        public ActionResult<PaginationResponse<Shipment>> GetDeletedShipments([FromQuery] PaginationParameters parameters)
+        {
+            try
+            {
+                var deletedShipments = _shipmentService.AsQueryable().Where(x => x.IsDeleted == true);
+
+                var pagedDeletedShipments = PagedList<Shipment>.ToPagedList(deletedShipments, parameters.PageNumber, parameters.PageSize);
+
+                var paginationResponse = PagedList<Shipment>.ToPaginationResponse(pagedDeletedShipments);
+
+                return Ok(paginationResponse);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
+
         [HttpPost]
         public ActionResult AddShipment([FromBody] Shipment shipment)
         {

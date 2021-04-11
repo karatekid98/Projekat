@@ -61,6 +61,28 @@ namespace Projekat.Controllers
 
         }
 
+
+        [HttpGet("getDeletedAddresses")]
+        public ActionResult<PaginationResponse<Address>> GetDeletedAddresses([FromQuery] PaginationParameters parameters)
+        {
+            try
+            {
+                var deletedAddresses = _addressService.AsQueryable().Where(x => x.IsDeleted == true);
+
+                var pagedDeletedAddresses= PagedList<Address>.ToPagedList(deletedAddresses, parameters.PageNumber, parameters.PageSize);
+
+                var paginationResponse = PagedList<Address>.ToPaginationResponse(pagedDeletedAddresses);
+
+                return Ok(paginationResponse);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
+
         [HttpPost]
         public ActionResult AddAddress([FromBody] Address address)
         {
