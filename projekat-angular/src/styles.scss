@@ -2,9 +2,24 @@ html, body { height: 100%; margin:0;padding:0px;box-sizing: border-box; }
 body { margin: 0;}
 
 .snackbar {
-  background-color: #327435;
+  background-color: #49A84D;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #327435;
+  // border-radius: 10px;
+}
 @font-face {
   font-family: ubuntu;
   src: url(assets/fonts/Ubuntu-Bold.ttf) format("opentype");
