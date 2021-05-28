@@ -8,6 +8,10 @@ import { ProductComponent } from '../product/product.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { UserProfileEditComponent } from '../user-profile/user-profile-edit/user-profile-edit.component';
+import { UserEditComponent } from '../user/user-edit/user-edit.component';
+import { UserAddComponent } from '../user/user-table/user-add/user-add.component';
+import { UserTableComponent } from '../user/user-table/user-table.component';
+
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -19,8 +23,13 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent},
   { path: 'user-profile', component: UserProfileComponent},
   { path: 'user-profile-edit', component: UserProfileEditComponent},
-  { path: 'user', component: UserComponent,
-  loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
+  {path: 'user', component: UserComponent, children: [
+    { path: '', component: UserTableComponent },
+    { path: 'add-user', component: UserAddComponent },
+    { path: 'edit-user/:id', component: UserEditComponent },
+  ]},
+  // { path: 'user', component: UserComponent,
+  // loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
 ];
 
 @NgModule({

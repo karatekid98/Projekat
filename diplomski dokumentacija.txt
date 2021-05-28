@@ -1,0 +1,3 @@
+https://stackoverflow.blog/2020/02/03/is-it-time-for-a-front-end-framework/
+https://blog.hubspot.com/marketing/web-design-html-css-javascript
+https://blog.logrocket.com/history-of-frontend-frameworks/

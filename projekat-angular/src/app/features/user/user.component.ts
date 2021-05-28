@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewContainerRef, ViewChild, ComponentFactoryResolver, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserAddComponent } from './user-table/user-add/user-add.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { AdminHomePageComponent } from '../admin-home-page/admin-home-page.component';
 
 @Component({
   selector: 'app-user',
@@ -10,9 +11,9 @@ import { UserEditComponent } from './user-edit/user-edit.component';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit, AfterViewInit {
-  @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
-  constructor(private route: ActivatedRoute, private router: Router, private resolver: ComponentFactoryResolver) { }
+  constructor(@Inject(AdminHomePageComponent) private parent: AdminHomePageComponent, private route: ActivatedRoute,
+              private router: Router, private resolver: ComponentFactoryResolver) { }
 
   // TODO: fix complete routing in app
   ngOnInit(): void {
@@ -20,22 +21,26 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // setTimeout(() => {
-    //   this.initializeComponent();
-    // }, 0);
+    setTimeout(() => {
+      this.initializeComponent();
+    }, 0);
 
   }
+
+
+
   initializeComponent(): void {
-    this.viewContainer.clear();
+    this.parent.viewContainer.clear();
     if (this.router.url === '/admin-home-page/user') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserTableComponent);
-      this.viewContainer.createComponent(componentFactory);
+      const componentFactory = this.resolver.resolveComponentFactory(UserAddComponent);
+      this.parent.viewContainer.createComponent(componentFactory);
     } else if (this.router.url === '/admin-home-page/add-user') {
       const componentFactory = this.resolver.resolveComponentFactory(UserAddComponent);
-      this.viewContainer.createComponent(componentFactory);
+      this.parent.viewContainer.createComponent(componentFactory);
     } else {
       const componentFactory = this.resolver.resolveComponentFactory(UserEditComponent);
-      this.viewContainer.createComponent(componentFactory);
+      this.parent.viewContainer.createComponent(componentFactory);
     }
   }
+
 }
