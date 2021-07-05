@@ -20,6 +20,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
     ProductTableComponent,
     SettingsComponent,
     DashboardComponent,
+
   ],
   imports: [
     SharedModule,
@@ -30,7 +31,8 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
     CoreModule,
     HomePageModule,
     AdminHomePageModule,
-    UserModule
+    UserModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

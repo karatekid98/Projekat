@@ -15,29 +15,19 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
 export class AdminHomePageComponent implements OnInit, AfterViewInit {
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
   @ViewChild('isLoggedInTemplate', { read: TemplateRef }) template: TemplateRef<any>;
-  @HostListener('document:click', ['$event'])
-  clicked = false;
+
   row = '';
   showFiller = false;
-  private wasInside = false;
-  public text: string;
 
-  @HostListener('click', ['$event'])
-  public clickInside(event: any) {
-    this.text = 'clicked inside';
-    this.wasInside = true;
-  }
-
-  @HostListener('document:click', ['$event'])
-  public clickout(event: any) {
-    if (!this.wasInside) {
-    }
-    this.wasInside = false;
-  }
 
   constructor(private router: Router, private resolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
+    if (window.location.href.indexOf("user") != -1){
+      console.log('tu sam');
+
+    }
+
   }
 
   ngAfterViewInit(): void {
@@ -55,7 +45,7 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
       this.getClickedRow(event.target.id);
     }
 
-    this.clicked = true;
+
 
     let clickedComponent = this.row;
     clickedComponent = this.row + 'Component';
