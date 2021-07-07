@@ -140,6 +140,7 @@
               fxLayout="row"
               fxLayoutAlign="center center"
               *matHeaderCellDef
+
             >
               Edit
             </mat-header-cell>
@@ -148,6 +149,7 @@
               fxLayout="row"
               fxLayoutAlign="center center"
               *matCellDef="let element"
+              [routerLink]="['user/edit-user', element?.id]"
             >
               <mat-icon>mode_edit</mat-icon></mat-cell
             >

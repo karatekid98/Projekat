@@ -23,13 +23,13 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent},
   { path: 'user-profile', component: UserProfileComponent},
   { path: 'user-profile-edit', component: UserProfileEditComponent},
-  {path: 'user', component: UserComponent, children: [
-    { path: '', component: UserTableComponent },
-    { path: 'add-user', component: UserAddComponent },
-    { path: 'edit-user/:id', component: UserEditComponent },
-  ]},
-  // { path: 'user', component: UserComponent,
-  // loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
+  //  {path: 'user', component: UserComponent, children: [
+  // //   { path: '', component: UserTableComponent },
+  // //   { path: 'add-user', component: UserAddComponent },
+  //  { path: 'edit-user/:id', component: UserEditComponent },
+  //  ]},
+  { path: 'user', component: UserComponent,
+  loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
 ];
 
 @NgModule({

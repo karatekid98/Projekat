@@ -40,8 +40,9 @@ namespace Projekat.Controllers
                 {
                     return NotFound();
                 }
-           
-                return Ok(invoicesResponse);
+            
+                // napravi metodu koja vraca user invoice
+                return Ok(user);
             }
             catch (Exception e)
             {

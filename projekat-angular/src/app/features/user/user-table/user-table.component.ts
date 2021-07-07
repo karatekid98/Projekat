@@ -14,6 +14,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class UserTableComponent implements OnInit {
   tableOpened: boolean = true;
+  userId: any;
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
   @Output() selectedTabChange: EventEmitter<MatTabChangeEvent>;
   displayedColumns: string[] = ['id', 'lastName', 'firstName',
@@ -81,12 +82,12 @@ export class UserTableComponent implements OnInit {
     });
    }
 
-   openAddUser(event: any): void {
-    this.tableOpened = false;
-    this.viewContainer.clear();
-    const componentFactory = this.resolver.resolveComponentFactory(UserAddComponent);
-    this.viewContainer.createComponent(componentFactory);
-   }
+  //  openAddUser(event: any): void {
+  //   this.tableOpened = false;
+  //   this.viewContainer.clear();
+  //   const componentFactory = this.resolver.resolveComponentFactory(UserAddComponent);
+  //   this.viewContainer.createComponent(componentFactory);
+  //  }
 
   handlePage(event: any): void {
     this.parametars.pageSize = event.pageSize;
@@ -95,7 +96,9 @@ export class UserTableComponent implements OnInit {
   }
 
   openUserEditPage(id: any): void{
-    this.router.navigate([`admin-home-page/user/edit-user/${id}`]);
-  }
+    console.log(id);
 
+    this.userId = id;
+    this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
+  }
 }

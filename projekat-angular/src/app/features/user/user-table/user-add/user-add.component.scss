@@ -1,6 +1,7 @@
 #container {
-  margin: 20px 50px 0 80px;
+  margin: 50px 50px 0px 80px;
   max-width: 600px;
+  padding-top: 30px;
 }
 .mat-form-field{
   margin-top: 20px;
@@ -11,9 +12,23 @@
   width: 150px;
 }
 
-
-h3 {
+.warning {
   color:#4CAF50;
+  border: 0.2px solid #71aab3;
+  height: 40px;
+  background-color:#D1ECF1;
+  border-radius: 1%;
+  color: #3D7A84;
+  font-size: 12px;
+}
+
+.error {
+  background-color:#F8D7DA;
+  color: #c45b66;
+  font-size: 12px;
+  height: 40px;
+  border: 0.2px solid #c93241;
+  border-radius: 1%;
 }
 
 .mat-card-actions button:nth-child(2) {

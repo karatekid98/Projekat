@@ -7,13 +7,14 @@ import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  styleUrls: ['./user-edit.component.scss', '../user-table/user-add/user-add.component.scss']
 })
 export class UserEditComponent implements OnInit {
   hide = true;
   confirmhide = true;
   public id: any;
   user: User;
+  formFilled: false;
 
   detailForm: FormGroup = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -49,9 +50,10 @@ export class UserEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-
+    this.id = this.getUrlParams();
     this.userService.getUser(this.id).subscribe((user) => {
+      console.log(user);
+
       this.detailForm.patchValue(user);
     });
   }
@@ -61,6 +63,13 @@ export class UserEditComponent implements OnInit {
   }
 
   submit(): void {
+  }
 
+  getUrlParams(): any {
+    const url = this.route['_routerState'].snapshot.url;
+    const n = url.lastIndexOf('/');
+    const result = url.substring(n + 1);
+
+    return result;
   }
 }

@@ -11,27 +11,29 @@ import { AdminHomePageComponent } from '../admin-home-page/admin-home-page.compo
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit, AfterViewInit {
-  @HostListener('document:click', ['$event'])
+  // @HostListener('document:click', ['$event'])
   clicked = false;
+  str: string;
   private wasInside = false;
   public text: string;
 
-  @HostListener('click', ['$event'])
-  public clickInside(event: any) {
-    this.text = 'clicked inside';
-    this.wasInside = true;
-    console.log('unutra');
+  // @HostListener('click', ['$event'])
+  // public clickInside(event: any) {
+  //   this.text = 'clicked inside';
+  //   this.wasInside = true;
+  //   console.log('unutra');
 
-  }
+  // }
 
-  @HostListener('document:click', ['$event'])
-  public clickout(event: any) {
-    if (!this.wasInside) {
-    }
-    this.wasInside = false;
-    console.log('spolja');
-  }
-  constructor(@Inject(AdminHomePageComponent) private parent: AdminHomePageComponent, private route: ActivatedRoute,
+  // @HostListener('document:click', ['$event'])
+  // public clickout(event: any) {
+  //   if (!this.wasInside) {
+  //   }
+  //   this.wasInside = false;
+  //   console.log('spolja');
+  // }
+  constructor(@Inject(AdminHomePageComponent) private parent: AdminHomePageComponent,
+              private route: ActivatedRoute,
               private router: Router, private resolver: ComponentFactoryResolver) { }
 
   // TODO: fix complete routing in app
@@ -46,20 +48,21 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
-
   initializeComponent(): void {
     this.parent.viewContainer.clear();
     if (this.router.url === '/admin-home-page/user') {
       const componentFactory = this.resolver.resolveComponentFactory(UserTableComponent);
       this.parent.viewContainer.createComponent(componentFactory);
-    } else if (this.router.url === '/admin-home-page/add-user') {
+    } else if (this.router.url === '/admin-home-page/user/add-user') {
       const componentFactory = this.resolver.resolveComponentFactory(UserAddComponent);
       this.parent.viewContainer.createComponent(componentFactory);
+    } else if (this.router.url === '/admin-home-page/user/edit-user') {
+
     } else {
-      const componentFactory = this.resolver.resolveComponentFactory(UserEditComponent);
-      this.parent.viewContainer.createComponent(componentFactory);
+      if (window.location.href.indexOf("/admin-home-page/user/edit-user") > -1) {
+        const componentFactory = this.resolver.resolveComponentFactory(UserEditComponent);
+        this.parent.viewContainer.createComponent(componentFactory);
+      }
     }
   }
 

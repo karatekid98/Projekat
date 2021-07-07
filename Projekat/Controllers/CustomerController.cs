@@ -61,7 +61,7 @@ namespace Projekat.Controllers
         }
 
         [HttpGet("getDeletedCustomers")]
-        public ActionResult<PaginationResponse<Customer>> GetDeletedCustomers([FromQuery] PaginationParameters parameters)
+        public ActionResult<PaginationResponse<Customer >> GetDeletedCustomers([FromQuery] PaginationParameters parameters)
         {
             try
             {

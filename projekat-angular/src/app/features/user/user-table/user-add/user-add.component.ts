@@ -12,6 +12,7 @@ import { UserService } from '../../../../core/services/user-service/user.service
   styleUrls: ['./user-add.component.scss']
 })
 export class UserAddComponent implements OnInit {
+  formFilled = true;
   public user: User = {
     firstName: '',
     lastName: '',
@@ -97,10 +98,12 @@ export class UserAddComponent implements OnInit {
         this.user.password = response.password;
         this.user.email = response.email;
         this.user.phone = response.phone;
+        this.formFilled = true;
         this.openSnackBar();
         this.router.navigate(['admin-home-page/user']);
       },
       (error) => {
+        this.formFilled = false;
         console.log(error.error);
       }
     );

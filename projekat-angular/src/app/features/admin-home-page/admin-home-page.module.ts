@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { AdminPageRoutingModule } from './admin-page-routing.module';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { UserProfileEditComponent } from '../user-profile/user-profile-edit/user-profile-edit.component';
+import { UserRoutingModule } from '../user/user-routing.module';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { UserProfileEditComponent } from '../user-profile/user-profile-edit/user
     SharedModule,
     UserModule,
     RouterModule,
-    AdminPageRoutingModule
+    AdminPageRoutingModule,
+    UserRoutingModule //proveri, dodato naknadno
   ],
   exports: [
     AdminHomePageComponent
