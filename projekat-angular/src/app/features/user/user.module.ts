@@ -10,10 +10,11 @@ import { UserAddComponent } from './user-table/user-add/user-add.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { RouterModule } from '@angular/router';
 import { UserRoutingModule } from './user-routing.module';
+import { UserEditModalComponent } from './user-edit/user-edit-modal/user-edit-modal.component';
 
 
 @NgModule({
-  declarations: [UserComponent, UserTableComponent, UserDeleteModalComponent, UserAddComponent, UserEditComponent],
+  declarations: [UserComponent, UserTableComponent, UserDeleteModalComponent, UserAddComponent, UserEditComponent, UserEditModalComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -149,7 +149,7 @@
               fxLayout="row"
               fxLayoutAlign="center center"
               *matCellDef="let element"
-              [routerLink]="['user/edit-user', element?.id]"
+              (click)="openUserEditPage(element.id)"
             >
               <mat-icon>mode_edit</mat-icon></mat-cell
             >

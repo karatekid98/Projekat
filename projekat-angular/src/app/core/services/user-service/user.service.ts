@@ -39,7 +39,7 @@ export class UserService {
   }
 
   getUserAddress(id: any): Observable<Address> {
-    return this.http.get<Address>(`http://localhost:28846/api/Address/${id}`);
+    return this.http.get<Address>(`http://localhost:28846/api/User/getUserAddress/${id}`);
   }
 
   getUserInvoices(id: any): Observable<Invoice[]> {

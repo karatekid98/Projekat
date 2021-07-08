@@ -59,7 +59,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     } else if (this.router.url === '/admin-home-page/user/edit-user') {
 
     } else {
-      if (window.location.href.indexOf("/admin-home-page/user/edit-user") > -1) {
+      if (window.location.href.indexOf('/admin-home-page/user/edit-user') > -1) {
         const componentFactory = this.resolver.resolveComponentFactory(UserEditComponent);
         this.parent.viewContainer.createComponent(componentFactory);
       }

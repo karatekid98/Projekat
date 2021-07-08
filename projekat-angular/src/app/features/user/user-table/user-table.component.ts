@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserAddComponent } from './user-add/user-add.component';
 import { Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { LockItem } from '../../../models/lockItem';
+import { LockService } from '../../../core/services/lock-service/lock.service';
 
 @Component({
   selector: 'app-user-table',
@@ -13,13 +15,19 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
   styleUrls: ['./user-table.component.scss']
 })
 export class UserTableComponent implements OnInit {
-  tableOpened: boolean = true;
-  userId: any;
+
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
   @Output() selectedTabChange: EventEmitter<MatTabChangeEvent>;
   displayedColumns: string[] = ['id', 'lastName', 'firstName',
    'address', 'email', 'phone', 'role', 'dateOfBirth', 'gender',
     'delete', 'read', 'edit'];
+
+  tableOpened: boolean = true;
+  userId: any;
+  lockedItem: LockItem = {
+    itemId: '',
+    userId: ''
+  };
 
   dataSource;
   pageSize;
@@ -32,9 +40,15 @@ export class UserTableComponent implements OnInit {
   };
 
   constructor(private router: Router, private userService: UserService,
-              public dialog: MatDialog, private resolver: ComponentFactoryResolver) { }
+              public dialog: MatDialog, private resolver: ComponentFactoryResolver, private lockService: LockService) { }
 
   ngOnInit(): void {
+    this.lockedItem.userId = localStorage.getItem('userId');
+    const lockedItem = localStorage.getItem('lockedItem');
+    if (lockedItem !== null) {
+      this.lockedItem.itemId = lockedItem;
+    }
+
     this.showUsers(this.parametars);
   }
 
@@ -96,9 +110,18 @@ export class UserTableComponent implements OnInit {
   }
 
   openUserEditPage(id: any): void{
-    console.log(id);
+      this.lockService.getIsItemLocked(id).subscribe((result) => {
+        console.log(result);
+        if (result === false) {
+              this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
+              this.lockItem(id);
+          }
+      });
+  }
 
-    this.userId = id;
-    this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
+  lockItem(id: any): void {
+    this.lockedItem.itemId = id;
+    localStorage.setItem('lockedItem', id);
+    this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 }
