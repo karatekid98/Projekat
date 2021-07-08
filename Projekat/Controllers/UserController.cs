@@ -51,6 +51,29 @@ namespace Projekat.Controllers
 
         }
 
+        [HttpGet("getUserAddress/{id}")]
+        public ActionResult<Address> GetUserAddress(Guid id)
+        {
+            try
+            {
+                var address = _addressService.AsQueryable().Where(x => x.Id == id);
+
+
+                if (address == null)
+                {
+                    return NotFound();
+                }
+
+        
+                return Ok(address);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
+
         [HttpGet("getUserInvoices/{id}")]
         public ActionResult<Invoice> GetUserInvoices(Guid id)
         {
