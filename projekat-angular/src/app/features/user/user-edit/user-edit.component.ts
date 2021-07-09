@@ -20,8 +20,10 @@ export class UserEditComponent implements OnInit {
   user: User;
   hasChange = false;
   initalValues: any;
-
+  initalValuesAddress: any;
   userAddressId: any;
+  pageHeader = 'Edit user';
+  isButtonVisible = true;
 
   detailForm: FormGroup = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -49,13 +51,13 @@ export class UserEditComponent implements OnInit {
 
 
 
-  get emailInput() {
+  get emailInput(): any {
     return this.detailForm.get('email');
   }
-  get passwordInput() {
+  get passwordInput(): any  {
     return this.detailForm.get('password');
   }
-  get passwordInputConfirm() {
+  get passwordInputConfirm(): any  {
     return this.detailForm.get('confirmPassword');
   }
 
@@ -63,7 +65,12 @@ export class UserEditComponent implements OnInit {
               private router: Router,  public dialog: MatDialog, private lockService: LockService) { }
 
   ngOnInit(): void {
-
+    if (localStorage.getItem('lockedItem') === null) {
+      this.pageHeader = 'Read-only user';
+      this.isButtonVisible = false;
+      this.detailForm.disable();
+      this.addressForm.disable();
+    }
     this.id = this.getUrlParams();
     this.userService.getUser(this.id).subscribe((user) => {
 
@@ -74,26 +81,32 @@ export class UserEditComponent implements OnInit {
       });
       this.patchAddressForm();
       this.initalValues = this.detailForm.value;
+      this.initalValuesAddress = this.addressForm.value;
     });
 
   }
 
   patchAddressForm(): void {
     this.userService.getUserAddress(this.userAddressId).subscribe((address) => {
-      console.log(address);
+
 
       this.addressForm.patchValue(address[0]);
     });
   }
+
+  // TODO: dodaj u uslov i promenu na formi adrese
   backToUserTable(): void {
     if (this.initalValues !== this.detailForm.value) {
       this.openGoBackModal();
     } else {
-      this.unlockItem(localStorage.getItem('lockedItem'));
-      localStorage.removeItem('lockedItem');
-
-      this.router.navigate([`/admin-home-page/user`]);
-
+      const itemId = localStorage.getItem('lockedItem');
+      if (itemId !== null) {
+        this.unlockItem(itemId);
+        localStorage.removeItem('lockedItem');
+        this.router.navigate([`/admin-home-page/user`]);
+      } else {
+        this.router.navigate([`/admin-home-page/user`]);
+      }
     }
   }
 
@@ -102,7 +115,8 @@ export class UserEditComponent implements OnInit {
   }
 
   getUrlParams(): any {
-    const url = this.route['_routerState'].snapshot.url;
+    const newLocal = '_routerState';
+    const url = this.route[newLocal].snapshot.url;
     const n = url.lastIndexOf('/');
     const result = url.substring(n + 1);
 
@@ -111,9 +125,6 @@ export class UserEditComponent implements OnInit {
 
   openGoBackModal(): void{
     const dialogRef = this.dialog.open(UserEditModalComponent);
-    // dialogRef.afterClosed().subscribe(x => {
-    //   this.showUsers(this.parametars);
-    // });
    }
 
    unlockItem(lockedItemId: any): void {
