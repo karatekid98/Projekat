@@ -23,7 +23,7 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   constructor(private router: Router, private resolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
-    if (window.location.href.indexOf("user") !== -1){
+    if (window.location.href.indexOf('user') !== -1){
       console.log('tu sam');
 
     }

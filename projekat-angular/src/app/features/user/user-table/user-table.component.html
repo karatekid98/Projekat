@@ -34,7 +34,7 @@
         </mat-accordion>
 
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <ng-container matColumnDef="id">
+          <ng-container matColumnDef="id" >
             <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
           </ng-container>
@@ -129,13 +129,13 @@
               fxLayout="row"
               fxLayoutAlign="center center"
               *matCellDef="let element"
-              (click)="openUserEditPage(element.id)"
+              (click)="readUserEditPage(element.id)"
             >
-              <mat-icon>remove_red_eye</mat-icon></mat-cell
+              <mat-icon >remove_red_eye</mat-icon></mat-cell
             >
           </ng-container>
 
-          <ng-container matColumnDef="edit">
+          <ng-container matColumnDef="edit" class="disable">
             <mat-header-cell
               fxLayout="row"
               fxLayoutAlign="center center"
@@ -151,12 +151,12 @@
               *matCellDef="let element"
               (click)="openUserEditPage(element.id)"
             >
-              <mat-icon>mode_edit</mat-icon></mat-cell
+              <mat-icon [color]="editIndicator == true && element.id == this.lockedItem.itemId ? 'warn' : ''">mode_edit</mat-icon></mat-cell
             >
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          <mat-row [ngClass]="{'disable': row.symbol == true}" *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
 
         <mat-paginator

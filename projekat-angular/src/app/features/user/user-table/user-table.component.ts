@@ -22,6 +22,7 @@ export class UserTableComponent implements OnInit {
    'address', 'email', 'phone', 'role', 'dateOfBirth', 'gender',
     'delete', 'read', 'edit'];
 
+  editIndicator = false;
   tableOpened: boolean = true;
   userId: any;
   lockedItem: LockItem = {
@@ -46,6 +47,7 @@ export class UserTableComponent implements OnInit {
     this.lockedItem.userId = localStorage.getItem('userId');
     const lockedItem = localStorage.getItem('lockedItem');
     if (lockedItem !== null) {
+      this.editIndicator = true;
       this.lockedItem.itemId = lockedItem;
     }
 
@@ -111,12 +113,15 @@ export class UserTableComponent implements OnInit {
 
   openUserEditPage(id: any): void{
       this.lockService.getIsItemLocked(id).subscribe((result) => {
-        console.log(result);
         if (result === false) {
               this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
               this.lockItem(id);
           }
       });
+  }
+
+  readUserEditPage(id: any): void{
+    this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
   }
 
   lockItem(id: any): void {

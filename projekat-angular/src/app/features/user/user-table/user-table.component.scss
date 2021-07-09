@@ -22,3 +22,8 @@ table {
   margin: 20px;
   color: white;
  }
+
+ .disable {
+   background-color: #ee0000;
+   pointer-events: none;
+ }
