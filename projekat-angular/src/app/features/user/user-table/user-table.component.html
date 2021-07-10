@@ -145,13 +145,15 @@
               Edit
             </mat-header-cell>
             <mat-cell
+
               class="edit-button"
               fxLayout="row"
               fxLayoutAlign="center center"
               *matCellDef="let element"
               (click)="openUserEditPage(element.id)"
             >
-              <mat-icon [color]="editIndicator == true && element.id == this.lockedItem.itemId ? 'warn' : ''">mode_edit</mat-icon></mat-cell
+            <button mat-icon-button [disabled]="editIndicator == true && element.id == this.lockedItem.itemId">
+              <mat-icon [color]="editIndicator == true && element.id == this.lockedItem.itemId ? 'warn' : ''">mode_edit</mat-icon></button></mat-cell
             >
           </ng-container>
 
