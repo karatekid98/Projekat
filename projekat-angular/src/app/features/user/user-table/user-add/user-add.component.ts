@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { _MatTabGroupBase } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { SingUp } from 'src/app/models/singup';
+import { UserForm } from 'src/app/models/singup';
 import { User } from 'src/app/models/user';
 import { UserService } from '../../../../core/services/user-service/user.service';
 
@@ -26,7 +27,7 @@ export class UserAddComponent implements OnInit {
     role: false
   };
 
-  public singup: SingUp = {
+  public singup: UserForm = {
     AddressDto: {
       country: '',
       city: '',
@@ -44,7 +45,7 @@ export class UserAddComponent implements OnInit {
     },
   };
 
-  email: string = '';
+  email: '';
   gender = ['Female', 'Male'];
 
   hide = true;
@@ -71,13 +72,13 @@ export class UserAddComponent implements OnInit {
     ]),
   });
 
-  get emailInputSingup() {
+  get emailInputSingup(): any {
     return this.singupForm.get('emailSingUp');
   }
-  get passwordInputSingUp() {
+  get passwordInputSingUp(): any {
     return this.singupForm.get('passwordSingUp');
   }
-  get passwordInputConfirm() {
+  get passwordInputConfirm(): any {
     return this.singupForm.get('confirmPassword');
   }
 
@@ -88,25 +89,30 @@ export class UserAddComponent implements OnInit {
 
   // TODO: add message if passwords don't match
   finishSingup(): void {
-    this.fillOutForm();
-    this.userService.addUser(this.singup).subscribe(
-      (response) => {
-        this.user.firstName = response.firstName;
-        this.user.lastName = response.lastName;
-        this.user.gender = response.gender;
-        this.user.dateOfBirth = response.dateOfBirth;
-        this.user.password = response.password;
-        this.user.email = response.email;
-        this.user.phone = response.phone;
-        this.formFilled = true;
-        this.openSnackBar();
-        this.router.navigate(['admin-home-page/user']);
-      },
-      (error) => {
-        this.formFilled = false;
-        console.log(error.error);
-      }
-    );
+    if (this.checkPasswords) {
+      this.fillOutForm();
+      this.userService.addUser(this.singup).subscribe(
+        (response) => {
+          this.user.firstName = response.firstName;
+          this.user.lastName = response.lastName;
+          this.user.gender = response.gender;
+          this.user.dateOfBirth = response.dateOfBirth;
+          this.user.password = response.password;
+          this.user.email = response.email;
+          this.user.phone = response.phone;
+          this.formFilled = true;
+          this.openSnackBar();
+          this.router.navigate(['admin-home-page/user']);
+        },
+        (error) => {
+          this.formFilled = false;
+          console.log(error.error);
+        }
+      );
+    } else {
+      this.formFilled = false;
+    }
+
   }
 
   fillOutForm(): void {
@@ -132,12 +138,12 @@ export class UserAddComponent implements OnInit {
   }
 
   backToUserTable(): void  {
-    this.router.navigate([`/admin-home-page/user/`]).then(() => {
-      window.location.reload();
-    });
+    this.router.navigate([`/admin-home-page/user/`]);
   }
 
   checkPasswords(): boolean {
+    this.passwordInputSingUp();
+    this.passwordInputConfirm();
     if (this.passwordInputSingUp === this.passwordInputConfirm) {
       return true;
     } else {
