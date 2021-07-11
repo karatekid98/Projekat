@@ -1,8 +1,8 @@
+import { UserForm } from 'src/app/models/singup';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Address } from 'src/app/models/address';
-import { SingUp } from 'src/app/models/singup';
 import { User } from 'src/app/models/user';
 import { PaginationResponse } from '../../../models/paginationResponse';
 import { Invoice } from '../../../models/invoice';
@@ -34,7 +34,7 @@ export class UserService {
     return this.http.delete(`http://localhost:28846/api/User/softDelete/${id}`);
   }
 
-  addUser(singupForm: SingUp): Observable<User> {
+  addUser(singupForm: UserForm): Observable<User> {
     return this.http.post<User>(`http://localhost:28846/api/User/singUp`, singupForm);
   }
 
@@ -46,10 +46,8 @@ export class UserService {
     return this.http.get<Invoice[]>(`http://localhost:28846/api/User/GetUserInvoices/${id}`);
   }
 
-
-  // TODO: create update form in ts file and fix this method
-  updateUser(updateForm: SingUp, id: any): Observable<User> {
-    return this.http.put<User>(`http://localhost:28846/api/User/${id}`, updateForm);
+  updateUser(user: User, id: any): Observable<User> {
+    return this.http.put<User>(`http://localhost:28846/api/User/${id}`, user);
   }
 
   undoDeleteUser(id: any): Observable<User> {
