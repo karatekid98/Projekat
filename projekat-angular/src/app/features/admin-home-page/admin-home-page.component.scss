@@ -82,17 +82,22 @@
   padding: 15px !important;
 }
 
-.mat-toolbar-row:hover {
+.mat-toolbar-row:hover, .highlight  {
   cursor: pointer;
   user-select: none;
   background-color: #161616;
-  border-bottom: whitesmoke 0.5px solid;
+}
+
+.highlight {
+  border-top: #4caf50 0.5px solid;
+  border-bottom: #4caf50 0.5px solid;
 }
 
 .mat-icon-span {
   margin-left: 10px;
   font-size: 20px;
 }
+
 
 #shift-admin-panel {
   background-color: rgb(0, 0, 0);

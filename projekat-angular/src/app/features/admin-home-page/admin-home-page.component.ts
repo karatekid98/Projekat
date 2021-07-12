@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddressComponent } from '../address/address.component';
 import { TemplateRef } from '@angular/core';
 import { CustomerComponent } from '../customer/customer.component';
@@ -7,6 +7,7 @@ import { UserComponent } from '../user/user.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { SelectionModel } from '@angular/cdk/collections';
 @Component({
   selector: 'app-admin-home-page',
   templateUrl: './admin-home-page.component.html',
@@ -17,16 +18,14 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   @ViewChild('isLoggedInTemplate', { read: TemplateRef }) template: TemplateRef<any>;
 
   row = '';
+  selectedRow = 'Admin';
   showFiller = false;
+  status = false;
 
 
-  constructor(private router: Router, private resolver: ComponentFactoryResolver) {}
+  constructor(private router: Router, private route: ActivatedRoute, private resolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
-    if (window.location.href.indexOf('user') !== -1){
-      console.log('tu sam');
-
-    }
 
   }
 
@@ -35,20 +34,11 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
     this.viewContainer.createComponent(componentFactory);
   }
 
-  openComponent(event): void {
+  openComponent(component): void {
     this.viewContainer.clear();
 
-    if (event.target.id === '') {
-      this.getClickedRow(event.target.parentElement.id);
 
-    } else {
-      this.getClickedRow(event.target.id);
-    }
-
-
-
-    let clickedComponent = this.row;
-    clickedComponent = this.row + 'Component';
+    let clickedComponent = component + 'Component';
     if (clickedComponent === 'CustomerComponent') {
       const componentFactory = this.resolver.resolveComponentFactory(CustomerComponent);
       this.viewContainer.createComponent(componentFactory);
@@ -67,22 +57,16 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
     } else if (clickedComponent === 'UserProfileEditComponent') {
       const componentFactory = this.resolver.resolveComponentFactory(UserProfileComponent);
       this.viewContainer.createComponent(componentFactory);
-    }else {
+    } else {
       const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
       this.viewContainer.createComponent(componentFactory);
     }
+
   }
 
   logOut(): void {
     localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/login-page']);
   }
-
-
-  getClickedRow(id: string): string {
-    this.row = id;
-    return this.row;
-  }
-
 
 }

@@ -21,9 +21,7 @@ export class UserEditComponent implements OnInit {
   hide = true;
   confirmhide = true;
   formFilled = true;
-  public id: any;
-  // user: User;
-  // address: Address;
+  id: any;
   hasChange = false;
   initalValues: any;
   initalValuesAddress: any;
@@ -112,16 +110,15 @@ export class UserEditComponent implements OnInit {
       });
       this.patchAddressForm();
       this.initalValues = this.detailForm.value;
-      this.initalValuesAddress = this.addressForm.value;
+
     });
 
   }
 
   patchAddressForm(): void {
     this.userService.getUserAddress(this.userAddressId).subscribe((address) => {
-
-
       this.addressForm.patchValue(address[0]);
+      this.initalValuesAddress = this.addressForm.value;
     });
   }
 
@@ -163,15 +160,7 @@ export class UserEditComponent implements OnInit {
   }
 
   updateAddress(addressId: any): void {
-    this.addressService.updateAddress(this.address, addressId).subscribe(
-      (response) => {
-
-      },
-      (error) => {
-        this.formFilled = false;
-        console.log(error.error);
-      }
-    );
+    this.addressService.updateAddress(this.address, addressId).subscribe();
   }
 
   fillOutForm(): void {
