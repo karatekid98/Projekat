@@ -6,6 +6,8 @@ import { UserService } from 'src/app/core/services/user-service/user.service';
 import { User } from 'src/app/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { LockService } from 'src/app/core/services/lock-service/lock.service';
+import { compilePipeFromMetadata } from '@angular/compiler';
+import { AdminHomePageComponent } from '../../admin-home-page/admin-home-page.component';
 
 @Component({
   selector: 'app-user-edit',
@@ -49,22 +51,23 @@ export class UserEditComponent implements OnInit {
 
 
 
-  get emailInput() {
+  get emailInput(): any {
     return this.detailForm.get('email');
   }
-  get passwordInput() {
+  get passwordInput(): any  {
     return this.detailForm.get('password');
   }
-  get passwordInputConfirm() {
+  get passwordInputConfirm(): any  {
     return this.detailForm.get('confirmPassword');
   }
 
-  constructor(private route: ActivatedRoute, private userService: UserService,
+  constructor(private route: ActivatedRoute, private userService: UserService, private parent: AdminHomePageComponent,
               private router: Router,  public dialog: MatDialog, private lockService: LockService) { }
 
   ngOnInit(): void {
 
     this.id = this.getUrlParams();
+    console.log(this.id);
     this.userService.getUser(this.id).subscribe((user) => {
 
       this.userAddressId = user.addressId;
@@ -85,10 +88,11 @@ export class UserEditComponent implements OnInit {
       this.addressForm.patchValue(address[0]);
     });
   }
-  backToUserTable(): void {
+  backToUserTable(component): void {
     if (this.initalValues !== this.detailForm.value) {
       this.openGoBackModal();
     } else {
+      this.assignComponent(component);
       this.unlockItem(localStorage.getItem('lockedItem'));
       localStorage.removeItem('lockedItem');
 
@@ -97,6 +101,9 @@ export class UserEditComponent implements OnInit {
     }
   }
 
+  assignComponent(component): any {
+    this.parent.assignComponent(component);
+  }
   submit(): void {
 
   }
@@ -105,6 +112,7 @@ export class UserEditComponent implements OnInit {
     const url = this.route['_routerState'].snapshot.url;
     const n = url.lastIndexOf('/');
     const result = url.substring(n + 1);
+
 
     return result;
   }

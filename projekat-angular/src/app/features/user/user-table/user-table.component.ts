@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { LockItem } from '../../../models/lockItem';
 import { LockService } from '../../../core/services/lock-service/lock.service';
+import { AdminHomePageComponent } from '../../admin-home-page/admin-home-page.component';
 
 @Component({
   selector: 'app-user-table',
@@ -38,8 +39,9 @@ export class UserTableComponent implements OnInit {
     pageNumber: 1,
     pageSize: 5
   };
+  DynamicComponent = UserAddComponent;
 
-  constructor(private router: Router, private userService: UserService,
+  constructor(private router: Router, private userService: UserService, private parent: AdminHomePageComponent,
               public dialog: MatDialog, private resolver: ComponentFactoryResolver, private lockService: LockService) { }
 
   ngOnInit(): void {
@@ -109,19 +111,32 @@ export class UserTableComponent implements OnInit {
     this.showUsers(this.parametars);
   }
 
-  openUserEditPage(id: any): void{
-      this.lockService.getIsItemLocked(id).subscribe((result) => {
-        console.log(result);
-        if (result === false) {
-              this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
-              this.lockItem(id);
-          }
-      });
+  openUserEditPage(id: any, component): void{
+
+    this.assignComponent(component);
+    this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
+    // this.lockService.getIsItemLocked(id).subscribe((result) => {
+
+    //     if (result === false) {
+    //           this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
+    //           this.lockItem(id);
+    //       }
+    //   });
   }
 
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
     localStorage.setItem('lockedItem', id);
     this.lockService.postLockItem(this.lockedItem).subscribe();
+  }
+
+
+    assignComponent(component): any {
+      this.parent.assignComponent(component);
+    // if (component === 'user-add') {
+    //   this.DynamicComponent = UserAddComponent;
+    // } else {
+    //  // this.DynamicComponent = AddressComponent;
+    // }
   }
 }

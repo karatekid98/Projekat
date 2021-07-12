@@ -11,7 +11,7 @@
             mat-raised-button
             color="primary"
             [routerLink]="['user/add-user']"
-
+            (click)="assignComponent('user-add')"
           >
             <mat-icon>add</mat-icon> Add new user
           </button>
@@ -129,7 +129,7 @@
               fxLayout="row"
               fxLayoutAlign="center center"
               *matCellDef="let element"
-              (click)="openUserEditPage(element.id)"
+              (click)="openUserEditPage(element.id, 'user-edit')"
             >
               <mat-icon>remove_red_eye</mat-icon></mat-cell
             >
@@ -149,7 +149,7 @@
               fxLayout="row"
               fxLayoutAlign="center center"
               *matCellDef="let element"
-              (click)="openUserEditPage(element.id)"
+              (click)="openUserEditPage(element.id, 'user-edit')"
             >
               <mat-icon>mode_edit</mat-icon></mat-cell
             >

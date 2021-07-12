@@ -1,29 +1,28 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { UserTableComponent } from './../user/user-table/user-table.component';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AddressComponent } from '../address/address.component';
+
 import { TemplateRef } from '@angular/core';
-import { CustomerComponent } from '../customer/customer.component';
-import { UserComponent } from '../user/user.component';
-import { InvoiceComponent } from '../invoice/invoice.component';
-import { ProductComponent } from '../product/product.component';
-import { UserProfileComponent } from '../user-profile/user-profile.component';
+
+import { UserAddComponent } from '../user/user-table/user-add/user-add.component';
+import { UserEditComponent } from '../user/user-edit/user-edit.component';
+import { AddressComponent } from '../address/address.component';
 @Component({
   selector: 'app-admin-home-page',
   templateUrl: './admin-home-page.component.html',
   styleUrls: ['./admin-home-page.component.scss'],
 })
 export class AdminHomePageComponent implements OnInit, AfterViewInit {
-  @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
-  @ViewChild('isLoggedInTemplate', { read: TemplateRef }) template: TemplateRef<any>;
 
   row = '';
   showFiller = false;
 
+  DynamicComponent: any;
 
   constructor(private router: Router, private resolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
-    if (window.location.href.indexOf("user") !== -1){
+    if (window.location.href.indexOf('user') !== -1){
       console.log('tu sam');
 
     }
@@ -31,45 +30,28 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
-    this.viewContainer.createComponent(componentFactory);
+
   }
 
-  openComponent(event): void {
-    this.viewContainer.clear();
+  assignComponent(component): any {
+    console.log('clicked');
 
-    if (event.target.id === '') {
-      this.getClickedRow(event.target.parentElement.id);
-
-    } else {
-      this.getClickedRow(event.target.id);
-    }
-
-
-
-    let clickedComponent = this.row;
-    clickedComponent = this.row + 'Component';
-    if (clickedComponent === 'CustomerComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(CustomerComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'UserComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'ProductComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(ProductComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'InvoiceComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(InvoiceComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'UserProfileComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserProfileComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'UserProfileEditComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserProfileComponent);
-      this.viewContainer.createComponent(componentFactory);
-    }else {
-      const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
-      this.viewContainer.createComponent(componentFactory);
+    if (component.includes('user')) {
+      if (component === 'user-add') {
+        this.DynamicComponent = UserAddComponent;
+      } else if (component === ('user-edit')) {
+        this.DynamicComponent = UserEditComponent;
+      } else {
+        this.DynamicComponent = UserTableComponent;
+      }
+    } else if (component.includes('address')) {
+      if (component === 'address-add') {
+        this.DynamicComponent = UserAddComponent;
+      } else if (component === ('address-edit')) {
+        this.DynamicComponent = UserEditComponent;
+      } else {
+        this.DynamicComponent = AddressComponent;
+      }
     }
   }
 

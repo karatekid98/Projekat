@@ -10,23 +10,23 @@
     </mat-toolbar>
     <div id="contents-wrapper" fxLayout="column" fxLayoutAlign="space-between">
       <div class="contents">
-        <mat-toolbar-row id="Address" [routerLink]="['address']" (click)="openComponent($event)">
+        <mat-toolbar-row id="Address" [routerLink]="['address']" (click)="assignComponent('address')">
           <mat-icon aria-hidden="false">location_city</mat-icon>
           <span class="mat-icon-span">Address</span>
         </mat-toolbar-row>
-        <mat-toolbar-row id="Invoice" [routerLink]="['invoice']" (click)="openComponent($event)">
+        <mat-toolbar-row id="Invoice" [routerLink]="['invoice']" (click)="assignComponent('invoice')">
           <mat-icon aria-hidden="false">description</mat-icon>
           <span  class="mat-icon-span">Invoice</span>
         </mat-toolbar-row>
-        <mat-toolbar-row id="Product" [routerLink]="['product']" (click)="openComponent($event)">
+        <mat-toolbar-row id="Product" [routerLink]="['product']" (click)="assignComponent('product')">
           <mat-icon aria-hidden="false" >production_quantity_limits</mat-icon>
           <span  class="mat-icon-span">Product</span>
         </mat-toolbar-row>
-        <mat-toolbar-row id="User" [routerLink]="['user']" (click)="openComponent($event)">
+        <mat-toolbar-row id="User" [routerLink]="['user']" (click)="assignComponent('user')">
           <mat-icon aria-hidden="false" >supervised_user_circle</mat-icon>
           <span class="mat-icon-span">User</span>
         </mat-toolbar-row>
-        <mat-toolbar-row id="Customer" [routerLink]="['customer']" (click)="openComponent($event)">
+        <mat-toolbar-row id="Customer" [routerLink]="['customer']" (click)="assignComponent('customer')">
           <mat-icon aria-hidden="false">tag_faces</mat-icon>
           <span  class="mat-icon-span">Customer</span>
         </mat-toolbar-row>
@@ -37,7 +37,7 @@
           <mat-icon aria-hidden="false" aria-label="Example home icon">admin_panel_settings</mat-icon>
         </button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">
-            <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center"  id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent($event)">Account Settings
+            <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center"  id="UserProfile"  [routerLink]="['user-profile']" (click)="assignComponent('user-profile')">Account Settings
               <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
             </button>
             <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
@@ -63,7 +63,7 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #belowMenu="matMenu" yPosition="below">
-          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent($event)">Account Settings
+          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" id="UserProfile"  [routerLink]="['user-profile']" (click)="assignComponent('user-profile')">Account Settings
             <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
           </button>
           <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
@@ -80,10 +80,10 @@
     </div>
   </mat-toolbar>
   <div class="main contents" >
-
-    <ng-container #viewContainer>
+    <ng-container *ngComponentOutlet="DynamicComponent"> </ng-container>
+    <!-- <ng-container #viewContainer>
      <router-outlet></router-outlet>
-    </ng-container>
+    </ng-container> -->
   </div>
 
   <mat-toolbar class="main footer">

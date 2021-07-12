@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit, ViewContainerRef, ViewChild, ComponentFactoryResolver, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ComponentFactoryResolver, Inject} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserTableComponent } from './user-table/user-table.component';
+
 import { UserAddComponent } from './user-table/user-add/user-add.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
+
 import { AdminHomePageComponent } from '../admin-home-page/admin-home-page.component';
+
 
 @Component({
   selector: 'app-user',
@@ -11,27 +12,14 @@ import { AdminHomePageComponent } from '../admin-home-page/admin-home-page.compo
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit, AfterViewInit {
-  // @HostListener('document:click', ['$event'])
+
   clicked = false;
   str: string;
   private wasInside = false;
   public text: string;
 
-  // @HostListener('click', ['$event'])
-  // public clickInside(event: any) {
-  //   this.text = 'clicked inside';
-  //   this.wasInside = true;
-  //   console.log('unutra');
+  DynamicComponent = UserAddComponent;
 
-  // }
-
-  // @HostListener('document:click', ['$event'])
-  // public clickout(event: any) {
-  //   if (!this.wasInside) {
-  //   }
-  //   this.wasInside = false;
-  //   console.log('spolja');
-  // }
   constructor(@Inject(AdminHomePageComponent) private parent: AdminHomePageComponent,
               private route: ActivatedRoute,
               private router: Router, private resolver: ComponentFactoryResolver) { }
@@ -42,28 +30,18 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.initializeComponent();
-    }, 0);
+
 
   }
 
-  initializeComponent(): void {
-    this.parent.viewContainer.clear();
-    if (this.router.url === '/admin-home-page/user') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserTableComponent);
-      this.parent.viewContainer.createComponent(componentFactory);
-    } else if (this.router.url === '/admin-home-page/user/add-user') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserAddComponent);
-      this.parent.viewContainer.createComponent(componentFactory);
-    } else if (this.router.url === '/admin-home-page/user/edit-user') {
 
-    } else {
-      if (window.location.href.indexOf('/admin-home-page/user/edit-user') > -1) {
-        const componentFactory = this.resolver.resolveComponentFactory(UserEditComponent);
-        this.parent.viewContainer.createComponent(componentFactory);
-      }
-    }
+  assignComponent(component): any {
+    this.parent.assignComponent(component);
+    // if (component === 'user/add-user') {
+    //   this.DynamicComponent = UserAddComponent;
+    // } else {
+
+    // }
   }
 
 }
