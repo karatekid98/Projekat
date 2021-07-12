@@ -50,16 +50,16 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   initializeComponent(): void {
     this.parent.viewContainer.clear();
-    if (this.router.url === '/admin-home-page/user') {
+    let comp = 'user';
+    let component = 'UserTableComponent';
+    if (this.router.url === `/admin-home-page/${comp}`) {
       const componentFactory = this.resolver.resolveComponentFactory(UserTableComponent);
       this.parent.viewContainer.createComponent(componentFactory);
-    } else if (this.router.url === '/admin-home-page/user/add-user') {
+    } else if (this.router.url === `/admin-home-page/${comp}/add-${comp}`) {
       const componentFactory = this.resolver.resolveComponentFactory(UserAddComponent);
       this.parent.viewContainer.createComponent(componentFactory);
-    } else if (this.router.url === '/admin-home-page/user/edit-user') {
-
     } else {
-      if (window.location.href.indexOf('/admin-home-page/user/edit-user') > -1) {
+      if (window.location.href.indexOf(`/admin-home-page/${comp}/edit-${comp}`) > -1) {
         const componentFactory = this.resolver.resolveComponentFactory(UserEditComponent);
         this.parent.viewContainer.createComponent(componentFactory);
       }
