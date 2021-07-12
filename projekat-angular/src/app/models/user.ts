@@ -6,7 +6,7 @@ export interface User {
   role: boolean;
   dateOfBirth: Date;
   gender: string;
-  addressId: string;
+  addressId?: string;
   password: string;
-  id: string;
+  id?: any;
 }

@@ -1,4 +1,4 @@
-export interface SingUp {
+export interface UserForm {
   AddressDto: {
     city: string;
     country: string;

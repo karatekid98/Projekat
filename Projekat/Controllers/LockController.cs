@@ -20,6 +20,7 @@ namespace Projekat.Controllers
             _lockService = lockService;
         }
 
+
         [HttpPost("lockItem")]
         public ActionResult LockItem([FromBody] LockRequest lockRequest)
         {

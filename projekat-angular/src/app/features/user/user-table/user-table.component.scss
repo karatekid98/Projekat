@@ -1,5 +1,3 @@
-// TODO: add bottom padding(pagination not visible when 20 rows are viisble)
-
 table {
   width: 100%;
 }
@@ -21,4 +19,9 @@ table {
  #add-button {
   margin: 20px;
   color: white;
+ }
+
+ .disable {
+   background-color: #ee0000;
+   pointer-events: none;
  }

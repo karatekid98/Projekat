@@ -29,7 +29,6 @@ export class UserProfileComponent implements OnInit, AfterContentInit   {
     this.getUserInvoices();
   }
 
-  // TODO: maybe add user location on google map
   ngAfterContentInit(): void {
 
     // TODO: change scroll
@@ -69,10 +68,10 @@ export class UserProfileComponent implements OnInit, AfterContentInit   {
     });
   }
 
-  openComponent(event): void {
-    this.viewContainer.clear();
+  // openComponent(event): void {
+  //   this.viewContainer.clear();
 
-    const componentFactory = this.resolver.resolveComponentFactory(UserProfileEditComponent);
-    this.viewContainer.createComponent(componentFactory);
-  }
+  //   const componentFactory = this.resolver.resolveComponentFactory(UserProfileEditComponent);
+  //   this.viewContainer.createComponent(componentFactory);
+  // }
 }

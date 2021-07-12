@@ -38,9 +38,8 @@ export class AddressService {
     return this.http.post<Address>(`http://localhost:28846/api/Address/singUp`, addressForm);
   }
 
-  // TODO: create update form in ts file and fix this method
-  updateAddress(updateForm: Address, id: any): Observable<Address> {
-    return this.http.put<Address>(`http://localhost:28846/api/Address/${id}`, updateForm);
+  updateAddress(address: Address, id: any): Observable<Address> {
+    return this.http.put<Address>(`http://localhost:28846/api/Address/${id}`, address);
   }
 
   undoDeleteAddress(id: any): Observable<Address> {
