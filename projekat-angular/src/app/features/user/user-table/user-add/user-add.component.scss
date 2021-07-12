@@ -1,16 +1,18 @@
 #container {
-  margin: 50px 50px 0px 80px;
+  margin: 80px 50px 0 80px;
   max-width: 600px;
-  padding-top: 30px;
+  padding: 15px;
+  background-color: whitesmoke;
 }
 .mat-form-field{
-  margin-top: 20px;
+  margin-top: 5px;
   width: 280px !important;
 }
 
 .mat-radio-button {
-  width: 150px;
+  width: 100px;
 }
+
 
 .warning {
   color:#4CAF50;
@@ -34,3 +36,4 @@
 .mat-card-actions button:nth-child(2) {
   width: 400px;
 }
+

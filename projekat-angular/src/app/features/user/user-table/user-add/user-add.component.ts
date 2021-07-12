@@ -13,6 +13,7 @@ import { UserService } from '../../../../core/services/user-service/user.service
   styleUrls: ['./user-add.component.scss']
 })
 export class UserAddComponent implements OnInit {
+  selected = 'Female';
   formFilled = true;
   public user: User = {
     firstName: '',
@@ -46,7 +47,7 @@ export class UserAddComponent implements OnInit {
   };
 
   email: '';
-  gender = ['Female', 'Male'];
+  genders = ['Female', 'Male'];
 
   hide = true;
   confirmhide = true;
