@@ -18,8 +18,8 @@ export class UserTableComponent implements OnInit {
 
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
   @Output() selectedTabChange: EventEmitter<MatTabChangeEvent>;
-  displayedColumns: string[] = ['id', 'lastName', 'firstName',
-   'address', 'email', 'phone', 'role', 'dateOfBirth', 'gender',
+  displayedColumns: string[] = ['id', 'address', 'firstName', 'lastName', 'gender',
+    'email', 'phone', 'role', 'dateOfBirth',
     'delete', 'read', 'edit'];
 
   editIndicator = false;

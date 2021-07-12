@@ -10,7 +10,7 @@ import { LockService } from 'src/app/core/services/lock-service/lock.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserForm } from 'src/app/models/singup';
 import { AddressService } from '../../../core/services/address-service/address.service';
-
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-user-edit',
@@ -18,6 +18,9 @@ import { AddressService } from '../../../core/services/address-service/address.s
   styleUrls: ['./user-edit.component.scss', '../user-table/user-add/user-add.component.scss']
 })
 export class UserEditComponent implements OnInit {
+
+
+  selected = 'Female';
   hide = true;
   confirmhide = true;
   formFilled = true;
@@ -72,7 +75,12 @@ export class UserEditComponent implements OnInit {
     line: new FormControl('', Validators.required)
   });
 
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
 
+    this.unlockItem(localStorage.getItem('lockedItem'));
+    localStorage.removeItem('lockedItem');
+  }
 
   get emailInput(): any {
     return this.detailForm.get('email');
@@ -101,6 +109,7 @@ export class UserEditComponent implements OnInit {
       this.user.role = user.role;
       this.user.id = user.id;
       this.address.id = user.addressId;
+      this.selected = user.gender;
 
       this.userAddressId = user.addressId;
       this.detailForm.patchValue(user);
@@ -139,6 +148,8 @@ export class UserEditComponent implements OnInit {
 
   submit(): void {
     this.fillOutForm();
+    console.log(this.detailForm.value);
+
     if (this.detailForm.valid && this.addressForm.valid) {
       this.userService.updateUser(this.user, this.id).subscribe(
         (response) => {

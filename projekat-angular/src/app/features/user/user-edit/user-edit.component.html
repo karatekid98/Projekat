@@ -13,6 +13,7 @@
         </mat-form-field>
       </div>
       <!--****************************************************************-->
+      <div fxLayout="row" fxLayoutAlign="space-between">
       <mat-form-field class="input-full-width">
         <mat-label>Telephone number</mat-label>
         <!-- <span matPrefix>+1 &nbsp;</span> -->
@@ -25,7 +26,16 @@
         />
         <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
       </mat-form-field>
-      <br />
+      <mat-form-field class="input-full-width">
+        <mat-label>Select gender</mat-label>
+        <mat-select formControlName='gender' [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="Female">Female</mat-option>
+          <mat-option value="Male">Male</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
       <!--****************************************************************-->
       <mat-form-field appearance="fill" class="input-full-width">
         <mat-label>Select your date of birth</mat-label>
@@ -37,13 +47,6 @@
       </mat-form-field>
 
 
-      <br />
-
-      <mat-label>Gender</mat-label><br />
-      <mat-radio-group formControlName="gender" required aria-label="Select an option">
-        <mat-radio-button value="Female">Female</mat-radio-button>
-        <mat-radio-button value="Male">Male</mat-radio-button>
-      </mat-radio-group>
       <br />
       <!--****************************************************************-->
       <mat-form-field class="input-full-width">
@@ -109,7 +112,7 @@
 
         <mat-form-field id="post-code" class="input-full-width">
           <mat-label>Postcode</mat-label>
-          <input matInput formControlName="postcode" required />
+          <input matInput formControlName="postcode" />
         </mat-form-field>
       </div>
       <!--****************************************************************-->

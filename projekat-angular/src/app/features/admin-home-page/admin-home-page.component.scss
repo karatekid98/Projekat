@@ -1,6 +1,6 @@
 .mat-drawer-container{
   height: 100% !important;
-  padding-bottom: 60px !important;
+background-color: white;
 }
 
 .drawer {
@@ -51,12 +51,13 @@
   height: 70px;
 }
 .contents {
-  height: 100%;
+  height: auto;
   margin-top: 60px !important ;
   //padding: 16px;
-  margin-bottom: auto;
+  margin-bottom: 60px;
   //overflow: hidden !important;
 }
+
 .mat-toolbar {
   height: 60px !important;
 }
@@ -134,4 +135,8 @@
 #menu-icon-header:hover {
   cursor: pointer;
   color: #4caf50;
+}
+
+.main.contents{
+  //padding-bottom: 50px;
 }

@@ -3,6 +3,7 @@ table {
 }
 .mat-header-cell, .mat-cell {
   justify-content: center;
+
 }
 .add-button:hover, .read-button:hover, .edit-button:hover , .delete-button:hover {
   cursor: pointer;
@@ -10,7 +11,12 @@ table {
   background-color: whitesmoke;
 }
 
-.mat-column-edit, .mat-column-delete, .mat-column-add, .mat-column-read {
+.mat-column-email {
+
+  width: 15% !important;
+}
+
+.mat-column-edit, .mat-column-delete, .mat-column-add, .mat-column-read, .mat-column-role {
   flex: 0 0 4% !important;
   width: 4% !important;
  }
@@ -25,3 +31,4 @@ table {
    background-color: #ee0000;
    pointer-events: none;
  }
+
