@@ -1,6 +1,13 @@
 {
   "Add new user": "Dodaj novog korisnika",
   "Address": "Adresa",
+  "Product": "Proizvod",
+  "User": "Korisnik",
+  "Customer": "Kupac",
+  "Change settings": "Podešavanja",
+  "Account Settings": "Podešavanja profila",
+  "Switch to user panel": "Korisnički panel",
+  "Log out": "Odjavi se",
   "E-mail": "E-posta",
   "Name": "Ime",
   "Delete": "Obrisi",
@@ -13,5 +20,6 @@
   "New customer": "Novi kupac",
   "Birth date": "Datum rodjenja",
   "Edit customer": "Izmeni kupca",
-  "SUBMIT CHANGE": "POTVRDI IZMENE"
+  "SUBMIT CHANGE": "POTVRDI IZMENE",
+  "Change language": "Promeni jezik"
 }

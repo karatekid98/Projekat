@@ -6,8 +6,7 @@
     <mat-toolbar class="header">
       <img src="../../../assets/img/logo.png" alt="">
       <div id="logo-image"> CName</div>
-      <button mat-icon-button (click)="switchLanguage('en')">en</button>
-      <button mat-icon-button (click)="switchLanguage('sr')">sr</button>
+
       <mat-icon class="close" (click)="drawer.close()">close</mat-icon>
     </mat-toolbar>
     <div id="contents-wrapper" fxLayout="column" fxLayoutAlign="space-between">
@@ -35,18 +34,26 @@
 
       </div>
       <div id="shift-admin-panel"  fxLayout="column" fxLayoutAlign="center center" >
-        <button id="admin-panel-button" mat-button [matMenuTriggerFor]="aboveMenu">Change settings
+        <button id="admin-panel-button" mat-button [matMenuTriggerFor]="aboveMenu">{{"Change settings" | translate}}
           <mat-icon aria-hidden="false" aria-label="Example home icon">admin_panel_settings</mat-icon>
         </button>
         <mat-menu #aboveMenu="matMenu" yPosition="above">
-            <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center"  id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent('UserProfile')">Account Settings
+          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center">
+            <span >{{"Change language" | translate}}</span>
+            <div fxLayout="row" fxLayoutAlign="center center" >
+              <button mat-icon-button color="warn"  (click)="switchLanguage('en')"> <span class="flag-icon flag-icon-gb"></span>  </button>
+              <button mat-icon-button color="warn"  (click)="switchLanguage('sr')"><span class="flag-icon flag-icon-rs"></span> </button>
+            </div>
+          </button>
+
+            <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center"  id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent('UserProfile')">{{"Account Settings"  | translate}}
               <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
             </button>
-            <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
+            <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >{{"Switch to user panel" | translate}}
               <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">person</mat-icon>
             </button>
             <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" (click)="logOut()"
-            >Log out
+            >{{"Log out" | translate}}
               <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
             </button>
         </mat-menu>
@@ -67,14 +74,21 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #belowMenu="matMenu" yPosition="below">
-          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent('UserProfile')">Account Settings
+          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center">
+            <span >{{"Change language" | translate}}</span>
+            <div fxLayout="row" fxLayoutAlign="center center" >
+              <button mat-icon-button color="warn"  (click)="switchLanguage('en')"> <span class="flag-icon flag-icon-gb"></span>  </button>
+              <button mat-icon-button color="warn"  (click)="switchLanguage('sr')"><span class="flag-icon flag-icon-rs"></span> </button>
+            </div>
+          </button>
+          <button mat-menu-item  fxLayout="row" fxLayoutAlign="space-between center" id="UserProfile"  [routerLink]="['user-profile']" (click)="openComponent('UserProfile')">{{"Account Settings"  | translate}}
             <mat-icon class="mat-icons-settings"aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
           </button>
-          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >Switch to user panel
+          <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" >{{"Switch to user panel" | translate}}
             <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">person</mat-icon>
           </button>
           <button mat-menu-item fxLayout="row" fxLayoutAlign="space-between center" (click)="logOut()"
-          >Log out
+          >{{"Log out" | translate}}
             <mat-icon class="mat-icons-settings" aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
           </button>
         </mat-menu>

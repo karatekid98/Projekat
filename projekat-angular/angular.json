@@ -5,6 +5,7 @@
   "projects": {
     "projekat-angular": {
       "projectType": "application",
+
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -32,9 +33,11 @@
             ],
             "styles": [
               {
+
                 "input": "src/theme.scss"
               },
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/flag-icon-css/css/flag-icon.min.css"
             ],
             "scripts": []
           },
