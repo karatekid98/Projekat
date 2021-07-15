@@ -22,9 +22,10 @@ export class UserTableComponent implements OnInit {
     'email', 'phone', 'role', 'dateOfBirth',
     'delete', 'read', 'edit'];
 
+  lockedItems: Array<object> = [];
   editIndicator = false;
   tableOpened: boolean = true;
-  userId: any;
+  userId;
   lockedItem: LockItem = {
     itemId: '',
     userId: ''
@@ -44,6 +45,7 @@ export class UserTableComponent implements OnInit {
               public dialog: MatDialog, private resolver: ComponentFactoryResolver, private lockService: LockService) { }
 
   ngOnInit(): void {
+
     this.lockedItem.userId = localStorage.getItem('userId');
     const lockedItem = localStorage.getItem('lockedItem');
     if (lockedItem !== null) {
@@ -127,6 +129,7 @@ export class UserTableComponent implements OnInit {
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
     localStorage.setItem('lockedItem', id);
+    this.lockedItems.push(this.lockedItem.itemId);
     this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 }

@@ -77,7 +77,6 @@ export class UserEditComponent implements OnInit {
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
-
     this.unlockItem(localStorage.getItem('lockedItem'));
     localStorage.removeItem('lockedItem');
   }
@@ -96,6 +95,7 @@ export class UserEditComponent implements OnInit {
               private router: Router,  public dialog: MatDialog, private addressService: AddressService,
               private lockService: LockService, private snackBar: MatSnackBar) { }
 
+  // TODO: ADD LIST OF ITEMS TO LOCAL STORAGE, ADD TIMER FOR EDITING USER
   ngOnInit(): void {
     if (localStorage.getItem('lockedItem') === null) {
       this.pageHeader = 'Read-only user';
@@ -148,7 +148,6 @@ export class UserEditComponent implements OnInit {
 
   submit(): void {
     this.fillOutForm();
-    console.log(this.detailForm.value);
 
     if (this.detailForm.valid && this.addressForm.valid) {
       this.userService.updateUser(this.user, this.id).subscribe(

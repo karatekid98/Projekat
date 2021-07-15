@@ -8,6 +8,9 @@ import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../core/services/translation.service';
+
 @Component({
   selector: 'app-admin-home-page',
   templateUrl: './admin-home-page.component.html',
@@ -16,17 +19,21 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class AdminHomePageComponent implements OnInit, AfterViewInit {
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
   @ViewChild('isLoggedInTemplate', { read: TemplateRef }) template: TemplateRef<any>;
-
+  selectedLang = true;
   row = '';
   selectedRow = 'Admin';
   showFiller = false;
   status = false;
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private resolver: ComponentFactoryResolver) {}
+  constructor(private router: Router, private route: ActivatedRoute, private resolver: ComponentFactoryResolver,
+              private translate: TranslationService) {
+              }
 
   ngOnInit(): void {
+    if (this.selectedLang) {
 
+    }
   }
 
   ngAfterViewInit(): void {
@@ -68,5 +75,10 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('isLoggedIn');
     this.router.navigate(['/login-page']);
   }
+
+  switchLanguage(language: string): void {
+    this.translate.switchLanguage(language);
+  }
+
 
 }
