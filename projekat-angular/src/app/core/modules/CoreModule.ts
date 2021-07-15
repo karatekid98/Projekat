@@ -2,6 +2,8 @@ import { LoadingDataInterceptor } from './../services/loading-spinner-service/lo
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from '../services/auth-gard-service/auth-gard';
+import { TranslationService } from '../services/translation.service';
 
 @NgModule({
   declarations: [],
@@ -12,7 +14,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     provide: HTTP_INTERCEPTORS,
     useClass: LoadingDataInterceptor,
     multi: true,
-  }],
+  }, AuthGuard, TranslationService
+],
 })
 export class CoreModule {
 }

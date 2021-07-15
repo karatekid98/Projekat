@@ -9,7 +9,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,9 +23,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageNotFoundComponent } from '../features/page-not-found/page-not-found.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
+import { TranslateLabelsPipe } from './translate-labels.pipe';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
-  declarations: [PageNotFoundComponent],
+  declarations: [PageNotFoundComponent, TranslateLabelsPipe],
   imports: [
     CommonModule,
     MatCardModule,
@@ -50,7 +58,14 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSnackBarModule,
     FlexLayoutModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
     MatCardModule,
@@ -75,7 +90,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSnackBarModule,
     FlexLayoutModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    TranslateLabelsPipe,
+    TranslateModule
   ]
 })
 export class SharedModule { }

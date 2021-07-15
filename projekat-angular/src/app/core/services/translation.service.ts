@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,12 +8,13 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TranslationService implements OnInit {
-  private jsonURL = '../../../assets/i18n/translation-label.json';
+  private jsonURL = '../../../assets/i18n/sr.json';
   private jsonData;
   public proba;
 
   constructor(private translate: TranslateService, private http: HttpClient, ) {
     translate.setDefaultLang('en');
+    translate.use('en');
    }
 
    ngOnInit(): void {}
@@ -36,8 +37,10 @@ export class TranslationService implements OnInit {
 
   switchLanguage(language: string): void {
     this.translate.use(language);
-    console.log('language', language);
-
+    this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
+      this.translate.setDefaultLang(event.lang);
+      console.log(event.lang);
+    });
   }
 
 }

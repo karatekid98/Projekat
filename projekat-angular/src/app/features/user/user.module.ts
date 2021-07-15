@@ -11,7 +11,13 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { RouterModule } from '@angular/router';
 import { UserRoutingModule } from './user-routing.module';
 import { UserEditModalComponent } from './user-edit/user-edit-modal/user-edit-modal.component';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule } from '@ngx-translate/core';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [UserComponent, UserTableComponent, UserDeleteModalComponent, UserAddComponent, UserEditComponent, UserEditModalComponent],
@@ -20,7 +26,8 @@ import { UserEditModalComponent } from './user-edit/user-edit-modal/user-edit-mo
     SharedModule,
     CoreModule,
     RouterModule,
-    UserRoutingModule
+    UserRoutingModule,
+    TranslateModule
   ],
   exports: [UserComponent, UserTableComponent, UserAddComponent],
   providers: [UserService]

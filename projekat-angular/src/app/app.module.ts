@@ -13,6 +13,8 @@ import { UserModule } from './features/user/user.module';
 import { ProductTableComponent } from './features/product/product-table/product-table.component';
 import { SettingsComponent } from './features/settings-page/settings.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -38,3 +40,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

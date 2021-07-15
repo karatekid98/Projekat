@@ -10,7 +10,6 @@ export class TranslateLabelsPipe implements PipeTransform {
 
   }
   transform(value: string, ...args: any): any {
-    console.log(this.getTranslation.getJSONfile(value));
     return this.getTranslation.getJSONfile(value);
   }
 

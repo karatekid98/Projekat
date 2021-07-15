@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { delay } from 'rxjs/operators';
 import { LoadingSpinnerService } from './core/services/loading-spinner-service/loading-spinner.service';
 
@@ -10,7 +11,9 @@ import { LoadingSpinnerService } from './core/services/loading-spinner-service/l
 export class AppComponent {
   title = 'projekat-angular';
   logged = '';
-  constructor(private spinnerService: LoadingSpinnerService) {}
+  constructor(private spinnerService: LoadingSpinnerService) {
+
+  }
 
   showSpinner = this.spinnerService.visibility.pipe(delay(0));
 
