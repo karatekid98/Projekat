@@ -1,0 +1,54 @@
+<div id="container">
+  <mat-card-title>Add new address</mat-card-title>
+  <mat-card-content fxLayout="column">
+    <form [formGroup]="addressForm">
+
+      <!--****************************************************************-->
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <mat-form-field class="input-full-width">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" required />
+        </mat-form-field>
+
+        <mat-form-field id="post-code" class="input-full-width">
+          <mat-label>Postcode</mat-label>
+          <input matInput formControlName="postcode" />
+        </mat-form-field>
+      </div>
+      <!--****************************************************************-->
+      <mat-form-field class="input-full-width">
+        <mat-label>Line</mat-label>
+        <input matInput formControlName="line" required />
+      </mat-form-field>
+      <br />
+      <!--****************************************************************-->
+
+      <mat-form-field class="input-full-width">
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country" required />
+      </mat-form-field>
+      <!--****************************************************************-->
+    </form>
+    <h3  fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+      'warning': formFilled,
+      'error': !formFilled
+    }">All fields are required</h3>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+      <button
+        (click)="backToAddressTable()"
+        [routerLink]="['address']"
+        color="warn"
+        mat-raised-button
+      >
+        BACK
+      </button>
+      <button
+        (click)="submit()"
+        color="accent"
+        mat-raised-button
+      >
+        FINISH
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</div>

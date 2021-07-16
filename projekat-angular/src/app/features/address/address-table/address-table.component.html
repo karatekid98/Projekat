@@ -1,0 +1,151 @@
+<mat-tab-group
+  animationDuration="0ms"
+  #tabGroup
+  (selectedTabChange)="tabChanged($event)"
+>
+  <mat-tab label="View addresses">
+    <ng-container #viewContainer>
+      <ng-template [ngIf]="tableOpened" #table>
+        <div id="add-button" fxLayout="row" fxLayoutAlign="end center">
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="['address/add-address']"
+
+          >
+            <mat-icon>add</mat-icon> {{'Add new address'  | translate }}
+          </button>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Search here... </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input
+                matInput
+                (keyup)="applyFilter($event)"
+                placeholder=""
+                #input
+              />
+            </mat-form-field>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="id" >
+            <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="line">
+            <mat-header-cell *matHeaderCellDef> Line </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.line }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="city">
+            <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+            <mat-cell *matCellDef="let element" appHighlightTitle>
+              {{ element.city }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="country">
+            <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
+            <mat-cell *matCellDef="let element" appHighlightTitle>
+              {{ element.country }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="postcode">
+            <mat-header-cell *matHeaderCellDef> Postcode </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.postcode }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <mat-header-cell
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+            >
+              Delete
+            </mat-header-cell>
+            <mat-cell
+              class="delete-button"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matCellDef="let element"
+              (click)="openDeleteModal(element.id)"
+            >
+              <mat-icon>delete</mat-icon></mat-cell
+            >
+          </ng-container>
+
+          <ng-container matColumnDef="read">
+            <mat-header-cell
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+
+            >
+              Read
+            </mat-header-cell>
+            <mat-cell
+              class="read-button"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matCellDef="let element"
+              (click)="readAddressEditPage(element.id)"
+            >
+              <mat-icon >remove_red_eye</mat-icon></mat-cell
+            >
+          </ng-container>
+
+          <ng-container matColumnDef="edit" class="disable">
+            <mat-header-cell
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+
+            >
+              Edit
+            </mat-header-cell>
+            <mat-cell
+
+              class="edit-button"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matCellDef="let element"
+              (click)="openAddressEditPage(element.id)"
+            >
+            <button mat-icon-button [disabled]="editIndicator == true && element.id == this.lockedItem.itemId">
+              <mat-icon [color]="editIndicator == true && element.id == this.lockedItem.itemId ? 'warn' : ''">mode_edit</mat-icon></button></mat-cell
+            >
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row [ngClass]="{'disable': row.symbol == true}" *matRowDef="let row; columns: displayedColumns" fxLayout="row" fxLayoutAlign="center center" ></mat-row>
+        </mat-table>
+
+        <mat-paginator
+          #paginator
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20, 50, 100]"
+          [showFirstLastButtons]="true"
+          [length]="totalSizeOfItems"
+          [pageIndex]="currentPage"
+          (page)="pageEvent = handlePage($event)"
+        >
+        </mat-paginator>
+      </ng-template>
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="View deleted addresses">
+    <ng-template [ngTemplateOutlet]="table"></ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+
