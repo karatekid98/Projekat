@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Delete user</h1>
+<h1 mat-dialog-title>Delete {{this.data.component}}</h1>
 
-<div mat-dialog-content>Are you sure that you want to delete user?</div>
+<div mat-dialog-content>Are you sure that you want to delete this {{this.data.component}}?</div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around center">
   <button mat-button mat-dialog-close (click)="closeDialog()">No</button>
-  <button mat-button mat-dialog-close (click)="softDeleteUser(data.id)">Yes</button>
+  <button mat-button mat-dialog-close (click)="softDelete(data.id)">Yes</button>
 </div>

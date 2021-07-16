@@ -94,7 +94,7 @@ export class UserTableComponent implements OnInit {
   }
 
   openDeleteModal(id: any): void{
-    const dialogRef = this.dialog.open(UserDeleteModalComponent, {data: {id : id}});
+    const dialogRef = this.dialog.open(UserDeleteModalComponent, {data: {id : id, component: 'user'}});
     dialogRef.afterClosed().subscribe(x => {
       this.showUsers(this.parametars);
     });

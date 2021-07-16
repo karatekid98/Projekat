@@ -94,7 +94,7 @@ export class AddressTableComponent implements OnInit {
   }
 
   openDeleteModal(id: any): void{
-    const dialogRef = this.dialog.open(UserDeleteModalComponent, {data: {id : id}});
+    const dialogRef = this.dialog.open(UserDeleteModalComponent, {data: {id : id, component: 'address'}});
     dialogRef.afterClosed().subscribe(x => {
       this.showAddresses(this.parametars);
     });
