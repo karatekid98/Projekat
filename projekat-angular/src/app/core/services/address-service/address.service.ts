@@ -32,10 +32,8 @@ export class AddressService {
     return this.http.delete(`http://localhost:28846/api/Address/softDelete/${id}`);
   }
 
-
-  // fix address form
-  addUser(addressForm: Address): Observable<Address> {
-    return this.http.post<Address>(`http://localhost:28846/api/Address/singUp`, addressForm);
+  addAddress(addressForm: Address): Observable<Address> {
+    return this.http.post<Address>(`http://localhost:28846/api/Address/`, addressForm);
   }
 
   updateAddress(address: Address, id: any): Observable<Address> {

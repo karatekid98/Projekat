@@ -15,12 +15,12 @@ import { UserProfileEditComponent } from '../user-profile/user-profile-edit/user
 import { UserRoutingModule } from '../user/user-routing.module';
 import { CoreModule } from '../../core/modules/CoreModule';
 import { TranslationService } from 'src/app/core/services/translation.service';
+import { AddressRoutingModule } from '../address/address-routing.module';
 
 
 @NgModule({
   declarations: [
     AdminHomePageComponent,
-    AddressComponent,
     ProductComponent,
     CustomerComponent,
     InvoiceComponent,
@@ -35,7 +35,8 @@ import { TranslationService } from 'src/app/core/services/translation.service';
     RouterModule,
     CoreModule,
     AdminPageRoutingModule,
-    UserRoutingModule //proveri, dodato naknadno
+    UserRoutingModule, //proveri, dodato naknadno
+    AddressRoutingModule
   ],
   exports: [
     AdminHomePageComponent

@@ -15,6 +15,7 @@ import { SettingsComponent } from './features/settings-page/settings.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AddressModule } from './features/address/address.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     HomePageModule,
     AdminHomePageModule,
     UserModule,
-
+    AddressModule
   ],
   providers: [],
   bootstrap: [AppComponent]

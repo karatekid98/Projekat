@@ -11,6 +11,7 @@ import { UserProfileEditComponent } from '../user-profile/user-profile-edit/user
 import { UserEditComponent } from '../user/user-edit/user-edit.component';
 import { UserAddComponent } from '../user/user-table/user-add/user-add.component';
 import { UserTableComponent } from '../user/user-table/user-table.component';
+import { AddressRoutingModule } from '../address/address-routing.module';
 
 
 const routes: Routes = [
@@ -30,6 +31,8 @@ const routes: Routes = [
   //  ]},
   { path: 'user', component: UserComponent,
   loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
+  { path: 'address', component: AddressComponent,
+  loadChildren: () => import('../address/address-routing.module').then(m => m.AddressRoutingModule)},
 ];
 
 @NgModule({
