@@ -1,18 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { UserService } from '../../../../core/services/user-service/user.service';
-import { AddressService } from '../../../../core/services/address-service/address.service';
+import { UserService } from '../../core/services/user-service/user.service';
+import { AddressService } from '../../core/services/address-service/address.service';
 @Component({
-  selector: 'app-user-delete-modal',
-  templateUrl: './user-delete-modal.component.html',
-  styleUrls: ['./user-delete-modal.component.scss']
+  selector: 'app-delete-modal',
+  templateUrl: './delete-modal.component.html',
+  styleUrls: ['./delete-modal.component.scss']
 })
-export class UserDeleteModalComponent implements OnInit {
+export class DeleteModalComponent implements OnInit {
   component = '';
   public id: any;
    constructor(private router: Router, private userService: UserService, private addressService: AddressService,
-               private dialogRef: MatDialogRef<UserDeleteModalComponent>,
+               private dialogRef: MatDialogRef<DeleteModalComponent>,
                @Inject(MAT_DIALOG_DATA) public data) { }
 
 

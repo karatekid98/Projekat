@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../../core/services/user-service/user.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDeleteModalComponent } from './user-delete-modal/user-delete-modal.component';
+import { DeleteModalComponent } from '../../../shared/delete-modal/delete-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserAddComponent } from './user-add/user-add.component';
 import { Router } from '@angular/router';
@@ -94,7 +94,7 @@ export class UserTableComponent implements OnInit {
   }
 
   openDeleteModal(id: any): void{
-    const dialogRef = this.dialog.open(UserDeleteModalComponent, {data: {id : id, component: 'user'}});
+    const dialogRef = this.dialog.open(DeleteModalComponent, {data: {id : id, component: 'user'}});
     dialogRef.afterClosed().subscribe(x => {
       this.showUsers(this.parametars);
     });

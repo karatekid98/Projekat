@@ -5,7 +5,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { CoreModule } from '../../core/modules/CoreModule';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserService } from '../../core/services/user-service/user.service';
-import { UserDeleteModalComponent } from './user-table/user-delete-modal/user-delete-modal.component';
+import { DeleteModalComponent } from '../../shared/delete-modal/delete-modal.component';
 import { UserAddComponent } from './user-table/user-add/user-add.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { RouterModule } from '@angular/router';
@@ -20,7 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [UserComponent, UserTableComponent, UserDeleteModalComponent, UserAddComponent, UserEditComponent, UserEditModalComponent],
+  declarations: [UserComponent, UserTableComponent, DeleteModalComponent, UserAddComponent, UserEditComponent, UserEditModalComponent],
   imports: [
     CommonModule,
     SharedModule,

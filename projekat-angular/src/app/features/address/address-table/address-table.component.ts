@@ -7,7 +7,7 @@ import { AddressService } from 'src/app/core/services/address-service/address.se
 import { LockService } from 'src/app/core/services/lock-service/lock.service';
 import { UserService } from 'src/app/core/services/user-service/user.service';
 import { LockItem } from 'src/app/models/lockItem';
-import { UserDeleteModalComponent } from '../../user/user-table/user-delete-modal/user-delete-modal.component';
+import { DeleteModalComponent } from '../../../shared/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-address-table',
@@ -94,7 +94,7 @@ export class AddressTableComponent implements OnInit {
   }
 
   openDeleteModal(id: any): void{
-    const dialogRef = this.dialog.open(UserDeleteModalComponent, {data: {id : id, component: 'address'}});
+    const dialogRef = this.dialog.open(DeleteModalComponent, {data: {id : id, component: 'address'}});
     dialogRef.afterClosed().subscribe(x => {
       this.showAddresses(this.parametars);
     });
