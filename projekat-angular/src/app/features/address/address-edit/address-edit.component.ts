@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddressService } from 'src/app/core/services/address-service/address.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserEditModalComponent } from '../../user/user-edit/user-edit-modal/user-edit-modal.component';
+import { EditModalComponent } from '../../../shared/edit-modal/edit-modal.component';
 
 @Component({
   selector: 'app-address-edit',
@@ -139,7 +139,7 @@ export class AddressEditComponent implements OnInit {
   }
 
   openGoBackModal(): void{
-    const dialogRef = this.dialog.open(UserEditModalComponent);
+    const dialogRef = this.dialog.open(EditModalComponent , {data: {component: 'address'}});
    }
 
    unlockItem(lockedItemId: any): void {

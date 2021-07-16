@@ -1,5 +1,5 @@
 import { Address } from './../../../models/address';
-import { UserEditModalComponent } from './user-edit-modal/user-edit-modal.component';
+import { EditModalComponent } from '../../../shared/edit-modal/edit-modal.component';
 import { Component, KeyValueDiffers, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -205,7 +205,7 @@ export class UserEditComponent implements OnInit {
   }
 
   openGoBackModal(): void{
-    const dialogRef = this.dialog.open(UserEditModalComponent);
+    const dialogRef = this.dialog.open(EditModalComponent , {data: {component: 'user'}});
    }
 
    unlockItem(lockedItemId: any): void {

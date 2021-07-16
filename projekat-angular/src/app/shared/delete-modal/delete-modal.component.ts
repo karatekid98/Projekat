@@ -20,8 +20,6 @@ export class DeleteModalComponent implements OnInit {
   }
 
   softDelete(id: any): void{
-    console.log(this.data.component);
-
     if (this.data.component === 'user') {
       this.userService.softDeleteUser(id).subscribe();
     } else if (this.data.component === 'address') {

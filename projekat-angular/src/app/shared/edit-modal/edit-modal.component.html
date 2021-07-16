@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Back to user table</h1>
+<h1 mat-dialog-title>Back to {{this.data.component}} table</h1>
 
-<div mat-dialog-content>Are you sure you want to go back to user table page?</div>
+<div mat-dialog-content>Are you sure you want to go back to {{this.data.component}} table page?</div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around center">
   <button mat-button mat-dialog-close (click)="cancel()">No</button>
   <button mat-button mat-dialog-close (click)="proceed()">Yes</button>

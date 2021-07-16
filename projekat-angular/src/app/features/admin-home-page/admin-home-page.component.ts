@@ -9,7 +9,7 @@ import { ProductComponent } from '../product/product.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TranslateService } from '@ngx-translate/core';
-import { TranslationService } from '../../core/services/translation.service';
+import { TranslationService } from '../../core/services/translation/translation.service';
 
 @Component({
   selector: 'app-admin-home-page',
