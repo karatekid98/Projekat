@@ -15,7 +15,6 @@ import { EditModalComponent } from '../../../shared/edit-modal/edit-modal.compon
 })
 export class AddressEditComponent implements OnInit {
 
-  selected = 'Female';
   hide = true;
   confirmhide = true;
   formFilled = true;
@@ -100,7 +99,7 @@ export class AddressEditComponent implements OnInit {
           localStorage.removeItem('lockedItem');
           this.unlockItem(this.id);
           this.openSnackBar();
-          this.router.navigate(['admin-home-page/user']);
+          this.router.navigate(['admin-home-page/address']);
         },
         (error) => {
           this.formFilled = false;

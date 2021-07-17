@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AdminHomePageComponent } from './admin-home-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { UserModule } from '../user/user.module';
@@ -17,6 +17,7 @@ import { CoreModule } from '../../core/modules/CoreModule';
 import { TranslationService } from 'src/app/core/services/translation/translation.service';
 import { AddressRoutingModule } from '../address/address-routing.module';
 import { CustomerRoutingModule } from '../customer/customer-routing.module';
+import { ProductRoutingModule } from '../product/product-routing.module';
 
 
 @NgModule({
@@ -34,12 +35,13 @@ import { CustomerRoutingModule } from '../customer/customer-routing.module';
     AdminPageRoutingModule,
     UserRoutingModule,
     AddressRoutingModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    ProductRoutingModule
   ],
   exports: [
     AdminHomePageComponent
   ],
-  providers: [TranslationService],
+  providers: [TranslationService, DatePipe],
   entryComponents: [
     UserComponent,
     AddressComponent,

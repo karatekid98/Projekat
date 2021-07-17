@@ -5,6 +5,5 @@ export interface Product {
   description: string;
   dateAdded: Date;
   availableQuantity: number;
-  invoiceProducts: any;
-  isDeleted: boolean;
+  id?: any;
 }

@@ -11,8 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./address-add.component.scss', '../../../user/user-table/user-add/user-add.component.scss']
 })
 export class AddressAddComponent implements OnInit {
-
-  selected = 'Female';
   formFilled = true;
   public address: Address = {
     city: '',
@@ -20,9 +18,6 @@ export class AddressAddComponent implements OnInit {
     postcode: '',
     line: ''
   };
-
-  email: '';
-  genders = ['Female', 'Male'];
 
   hide = true;
   confirmhide = true;

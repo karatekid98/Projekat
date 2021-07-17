@@ -1,0 +1,59 @@
+<div id="container">
+  <mat-card-title>Add new address</mat-card-title>
+  <mat-card-content fxLayout="column">
+    <form [formGroup]="productForm">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field class="input-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required />
+      </mat-form-field>
+
+      <mat-form-field id="post-code" class="input-full-width">
+        <mat-label>Unit</mat-label>
+        <input matInput formControlName="unit" required/>
+      </mat-form-field>
+    </div>
+    <!--****************************************************************-->
+    <mat-form-field class="input-full-width">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" required />
+    </mat-form-field>
+    <br />
+     <!--****************************************************************-->
+    <mat-form-field class="input-full-width" appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput   formControlName="description"></textarea>
+    </mat-form-field><br />
+    <!--****************************************************************-->
+    <mat-form-field class="input-full-width">
+      <mat-label>Available Quantity</mat-label>
+      <input matInput formControlName="availableQuantity" required/>
+    </mat-form-field> <br />
+    <!--****************************************************************-->
+    <mat-form-field class="input-full-width">
+      <mat-label>Date added</mat-label>
+      <input matInput formControlName="dateAdded" [(ngModel)]="this.date" readonly/>
+    </mat-form-field>
+    </form>
+    <h3  fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+      'warning': formFilled,
+      'error': !formFilled
+    }">All fields are required</h3>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+      <button
+        (click)="backToProductTable()"
+        color="warn"
+        mat-raised-button
+      >
+        BACK
+      </button>
+      <button
+        (click)="submit()"
+        color="accent"
+        mat-raised-button
+      >
+        FINISH
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</div>

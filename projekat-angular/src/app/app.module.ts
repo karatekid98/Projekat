@@ -17,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AddressModule } from './features/address/address.module';
 import { CustomerModule } from './features/customer/customer.module';
+import { ProductModule } from './features/product/product.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CustomerModule } from './features/customer/customer.module';
     AdminHomePageModule,
     UserModule,
     AddressModule,
-    CustomerModule
+    CustomerModule,
+    ProductModule
   ],
   providers: [],
   bootstrap: [AppComponent]
