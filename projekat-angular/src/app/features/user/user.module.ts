@@ -27,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CoreModule,
     RouterModule,
     UserRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
   exports: [UserComponent, UserTableComponent, UserAddComponent],
   providers: [UserService]

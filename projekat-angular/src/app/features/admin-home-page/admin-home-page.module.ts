@@ -16,15 +16,12 @@ import { UserRoutingModule } from '../user/user-routing.module';
 import { CoreModule } from '../../core/modules/CoreModule';
 import { TranslationService } from 'src/app/core/services/translation/translation.service';
 import { AddressRoutingModule } from '../address/address-routing.module';
+import { CustomerRoutingModule } from '../customer/customer-routing.module';
 
 
 @NgModule({
   declarations: [
     AdminHomePageComponent,
-    ProductComponent,
-    CustomerComponent,
-    InvoiceComponent,
-    //UserComponent,
     UserProfileComponent,
     UserProfileEditComponent,
   ],
@@ -36,7 +33,8 @@ import { AddressRoutingModule } from '../address/address-routing.module';
     CoreModule,
     AdminPageRoutingModule,
     UserRoutingModule, //proveri, dodato naknadno
-    AddressRoutingModule
+    AddressRoutingModule,
+    CustomerRoutingModule
   ],
   exports: [
     AdminHomePageComponent

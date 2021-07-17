@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { PaginationResponse } from 'src/app/models/paginationResponse';
+import { CustomerForm } from '../../../models/customerForm';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,8 @@ export class CustomerService {
     return this.http.delete(`http://localhost:28846/api/Customer/softDelete/${id}`);
   }
 
-  addCustomer(customerForm: Customer): Observable<Customer> {
-    return this.http.post<Customer>(`http://localhost:28846/api/Customer/`, customerForm);
+  addCustomer(customerForm: CustomerForm): Observable<Customer> {
+    return this.http.post<Customer>(`http://localhost:28846/api/Customer/singUp`, customerForm);
   }
 
   // TODO: create update form in ts file and fix this method

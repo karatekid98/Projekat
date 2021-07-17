@@ -1,11 +1,10 @@
 export interface Customer {
-  name: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
   email: string;
   phone: string;
-  addressId: any;
+  addressId?: any;
   companyNumber: string;
-  invoices: any;
-  address: any;
-  id: any;
-  isDeleted: boolean;
+  id?: any;
 }

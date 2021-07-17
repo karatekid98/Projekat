@@ -1,6 +1,6 @@
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,14 +16,13 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AddressModule } from './features/address/address.module';
+import { CustomerModule } from './features/customer/customer.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductTableComponent,
     SettingsComponent,
     DashboardComponent,
-
   ],
   imports: [
     SharedModule,
@@ -35,7 +34,8 @@ import { AddressModule } from './features/address/address.module';
     HomePageModule,
     AdminHomePageModule,
     UserModule,
-    AddressModule
+    AddressModule,
+    CustomerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

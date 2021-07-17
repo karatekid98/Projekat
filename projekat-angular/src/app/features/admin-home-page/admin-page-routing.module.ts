@@ -33,6 +33,8 @@ const routes: Routes = [
   loadChildren: () => import('../user/user-routing.module').then(m => m.UserRoutingModule)},
   { path: 'address', component: AddressComponent,
   loadChildren: () => import('../address/address-routing.module').then(m => m.AddressRoutingModule)},
+  { path: 'customer', component: CustomerComponent,
+  loadChildren: () => import('../customer/customer-routing.module').then(m => m.CustomerRoutingModule)},
 ];
 
 @NgModule({
