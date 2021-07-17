@@ -3,7 +3,6 @@ import { UserService } from '../../../core/services/user-service/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { DeleteModalComponent } from '../../../shared/delete-modal/delete-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { UserAddComponent } from './user-add/user-add.component';
 import { Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { LockItem } from '../../../models/lockItem';
@@ -24,7 +23,7 @@ export class UserTableComponent implements OnInit {
 
   lockedItems: Array<object> = [];
   editIndicator = false;
-  tableOpened: boolean = true;
+  tableOpened = true;
   userId;
   lockedItem: LockItem = {
     itemId: '',
@@ -42,7 +41,7 @@ export class UserTableComponent implements OnInit {
   };
 
   constructor(private router: Router, private userService: UserService,
-              public dialog: MatDialog, private resolver: ComponentFactoryResolver, private lockService: LockService) { }
+              public dialog: MatDialog, private lockService: LockService) { }
 
   ngOnInit(): void {
 

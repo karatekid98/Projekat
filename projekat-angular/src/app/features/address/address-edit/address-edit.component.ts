@@ -56,7 +56,6 @@ export class AddressEditComponent implements OnInit {
               private router: Router,  public dialog: MatDialog,
               private lockService: LockService, private snackBar: MatSnackBar) { }
 
-  // TODO: ADD LIST OF ITEMS TO LOCAL STORAGE, ADD TIMER FOR EDITING USER
   ngOnInit(): void {
     if (localStorage.getItem('lockedItem') === null) {
       this.pageHeader = 'Read-only address';

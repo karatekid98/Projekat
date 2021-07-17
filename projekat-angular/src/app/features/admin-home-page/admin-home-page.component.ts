@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { AddressComponent } from '../address/address.component';
 import { TemplateRef } from '@angular/core';
 import { CustomerComponent } from '../customer/customer.component';
@@ -7,8 +7,6 @@ import { UserComponent } from '../user/user.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { ProductComponent } from '../product/product.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { SelectionModel } from '@angular/cdk/collections';
-import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../core/services/translation/translation.service';
 
 @Component({
@@ -26,14 +24,11 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   status = false;
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private resolver: ComponentFactoryResolver,
+  constructor(private router: Router, private resolver: ComponentFactoryResolver,
               private translate: TranslationService) {
               }
 
   ngOnInit(): void {
-    if (this.selectedLang) {
-
-    }
   }
 
   ngAfterViewInit(): void {

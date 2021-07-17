@@ -32,7 +32,7 @@ import { CustomerRoutingModule } from '../customer/customer-routing.module';
     RouterModule,
     CoreModule,
     AdminPageRoutingModule,
-    UserRoutingModule, //proveri, dodato naknadno
+    UserRoutingModule,
     AddressRoutingModule,
     CustomerRoutingModule
   ],

@@ -16,7 +16,6 @@
       <div fxLayout="row" fxLayoutAlign="space-between">
       <mat-form-field class="input-full-width">
         <mat-label>Telephone number</mat-label>
-        <!-- <span matPrefix>+1 &nbsp;</span> -->
         <input
           type="tel"
           matInput
@@ -24,7 +23,6 @@
           required
           placeholder="555-555-1234"
         />
-        <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
       </mat-form-field>
       <mat-form-field class="input-full-width">
       <mat-label>Select gender</mat-label>
@@ -93,7 +91,7 @@
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
       <button
         (click)="backToCustomerTable()"
-        [routerLink]="['user']"
+        [routerLink]="['customer']"
         color="warn"
         mat-raised-button
       >

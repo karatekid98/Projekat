@@ -72,9 +72,7 @@ export class CustomerAddComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // TODO: add message if passwords don't match
   finishSingup(): void {
-
       this.fillOutForm();
       this.customerService.addCustomer(this.addCustomer).subscribe(
         (response) => {

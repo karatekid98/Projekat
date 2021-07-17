@@ -6,7 +6,6 @@ import { UserComponent } from './user.component';
 import { UserTableComponent } from './user-table/user-table.component';
 
 const routes: Routes = [
-  //{ path: '', pathMatch: 'full', redirectTo: 'user'},
   {path: '', component: UserComponent, children: [
       { path: '', component: UserTableComponent },
       { path: 'add-user', component: UserAddComponent },

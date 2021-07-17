@@ -1,6 +1,6 @@
 import { Address } from './../../../models/address';
 import { EditModalComponent } from '../../../shared/edit-modal/edit-modal.component';
-import { Component, KeyValueDiffers, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user-service/user.service';
@@ -8,7 +8,6 @@ import { User } from 'src/app/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { LockService } from 'src/app/core/services/lock-service/lock.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserForm } from 'src/app/models/singup';
 import { AddressService } from '../../../core/services/address-service/address.service';
 import { HostListener } from '@angular/core';
 
@@ -76,7 +75,7 @@ export class UserEditComponent implements OnInit {
   });
 
   @HostListener('window:popstate', ['$event'])
-  onPopState(event) {
+  onPopState(event): void {
     this.unlockItem(localStorage.getItem('lockedItem'));
     localStorage.removeItem('lockedItem');
   }

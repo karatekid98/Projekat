@@ -1,10 +1,7 @@
 import { AfterViewInit } from '@angular/core';
 import { Component, ComponentFactoryResolver, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminHomePageComponent } from '../admin-home-page/admin-home-page.component';
-import { UserEditComponent } from '../user/user-edit/user-edit.component';
-import { UserAddComponent } from '../user/user-table/user-add/user-add.component';
-import { UserTableComponent } from '../user/user-table/user-table.component';
 import { AddressEditComponent } from './address-edit/address-edit.component';
 import { AddressAddComponent } from './address-table/address-add/address-add.component';
 import { AddressTableComponent } from './address-table/address-table.component';
@@ -17,14 +14,11 @@ import { AddressTableComponent } from './address-table/address-table.component';
 export class AddressComponent implements OnInit, AfterViewInit {
   clicked = false;
   str: string;
-  private wasInside = false;
   public text: string;
 
   constructor(@Inject(AdminHomePageComponent) private parent: AdminHomePageComponent,
-              private route: ActivatedRoute,
               private router: Router, private resolver: ComponentFactoryResolver) { }
 
-  // TODO: fix complete routing in app
   ngOnInit(): void {
 
   }

@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import { LockService } from 'src/app/core/services/lock-service/lock.service';
-import { UserService } from 'src/app/core/services/user-service/user.service';
 import { LockItem } from 'src/app/models/lockItem';
 import { DeleteModalComponent } from 'src/app/shared/delete-modal/delete-modal.component';
 import { CustomerService } from '../../../core/services/customer-service/customer.service';
@@ -24,7 +23,7 @@ export class CustomerTableComponent implements OnInit {
 
   lockedItems: Array<object> = [];
   editIndicator = false;
-  tableOpened: boolean = true;
+  tableOpened = true;
   customerId;
   lockedItem: LockItem = {
     itemId: '',

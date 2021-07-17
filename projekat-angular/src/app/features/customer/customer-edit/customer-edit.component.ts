@@ -17,11 +17,8 @@ import { EditModalComponent } from 'src/app/shared/edit-modal/edit-modal.compone
 })
 export class CustomerEditComponent implements OnInit {
   selected = 'Female';
-  hide = true;
-  confirmhide = true;
   formFilled = true;
   id: any;
-  hasChange = false;
   initalValues: any;
   initalValuesAddress: any;
   customerAddressId: any;
@@ -75,7 +72,6 @@ export class CustomerEditComponent implements OnInit {
               private router: Router,  public dialog: MatDialog, private addressService: AddressService,
               private lockService: LockService, private snackBar: MatSnackBar) { }
 
-  // TODO: ADD LIST OF ITEMS TO LOCAL STORAGE, ADD TIMER FOR EDITING USER
   ngOnInit(): void {
     if (localStorage.getItem('lockedItem') === null) {
       this.pageHeader = 'Read-only customer';
@@ -92,7 +88,10 @@ export class CustomerEditComponent implements OnInit {
 
       this.customerAddressId = customer.addressId;
       this.detailForm.patchValue(customer);
+      this.detailForm.patchValue({
+        gender: customer.gender
 
+      });
       this.patchAddressForm();
       this.initalValues = this.detailForm.value;
 
@@ -101,8 +100,6 @@ export class CustomerEditComponent implements OnInit {
   }
 
   patchAddressForm(): void {
-    console.log(this.customerAddressId);
-
     this.addressService.getAddress(this.customerAddressId).subscribe((address) => {
       this.addressForm.patchValue(address);
       this.initalValuesAddress = this.addressForm.value;

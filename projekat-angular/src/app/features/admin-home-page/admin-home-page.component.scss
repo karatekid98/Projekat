@@ -17,7 +17,6 @@ background-color: white;
 .drawer .header {
   position: absolute;
   right: 0;
-  // justify-content: space-between;
 }
 .close {
   transition: color 0.4s;
@@ -53,9 +52,7 @@ background-color: white;
 .contents {
   height: auto;
   margin-top: 60px !important ;
-  //padding: 16px;
   margin-bottom: 60px;
-  //overflow: hidden !important;
 }
 
 .mat-toolbar {
@@ -136,11 +133,6 @@ background-color: white;
   cursor: pointer;
   color: #4caf50;
 }
-
-.main.contents{
-  //padding-bottom: 50px;
-}
-
 
 .mat-menu {
   width: 300px !important;

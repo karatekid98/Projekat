@@ -5,7 +5,6 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import { AddressService } from 'src/app/core/services/address-service/address.service';
 import { LockService } from 'src/app/core/services/lock-service/lock.service';
-import { UserService } from 'src/app/core/services/user-service/user.service';
 import { LockItem } from 'src/app/models/lockItem';
 import { DeleteModalComponent } from '../../../shared/delete-modal/delete-modal.component';
 
@@ -23,7 +22,7 @@ export class AddressTableComponent implements OnInit {
 
   lockedItems: Array<object> = [];
   editIndicator = false;
-  tableOpened: boolean = true;
+  tableOpened = true;
   userId;
   lockedItem: LockItem = {
     itemId: '',
@@ -41,7 +40,7 @@ export class AddressTableComponent implements OnInit {
   };
 
   constructor(private router: Router, private addresService: AddressService,
-              public dialog: MatDialog, private resolver: ComponentFactoryResolver, private lockService: LockService) { }
+              public dialog: MatDialog, private lockService: LockService) { }
 
   ngOnInit(): void {
 
@@ -79,8 +78,6 @@ export class AddressTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(listOfUsers);
     });
   }
-
-  // TODO: modify modal window
   private showDeletedAddresses(parametars: any): void {
     this.addresService.getDeletedAddresses(this.parametars).subscribe((addresses) => {
       const metadata = addresses['metadata'];

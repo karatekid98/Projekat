@@ -30,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule,
     UserModule
   ],
-  exports: [CustomerComponent, CustomerTableComponent, CustomerAddComponent], // TODO: Add missing exports and declarations
+  exports: [CustomerComponent, CustomerTableComponent, CustomerAddComponent],
   providers: [CustomerService]
 })
 export class CustomerModule { }

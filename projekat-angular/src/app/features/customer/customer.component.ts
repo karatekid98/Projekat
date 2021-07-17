@@ -5,7 +5,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminHomePageComponent } from '../admin-home-page/admin-home-page.component';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
 import { CustomerEditComponent } from './customer-edit/customer-edit.component';
@@ -23,12 +23,10 @@ export class CustomerComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Inject(AdminHomePageComponent) private parent: AdminHomePageComponent,
-    private route: ActivatedRoute,
     private router: Router,
     private resolver: ComponentFactoryResolver
   ) {}
 
-  // TODO: fix complete routing in app
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {

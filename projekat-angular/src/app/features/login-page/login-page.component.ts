@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/login-service/login.service';
 import { Login } from '../../models/login';
-import { computeMsgId } from '@angular/compiler';
 import { Router } from '@angular/router';
-import { User } from '../../models/user';
+
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +11,7 @@ import { User } from '../../models/user';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  public tokenKey: string = 'app_token';
+  public tokenKey = 'app_token';
   public login: Login = {
     email: '',
     password: '',
@@ -26,14 +25,10 @@ export class LoginPageComponent implements OnInit {
 
   hide = true;
 
-  // get isDateChecked() {
-  //   return this.singupForm.get('dateOfBirth');
-  // }
-
-  get emailInput() {
+  get emailInput(): any {
     return this.loginForm.get('email');
   }
-  get passwordInput() {
+  get passwordInput(): any {
     return this.loginForm.get('password');
   }
 

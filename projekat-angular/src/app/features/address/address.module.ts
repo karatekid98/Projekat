@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from 'src/app/core/modules/CoreModule';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { UserRoutingModule } from '../user/user-routing.module';
 import { AddressService } from '../../core/services/address-service/address.service';
 import { AddressTableComponent } from './address-table/address-table.component';
 import { AddressEditComponent } from './address-edit/address-edit.component';
