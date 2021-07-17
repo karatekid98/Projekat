@@ -27,7 +27,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var address = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var address = _addressService.AsQueryable().FirstOrDefault(x => x.Id == id);
                 if (address == null)
                 {
                     return NotFound();

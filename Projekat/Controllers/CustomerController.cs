@@ -3,6 +3,7 @@ using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Projekat.Pagination;
+using Projekat.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace Projekat.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
+        private readonly IAddressService _addressService;
 
-        public CustomerController(ICustomerService customerService)
+        public CustomerController(ICustomerService customerService, IAddressService addressService)
         {
             _customerService = customerService;
+            _addressService = addressService;
         }
 
         [HttpGet("{id}")]
@@ -89,6 +92,52 @@ namespace Projekat.Controllers
                 _customerService.AddCustomer(customer);
 
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+        }
+
+        [HttpPost("singUp")]
+        public ActionResult Signup([FromBody] SingupCustomerRequest signupCustomerRequest)
+        {
+            try
+            {
+                var customer = new Customer();
+                var address = new Address();
+                var existingAddress = _addressService.AsQueryable().FirstOrDefault(x => x.City == signupCustomerRequest.AddressDto.City &&
+                x.Country == signupCustomerRequest.AddressDto.Country &&
+                x.Line == signupCustomerRequest.AddressDto.Line &&
+                x.Postcode == signupCustomerRequest.AddressDto.Postcode);
+
+                if (existingAddress == null)
+                {
+                    address.City = signupCustomerRequest.AddressDto.City;
+                    address.Country = signupCustomerRequest.AddressDto.Country;
+                    address.Line = signupCustomerRequest.AddressDto.Line;
+                    address.Postcode = signupCustomerRequest.AddressDto.Postcode;
+
+                    _addressService.AddAddress(address);
+                    customer.AddressId = address.Id;
+                }
+                else
+                {
+                    customer.AddressId = existingAddress.Id;
+                }
+
+                var existingUser = _customerService.AsQueryable().FirstOrDefault(x => x.Email == signupCustomerRequest.CustomerDto.Email);
+
+                if (existingUser != null)
+                {
+                    return Ok(false);
+                }
+
+                MapRequestToCustomer(signupCustomerRequest, customer);
+
+                _customerService.AddCustomer(customer);
+
+                return Ok(true);
             }
             catch (Exception e)
             {
@@ -199,6 +248,18 @@ namespace Projekat.Controllers
             }
         }
 
+        private void MapRequestToCustomer(SingupCustomerRequest signupCustomerRequest, Customer customer)
+        {
+     
+            customer.Email = signupCustomerRequest.CustomerDto.Email;
+            customer.FirstName = signupCustomerRequest.CustomerDto.FirstName;
+            customer.LastName = signupCustomerRequest.CustomerDto.LastName;
+            customer.Phone = signupCustomerRequest.CustomerDto.Phone;
+            customer.Gender = signupCustomerRequest.CustomerDto.Gender;
+            customer.CompanyNumber = signupCustomerRequest.CustomerDto.CompanyNumber;
+
+
+        }
 
     }
 }
