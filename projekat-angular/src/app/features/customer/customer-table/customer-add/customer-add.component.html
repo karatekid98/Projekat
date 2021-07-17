@@ -1,0 +1,111 @@
+<div id="container">
+  <mat-card-title>Add new customer</mat-card-title>
+  <mat-card-content fxLayout="column">
+    <form [formGroup]="detailForm">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <mat-form-field class="input-width">
+          <mat-label>First name</mat-label>
+          <input matInput formControlName="firstName" required />
+        </mat-form-field>
+        <mat-form-field class="input-width">
+          <mat-label>Last name</mat-label>
+          <input matInput formControlName="lastName" required />
+        </mat-form-field>
+      </div>
+      <!--****************************************************************-->
+      <div fxLayout="row" fxLayoutAlign="space-between">
+      <mat-form-field class="input-full-width">
+        <mat-label>Telephone number</mat-label>
+        <!-- <span matPrefix>+1 &nbsp;</span> -->
+        <input
+          type="tel"
+          matInput
+          formControlName="phone"
+          required
+          placeholder="555-555-1234"
+        />
+        <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
+      </mat-form-field>
+      <mat-form-field class="input-full-width">
+      <mat-label>Select gender</mat-label>
+      <mat-select formControlName='gender'  [(value)]="selected">
+        <mat-option>None</mat-option>
+        <mat-option value="Female">Female</mat-option>
+        <mat-option value="Male">Male</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+      <br />
+
+
+      <!--****************************************************************-->
+      <mat-form-field class="input-full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          required
+          placeholder="Ex. pat@example.com"
+        />
+        <mat-error
+          *ngIf="
+          detailForm.hasError('email') &&
+            !detailForm.hasError('required')
+          "
+        >
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="detailForm.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!--****************************************************************-->
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <mat-form-field class="input-full-width">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" required />
+        </mat-form-field>
+
+        <mat-form-field id="post-code" class="input-full-width">
+          <mat-label>Postcode</mat-label>
+          <input matInput formControlName="postcode" required />
+        </mat-form-field>
+      </div>
+      <!--****************************************************************-->
+      <mat-form-field class="input-full-width">
+        <mat-label>Line</mat-label>
+        <input matInput formControlName="line" required />
+      </mat-form-field>
+      <br />
+      <!--****************************************************************-->
+
+      <mat-form-field class="input-full-width">
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country" required />
+      </mat-form-field>
+      <!--****************************************************************-->
+    </form>
+    <h3  fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+      'warning': formFilled,
+      'error': !formFilled
+    }">All fields are required</h3>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+      <button
+        (click)="backToCustomerTable()"
+        [routerLink]="['user']"
+        color="warn"
+        mat-raised-button
+      >
+        BACK
+      </button>
+      <button
+        (click)="finishSingup()"
+        color="accent"
+        mat-raised-button
+      >
+        FINISH
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
+</div>

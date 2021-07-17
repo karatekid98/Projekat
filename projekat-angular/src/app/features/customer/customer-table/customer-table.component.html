@@ -1,0 +1,161 @@
+<mat-tab-group
+  animationDuration="0ms"
+  #tabGroup
+  (selectedTabChange)="tabChanged($event)"
+>
+  <mat-tab label="View customers">
+    <ng-container #viewContainer>
+      <ng-template [ngIf]="tableOpened" #table>
+        <div id="add-button" fxLayout="row" fxLayoutAlign="end center">
+          <button
+            mat-raised-button
+            color="primary"
+            [routerLink]="['customer/add-customer']"
+
+          >
+            <mat-icon>add</mat-icon> {{'Add new customer'  | translate }}
+          </button>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Search here... </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input
+                matInput
+                (keyup)="applyFilter($event)"
+                placeholder=""
+                #input
+              />
+            </mat-form-field>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="id" >
+            <mat-header-cell *matHeaderCellDef>ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" appHighlightTitle>
+              {{ element.firstName }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" appHighlightTitle>
+              {{ element.lastName }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef> E-mail </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="gender">
+            <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.gender }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.phone }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="companyNumber">
+            <mat-header-cell *matHeaderCellDef> Company Number </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.companyNumber }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <mat-header-cell
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+            >
+              Delete
+            </mat-header-cell>
+            <mat-cell
+              class="delete-button"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matCellDef="let element"
+              (click)="openDeleteModal(element.id)"
+            >
+              <mat-icon>delete</mat-icon></mat-cell
+            >
+          </ng-container>
+
+          <ng-container matColumnDef="read">
+            <mat-header-cell
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+
+            >
+              Read
+            </mat-header-cell>
+            <mat-cell
+              class="read-button"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matCellDef="let element"
+              (click)="readCustomerEditPage(element.id)"
+            >
+              <mat-icon >remove_red_eye</mat-icon></mat-cell
+            >
+          </ng-container>
+
+          <ng-container matColumnDef="edit" class="disable">
+            <mat-header-cell
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+
+            >
+              Edit
+            </mat-header-cell>
+            <mat-cell
+
+              class="edit-button"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              *matCellDef="let element"
+              (click)="openCustomerEditPage(element.id)"
+            >
+            <button mat-icon-button [disabled]="editIndicator == true && element.id == this.lockedItem.itemId">
+              <mat-icon [color]="editIndicator == true && element.id == this.lockedItem.itemId ? 'warn' : ''">mode_edit</mat-icon></button></mat-cell
+            >
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row [ngClass]="{'disable': row.symbol == true}" *matRowDef="let row; columns: displayedColumns" fxLayout="row" fxLayoutAlign="center center" ></mat-row>
+        </mat-table>
+
+        <mat-paginator
+          #paginator
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20, 50, 100]"
+          [showFirstLastButtons]="true"
+          [length]="totalSizeOfItems"
+          [pageIndex]="currentPage"
+          (page)="pageEvent = handlePage($event)"
+        >
+        </mat-paginator>
+      </ng-template>
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="View deleted customers">
+    <ng-template [ngTemplateOutlet]="table"></ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+
