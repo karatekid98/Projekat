@@ -24,6 +24,10 @@ export class InvoiceService {
     return this.http.get<PaginationResponse<Invoice[]>>(`http://localhost:28846/api/Invoice/getDeletedInvoices?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }
 
+  getCustomer(parametars: any): Observable<PaginationResponse<Invoice[]>>  {
+    return this.http.get<PaginationResponse<Invoice[]>>(`http://localhost:28846/api/Invoice?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
+  }
+
   softDeleteInvoice(id: any): Observable<{}>  {
     return this.http.patch(`http://localhost:28846/api/Invoice/softDelete/${id}`, id);
   }
@@ -35,6 +39,7 @@ export class InvoiceService {
   addInvoice(invoiceForm: Invoice): Observable<Invoice> {
     return this.http.post<Invoice>(`http://localhost:28846/api/Invoice/`, invoiceForm);
   }
+
 
   // TODO: create update form in ts file and fix this method
   updateInvoice(updateForm: Invoice, id: any): Observable<Invoice> {

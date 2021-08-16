@@ -33,6 +33,7 @@ export class CustomerEditComponent implements OnInit {
       gender: '',
       companyNumber: '',
       addressId: null,
+      name: ''
   };
 
   public address: Address = {

@@ -19,6 +19,7 @@ export class CustomerAddComponent implements OnInit {
   public customer: Customer = {
     firstName: '',
     lastName: '',
+    name: '',
     email: '',
     phone: '',
     gender: '',
@@ -38,6 +39,7 @@ export class CustomerAddComponent implements OnInit {
       firstName: '',
       lastName: '',
       email: '',
+      name: '',
       phone: '',
       gender: '',
       companyNumber: ''

@@ -3,6 +3,7 @@ export interface Customer {
   lastName: string;
   gender: string;
   email: string;
+  name: string;
   phone: string;
   addressId?: any;
   companyNumber: string;

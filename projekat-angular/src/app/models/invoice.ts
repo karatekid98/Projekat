@@ -8,4 +8,5 @@ export interface Invoice {
   user: object;
   customer: object;
   isDeleted: boolean;
+  id?: any;
 }

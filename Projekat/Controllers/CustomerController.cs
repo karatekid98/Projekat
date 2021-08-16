@@ -29,7 +29,7 @@ namespace Projekat.Controllers
         {
             try
             {
-                var customer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                var customer = _customerService.AsQueryable().FirstOrDefault(x => x.Id == id);
 
                 if (customer == null)
                 {
@@ -254,6 +254,7 @@ namespace Projekat.Controllers
             customer.Email = signupCustomerRequest.CustomerDto.Email;
             customer.FirstName = signupCustomerRequest.CustomerDto.FirstName;
             customer.LastName = signupCustomerRequest.CustomerDto.LastName;
+            customer.Name = signupCustomerRequest.CustomerDto.Name;
             customer.Phone = signupCustomerRequest.CustomerDto.Phone;
             customer.Gender = signupCustomerRequest.CustomerDto.Gender;
             customer.CompanyNumber = signupCustomerRequest.CustomerDto.CompanyNumber;

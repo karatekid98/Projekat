@@ -40,16 +40,23 @@
           </ng-container>
 
           <ng-container matColumnDef="customer">
-            <mat-header-cell *matHeaderCellDef> Customer </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Customer name </mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.customer }}
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="issuer">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Customer comp. name </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.name }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="user">
             <mat-header-cell *matHeaderCellDef> Issuer </mat-header-cell>
             <mat-cell *matCellDef="let element" appHighlightTitle>
-              {{ element.issuer }}
+              {{ element.user }}
             </mat-cell>
           </ng-container>
 

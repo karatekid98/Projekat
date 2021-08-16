@@ -19,7 +19,7 @@ export class InvoiceTableComponent implements OnInit {
 
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
   @Output() selectedTabChange: EventEmitter<MatTabChangeEvent>;
-  displayedColumns: string[] = ['id', 'customer', 'issuer',  'isPrinted',
+  displayedColumns: string[] = ['id', 'customer', 'user', 'name',  'isPrinted',
     'delete', 'read', 'edit'];
 
   lockedItems: Array<object> = [];
@@ -83,17 +83,23 @@ export class InvoiceTableComponent implements OnInit {
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < list.length; i++) {
         this.customerService.getCustomer(list[i].customerId).subscribe((customer) => {
-          this.customer = customer.firstName + ' ' + customer.lastName;
-          list[i].customer = this.customer;
+          if (customer.name !== null) {
+            this.customer = customer.name;
+            list[i].name = this.customer;
+          } else {
+            this.customer = customer.firstName + ' ' + customer.lastName;
+            list[i].customer = this.customer;
+          }
         });
         this.userService.getUser(list[i].issuerId).subscribe((user) => {
-          console.log(user);
           this.user = user.firstName + ' ' + user.lastName;
           list[i].user = this.user;
         });
       }
+
+
       this.dataSource = new MatTableDataSource(list);
-      console.log(list);
+
     });
   }
   private showDeletedInvoices(parametars: any): void {
@@ -104,6 +110,21 @@ export class InvoiceTableComponent implements OnInit {
       this.currentPage = this.currentPage - 1;
       this.totalSizeOfItems = metadata.totalCount;
       const list = invoices['pagedList'];
+      for (let i = 0; i < list.length; i++) {
+        this.customerService.getCustomer(list[i].customerId).subscribe((customer) => {
+          if (customer.name !== null) {
+            this.customer = customer.name;
+            list[i].name = this.customer;
+          } else {
+            this.customer = customer.firstName + ' ' + customer.lastName;
+            list[i].customer = this.customer;
+          }
+        });
+        this.userService.getUser(list[i].issuerId).subscribe((user) => {
+          this.user = user.firstName + ' ' + user.lastName;
+          list[i].user = this.user;
+        });
+      }
       this.dataSource = new MatTableDataSource(list);
     });
   }

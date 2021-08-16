@@ -32,7 +32,8 @@ namespace Projekat.Controllers
         {
             try
             {
-                var user = _userService.AsQueryable().FirstOrDefault(x => x.Id == id && x.IsDeleted == false);
+                // obrisano iz uslova && x.IsDeleted == false zbog invoice-a ovde i kod customer controller-a
+                var user = _userService.AsQueryable().FirstOrDefault(x => x.Id == id);
                 var invoicesResponse = _invoiceService.AsQueryable().Where(x => x.IssuerId == id);
 
              
@@ -40,8 +41,7 @@ namespace Projekat.Controllers
                 {
                     return NotFound();
                 }
-            
-                // napravi metodu koja vraca user invoice
+           
                 return Ok(user);
             }
             catch (Exception e)
@@ -50,6 +50,7 @@ namespace Projekat.Controllers
             }
 
         }
+
 
         [HttpGet("getUserAddress/{id}")]
         public ActionResult<Address> GetUserAddress(Guid id)

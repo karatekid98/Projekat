@@ -28,6 +28,8 @@ const routes: Routes = [
   loadChildren: () => import('../customer/customer-routing.module').then(m => m.CustomerRoutingModule)},
   { path: 'product', component: ProductComponent,
   loadChildren: () => import('../product/product-routing.module').then(m => m.ProductRoutingModule)},
+  { path: 'invoice', component: InvoiceComponent,
+  loadChildren: () => import('../invoice/invoice-routing.module').then(m => m.InvoiceRoutingModule)},
 ];
 
 @NgModule({

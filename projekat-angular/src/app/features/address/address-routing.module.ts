@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AddressComponent } from './address.component';
 import { AddressTableComponent } from './address-table/address-table.component';
