@@ -1,0 +1,39 @@
+.action-buttons {
+  padding: 20px 0 20px;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headers-align {
+  margin-left: 8px;
+}
+
+.mat-accordion {
+  margin-bottom: 20px;
+}
+
+#edit-customer {
+  margin-left: 10px;
+  color: white;
+}
+
+
+.table {
+  width: 100%;
+}
+
+.table-button-container {
+  padding-bottom: 16px;
+}
+
+.table-button + .table-button {
+  margin-left: 8px;
+}

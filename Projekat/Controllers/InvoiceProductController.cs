@@ -61,6 +61,24 @@ namespace Projekat.Controllers
 
         }
 
+        [HttpGet("getAllProducts/{id}")]
+        public ActionResult<InvoiceProduct> GetInvoiceProductsNoPag(Guid id, [FromQuery] PaginationParameters parameters)
+        {
+         
+            try
+            {
+                var invoiceProducts = _invoiceProductService.AsQueryable().Where(x => x.InvoiceId == id);
+
+                return Ok(invoiceProducts);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
+
 
         [HttpGet("getDeletedInvoiceProducts")]
         public ActionResult<PaginationResponse<InvoiceProduct>> GetDeletedInvoiceProducts([FromQuery] PaginationParameters parameters)

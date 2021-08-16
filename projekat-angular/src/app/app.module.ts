@@ -10,7 +10,6 @@ import { CoreModule } from './core/modules/CoreModule';
 import { HomePageModule } from './features/home-page/home-page.module';
 import { AdminHomePageModule,  } from './features/admin-home-page/admin-home-page.module';
 import { UserModule } from './features/user/user.module';
-import { ProductTableComponent } from './features/product/product-table/product-table.component';
 import { SettingsComponent } from './features/settings-page/settings.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AddressModule } from './features/address/address.module';
 import { CustomerModule } from './features/customer/customer.module';
 import { ProductModule } from './features/product/product.module';
+import { InvoiceModule } from './features/invoice/invoice.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { ProductModule } from './features/product/product.module';
     UserModule,
     AddressModule,
     CustomerModule,
-    ProductModule
+    ProductModule,
+    InvoiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

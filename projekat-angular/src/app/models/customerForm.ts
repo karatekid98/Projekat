@@ -14,5 +14,6 @@ export interface CustomerForm {
     gender: string;
     addressId?: string;
     email: string;
+    name: string;
   };
 }

@@ -19,6 +19,10 @@ export class InvoiceProductService {
     return this.http.get<PaginationResponse<InvoiceProduct[]>>(`http://localhost:28846/api/InvoiceProduct?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }
 
+  getOneInvoiceProducts(id: any): Observable<InvoiceProduct[]>{
+    return this.http.get<InvoiceProduct[]>(`http://localhost:28846/api/InvoiceProduct/getAllProducts/${id}`);
+  }
+
   getDeletedInvoiceProducts(parametars: any): Observable<PaginationResponse<InvoiceProduct[]>>  {
     return this.http.get<PaginationResponse<InvoiceProduct[]>>(`http://localhost:28846/api/InvoiceProduct/getDeletedInvoiceProducts?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }
