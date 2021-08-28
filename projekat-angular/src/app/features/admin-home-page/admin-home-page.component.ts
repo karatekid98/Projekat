@@ -39,7 +39,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   openComponent(component): void {
     this.viewContainer.clear();
 
-
     let clickedComponent = component + 'Component';
     if (clickedComponent === 'CustomerComponent') {
       const componentFactory = this.resolver.resolveComponentFactory(CustomerComponent);
@@ -63,7 +62,6 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
       const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
       this.viewContainer.createComponent(componentFactory);
     }
-
   }
 
   logOut(): void {
@@ -74,6 +72,4 @@ export class AdminHomePageComponent implements OnInit, AfterViewInit {
   switchLanguage(language: string): void {
     this.translate.switchLanguage(language);
   }
-
-
 }

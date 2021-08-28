@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { LoginService } from '../../core/services/login-service/login.service';
 import { Login } from '../../models/login';
 import { Router } from '@angular/router';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 
 @Component({
@@ -16,14 +17,21 @@ export class LoginPageComponent implements OnInit {
     email: '',
     password: '',
   };
+  showMessage = false;
+  message = '';
+  hide = true;
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required, Validators.min(3)]),
   });
 
+  matcher = new ErrorStateMatcher();
 
-  hide = true;
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 
   get emailInput(): any {
     return this.loginForm.get('email');
@@ -32,28 +40,25 @@ export class LoginPageComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-
   constructor(private loginService: LoginService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   finishLogin(): void {
     this.loginService.login(this.loginForm.value).subscribe(
       (response) => {
         if (response != null) {
-          if (response.role === false) {
-            this.router.navigate([`/home-page`]);
-          } else {
+          if (response.role === true) {
             this.router.navigate([`/admin-home-page`]);
           }
           this.storeToLocalStorage(response);
-        } else {
-          localStorage.setItem('isLoggedIn', 'false');
-          const wrongCredentials = document.getElementById('wrongData') as HTMLDivElement;
-          wrongCredentials.innerHTML = 'The password or email address you’ve entered is incorrect. Try again.';
         }
       },
       (error) => {
+        this.showMessage = true;
+        this.message = `The credentials you've entered don't seem to be valid. Try again.`;
+        localStorage.setItem('isLoggedIn', 'false');
         console.log(error.error);
       }
     );
