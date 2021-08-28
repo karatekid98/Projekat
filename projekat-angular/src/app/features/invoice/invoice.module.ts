@@ -13,6 +13,7 @@ import { InvoiceService } from '../../core/services/invoice-service/invoice.serv
 import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AddInvoiceProductComponent } from './invoice-edit/add-invoice-product-modal/add-invoice-product.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -20,7 +21,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [InvoiceComponent, InvoiceTableComponent, InvoiceAddComponent, InvoiceEditComponent],
+  declarations: [InvoiceComponent, InvoiceTableComponent, InvoiceAddComponent, InvoiceEditComponent, AddInvoiceProductComponent],
   imports: [
     CommonModule,
     SharedModule,

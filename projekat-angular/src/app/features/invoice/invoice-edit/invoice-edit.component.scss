@@ -37,3 +37,8 @@
 .table-button + .table-button {
   margin-left: 8px;
 }
+
+.mat-cell, .mat-header-cell {
+  text-align: center;
+  justify-content:center;
+}

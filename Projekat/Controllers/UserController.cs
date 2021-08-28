@@ -305,6 +305,7 @@ namespace Projekat.Controllers
 
 
         // ukoliko dobijem null, user ne postoji, u suprotnom postoji i vraca celog User-a u responsu
+       
         [HttpPost("logIn")]
         public ActionResult<User> Login([FromBody] LoginRequest loginRequest) 
         {

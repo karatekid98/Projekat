@@ -60,6 +60,23 @@ namespace Projekat.Controllers
             }
 
         }
+
+
+        [HttpGet("getAllProducts")]
+        public ActionResult<Product> GetProductsNoPag([FromQuery] PaginationParameters parameters)
+        {
+            try
+            {
+                var products = _productService.AsQueryable().Where(x => x.IsDeleted == false);
+
+                return Ok(products);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
         [HttpGet("getDeletedProducts")]
         public ActionResult<PaginationResponse<Product>> GetDeletedProducts([FromQuery] PaginationParameters parameters)
         {

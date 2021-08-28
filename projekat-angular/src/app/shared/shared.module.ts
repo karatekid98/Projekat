@@ -26,7 +26,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { TranslateLabelsPipe } from './translate-labels.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -56,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PortalModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
     FlexLayoutModule,
     MatSelectModule,
     MatMenuModule,
@@ -88,6 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PortalModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
     FlexLayoutModule,
     MatSelectModule,
     MatMenuModule,

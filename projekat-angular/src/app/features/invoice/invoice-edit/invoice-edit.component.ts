@@ -17,8 +17,10 @@ import { EditModalComponent } from 'src/app/shared/edit-modal/edit-modal.compone
 import { InvoiceService } from '../../../core/services/invoice-service/invoice.service';
 import { ProductService } from '../../../core/services/product-service/product.service';
 import { UserService } from '../../../core/services/user-service/user.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { InvoiceProductService } from '../../../core/services/invoice-product-service/invoice-product.service';
+import { ProductAddComponent } from '../../product/product-table/product-add/product-add.component';
+import { AddInvoiceProductComponent } from './add-invoice-product-modal/add-invoice-product.component';
 
 @Component({
   selector: 'app-invoice-edit',
@@ -27,9 +29,10 @@ import { InvoiceProductService } from '../../../core/services/invoice-product-se
 })
 export class InvoiceEditComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
+  @ViewChild(MatTable) table: MatTable<any>;
 
   displayedColumns: string[] = ['name', 'unit', 'price',
-  'dateAdded', 'quantity'];
+                                'dateAdded', 'quantity'];
   customerPerson = true;
   selected = 'Female';
   formFilled = true;
@@ -42,7 +45,7 @@ export class InvoiceEditComponent implements OnInit {
   pageHeader = 'Edit invoice';
   isButtonVisible = true;
   panelOpenState = false;
-
+  product: any;
   lockedItem: LockItem = {
     itemId: '',
     userId: ''
@@ -56,6 +59,7 @@ export class InvoiceEditComponent implements OnInit {
     pageNumber: 1,
     pageSize: 5
   };
+
   // dataToDisplay = [...ELEMENT_DATA];
 
   // dataSource = new ExampleDataSource(this.dataToDisplay);
@@ -121,6 +125,7 @@ export class InvoiceEditComponent implements OnInit {
     gender: new FormControl('', Validators.required),
     dateofBirth: new FormControl('', Validators.required),
   });
+
 
 
   @HostListener('window:popstate', ['$event'])
@@ -307,40 +312,54 @@ export class InvoiceEditComponent implements OnInit {
     this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 
-  addProduct(): void {
-
+  // TODO: zavris metodu, napravi modalni prozor za dodavanje novog proizvoda i dodaj korpu za brisanje proizvoda sa fakture
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddInvoiceProductComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.showProducts();
+    });
   }
+
+
 
   removeProduct(): void {
 
   }
 
-  private showProducts(): void{
-    this.invoiceProductService.getOneInvoiceProducts(this.id).subscribe((products) => {
-      console.log(products);
+  showProducts(): void{
+    this.invoiceProductService.getOneInvoiceProducts(this.id).subscribe((invproducts) => {
+      // this.dataSource = new MatTableDataSource(products);
 
-      this.dataSource = new MatTableDataSource(products);
+      const list = invproducts;
+      for (let i = 0; i < list.length; i++) {
+        this.productService.getProduct(list[i].productId).subscribe((product) => {
+          if (product.name !== null) {
+            list[i].name = product.name;
+
+          }
+        });
+      }
+      this.dataSource = new MatTableDataSource(list);
     });
   }
-
 }
 
 
-class ExampleDataSource extends DataSource<Product> {
-  private _dataStream = new ReplaySubject<Product[]>();
+// class ExampleDataSource extends DataSource<Product> {
+//   private _dataStream = new ReplaySubject<Product[]>();
 
-  constructor(initialData: Product[]) {
-    super();
-    this.setData(initialData);
-  }
+//   constructor(initialData: Product[]) {
+//     super();
+//     this.setData(initialData);
+//   }
 
-  connect(): Observable<Product[]> {
-    return this._dataStream;
-  }
+//   connect(): Observable<Product[]> {
+//     return this._dataStream;
+//   }
 
-  disconnect(): void {}
+//   disconnect(): void {}
 
-  setData(data: Product[]): void {
-    this._dataStream.next(data);
-  }
-}
+//   setData(data: Product[]): void {
+//     this._dataStream.next(data);
+//   }
+// }

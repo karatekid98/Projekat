@@ -20,6 +20,10 @@ export class ProductService {
     return this.http.get<PaginationResponse<Product[]>>(`http://localhost:28846/api/Product?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }
 
+  getProductsNoPag(): Observable<Product[]>  {
+    return this.http.get<Product[]>(`http://localhost:28846/api/Product/getAllProducts`);
+  }
+
   getDeletedProducts(parametars: any): Observable<PaginationResponse<Product[]>>  {
     return this.http.get<PaginationResponse<Product[]>>(`http://localhost:28846/api/Product/getDeletedProducts?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }

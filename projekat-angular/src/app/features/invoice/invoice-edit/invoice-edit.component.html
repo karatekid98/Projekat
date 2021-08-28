@@ -180,7 +180,7 @@
         </mat-expansion-panel-header>
         <mat-card>
           <div class="table-button-container">
-            <button mat-raised-button (click)="addProduct()" class="table-button">
+            <button mat-raised-button (click)="openDialog()" class="table-button">
               Add data
             </button>
             <button
@@ -192,7 +192,7 @@
             </button>
           </div>
 
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+          <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
 
             <!-- Name Column -->
             <ng-container matColumnDef="name">
