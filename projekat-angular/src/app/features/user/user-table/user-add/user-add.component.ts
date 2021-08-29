@@ -15,18 +15,6 @@ import { UserService } from '../../../../core/services/user-service/user.service
 export class UserAddComponent implements OnInit {
   selected = 'Female';
   formFilled = true;
-  public user: User = {
-    firstName: '',
-    lastName: '',
-    phone: '',
-    dateOfBirth: new Date(),
-    gender: '',
-    addressId: '',
-    email: '',
-    password: '',
-    id: '',
-    role: false
-  };
 
   public singup: UserForm = {
     AddressDto: {
@@ -94,13 +82,6 @@ export class UserAddComponent implements OnInit {
       this.fillOutForm();
       this.userService.addUser(this.singup).subscribe(
         (response) => {
-          this.user.firstName = response.firstName;
-          this.user.lastName = response.lastName;
-          this.user.gender = response.gender;
-          this.user.dateOfBirth = response.dateOfBirth;
-          this.user.password = response.password;
-          this.user.email = response.email;
-          this.user.phone = response.phone;
           this.formFilled = true;
           this.openSnackBar();
           this.router.navigate(['admin-home-page/user']);

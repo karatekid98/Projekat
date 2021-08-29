@@ -33,8 +33,6 @@ export class DeleteModalComponent implements OnInit {
     } else if (this.data.component === 'address') {
       this.addressService.softDeleteAddress(id).subscribe();
     }else if (this.data.component === 'invoice') {
-      console.log(id);
-
       this.invoiceService.softDeleteInvoice(id).subscribe();
     }else if (this.data.component === 'product') {
       this.productService.softDeleteProduct(id).subscribe();

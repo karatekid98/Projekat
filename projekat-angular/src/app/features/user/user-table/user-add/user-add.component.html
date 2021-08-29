@@ -14,25 +14,25 @@
       </div>
       <!--****************************************************************-->
       <div fxLayout="row" fxLayoutAlign="space-between">
-      <mat-form-field class="input-full-width">
-        <mat-label>Telephone number</mat-label>
-        <input
-          type="tel"
-          matInput
-          formControlName="phoneNumber"
-          required
-          placeholder="555-555-1234"
-        />
-      </mat-form-field>
-      <mat-form-field class="input-full-width">
-      <mat-label>Select gender</mat-label>
-      <mat-select formControlName='gender'  [(value)]="selected">
-        <mat-option>None</mat-option>
-        <mat-option value="Female">Female</mat-option>
-        <mat-option value="Male">Male</mat-option>
-      </mat-select>
-    </mat-form-field>
-    </div>
+        <mat-form-field class="input-full-width">
+          <mat-label>Telephone number</mat-label>
+          <input
+            type="tel"
+            matInput
+            formControlName="phoneNumber"
+            required
+            placeholder="555-555-1234"
+          />
+        </mat-form-field>
+        <mat-form-field class="input-full-width">
+          <mat-label>Select gender</mat-label>
+          <mat-select formControlName="gender" [(value)]="selected">
+            <mat-option>None</mat-option>
+            <mat-option value="Female">Female</mat-option>
+            <mat-option value="Male">Male</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <br />
       <!--****************************************************************-->
       <mat-form-field appearance="fill" class="input-full-width">
@@ -123,24 +123,16 @@
       </mat-form-field>
       <!--****************************************************************-->
     </form>
-    <h3  fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
-      'warning': formFilled,
-      'error': !formFilled
-    }">All fields are required</h3>
+    <h3 fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+        warning: formFilled,
+        error: !formFilled}">
+      All fields are required
+    </h3>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-      <button
-        (click)="backToUserTable()"
-        [routerLink]="['user']"
-        color="warn"
-        mat-raised-button
-      >
+      <button (click)="backToUserTable()" [routerLink]="['user']" color="warn" mat-raised-button>
         BACK
       </button>
-      <button
-        (click)="finishSingup()"
-        color="accent"
-        mat-raised-button
-      >
+      <button (click)="finishSingup()" color="accent" mat-raised-button>
         FINISH
       </button>
     </mat-card-actions>

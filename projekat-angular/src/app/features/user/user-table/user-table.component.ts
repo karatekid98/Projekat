@@ -21,6 +21,7 @@ export class UserTableComponent implements OnInit {
     'email', 'phone', 'role', 'dateOfBirth',
     'delete', 'read', 'edit'];
 
+  user;
   lockedItems: Array<object> = [];
   editIndicator = false;
   tableOpened = true;
@@ -29,14 +30,15 @@ export class UserTableComponent implements OnInit {
     itemId: '',
     userId: ''
   };
-
+  loggedUser;
+  showCol = true;
   dataSource;
   pageSize;
   totalSizeOfItems;
   currentPage;
   pageEvent;
   parametars: any = {
-    pageNumber: 1,
+    pageNumber: 3,
     pageSize: 5
   };
 
@@ -44,14 +46,18 @@ export class UserTableComponent implements OnInit {
               public dialog: MatDialog, private lockService: LockService) { }
 
   ngOnInit(): void {
-
-    this.lockedItem.userId = localStorage.getItem('userId');
+    // this.loggedUser = JSON.parse(localStorage.getItem('userObject'));
+    // if (this.loggedUser.role) {
+    //   this.showCol = true;
+    // }
+    this.user = JSON.parse(localStorage.getItem('userObject'));
+    this.lockedItem.userId = this.user.id;
+    // this.lockedItem.userId = localStorage.getItem('userId');
     const lockedItem = localStorage.getItem('lockedItem');
     if (lockedItem !== null) {
       this.editIndicator = true;
       this.lockedItem.itemId = lockedItem;
     }
-
     this.showUsers(this.parametars);
   }
 
@@ -71,7 +77,7 @@ export class UserTableComponent implements OnInit {
   private showUsers(parametars: any): void{
     this.userService.getUsers(this.parametars).subscribe((users) => {
       const metadata = users['metadata'];
-      this.pageSize = metadata.pageSize;
+      this.pageSize = metadata.pageSize
       this.currentPage = metadata.currentPage;
       this.currentPage = this.currentPage - 1;
       this.totalSizeOfItems = metadata.totalCount;
@@ -127,8 +133,10 @@ export class UserTableComponent implements OnInit {
 
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
-    localStorage.setItem('lockedItem', id);
-    this.lockedItems.push(this.lockedItem.itemId);
+    //localStorage.setItem('lockedItem', id);
+    // this.lockedItems.push(this.lockedItem.itemId);
+    console.log(this.lockedItem);
+
     this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 }

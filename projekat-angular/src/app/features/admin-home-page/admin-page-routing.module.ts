@@ -11,7 +11,7 @@ import { UserProfileEditComponent } from '../user-profile/user-profile-edit/user
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: AddressComponent },
   { path: 'address', component: AddressComponent },
   { path: 'user', component: UserComponent,  },
   { path: 'invoice', component: InvoiceComponent },

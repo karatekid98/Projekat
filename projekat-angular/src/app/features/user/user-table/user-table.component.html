@@ -137,16 +137,15 @@
           </ng-container>
 
           <ng-container matColumnDef="edit" class="disable">
-            <mat-header-cell
+            <mat-header-cell  [hidden]="showCol"
               fxLayout="row"
               fxLayoutAlign="center center"
               *matHeaderCellDef
-
             >
               Edit
             </mat-header-cell>
-            <mat-cell
 
+            <mat-cell
               class="edit-button"
               fxLayout="row"
               fxLayoutAlign="center center"
@@ -165,7 +164,7 @@
         <mat-paginator
           #paginator
           [pageSize]="pageSize"
-          [pageSizeOptions]="[5, 10, 20, 50, 100]"
+          [pageSizeOptions]="[5, 10, 20, totalSizeOfItems]"
           [showFirstLastButtons]="true"
           [length]="totalSizeOfItems"
           [pageIndex]="currentPage"

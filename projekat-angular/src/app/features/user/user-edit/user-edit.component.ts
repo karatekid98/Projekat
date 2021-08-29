@@ -118,9 +118,7 @@ export class UserEditComponent implements OnInit {
       });
       this.patchAddressForm();
       this.initalValues = this.detailForm.value;
-
     });
-
   }
 
   patchAddressForm(): void {
@@ -191,7 +189,6 @@ export class UserEditComponent implements OnInit {
       duration: 2000,
       panelClass: ['snackbar']
     });
-
   }
 
   getUrlParams(): any {

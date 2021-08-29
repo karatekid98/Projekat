@@ -49,10 +49,8 @@ export class LoginPageComponent implements OnInit {
     this.loginService.login(this.loginForm.value).subscribe(
       (response) => {
         if (response != null) {
-          if (response.role === true) {
             this.router.navigate([`/admin-home-page`]);
-          }
-          this.storeToLocalStorage(response);
+            this.storeToLocalStorage(response);
         }
       },
       (error) => {

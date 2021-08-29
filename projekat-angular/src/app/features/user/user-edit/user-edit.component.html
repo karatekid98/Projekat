@@ -20,7 +20,6 @@
           type="tel"
           matInput
           formControlName="phone"
-          required
           placeholder="555-555-1234"
         />
       </mat-form-field>
@@ -68,7 +67,7 @@
         </mat-error>
       </mat-form-field>
       <!--****************************************************************-->
-      <div fxLayout="row" fxLayoutAlign="space-between">
+      <div *ngIf="this.isButtonVisible" fxLayout="row" fxLayoutAlign="space-between">
         <mat-form-field class="input-full-width">
           <input
             matInput
@@ -83,7 +82,7 @@
           <mat-hint *ngIf="!passwordInput">Enter your password</mat-hint>
         </mat-form-field>
 
-        <mat-form-field class="input-full-width">
+        <mat-form-field *ngIf="this.isButtonVisible" class="input-full-width">
           <input
             matInput
             placeholder="Confirm password"
@@ -127,7 +126,7 @@
       </mat-form-field>
       <!--****************************************************************-->
     </form>
-    <h3  fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+    <h3 *ngIf="this.isButtonVisible" fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
       'warning': formFilled,
       'error': !formFilled
     }">All fields are required</h3>
