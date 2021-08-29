@@ -40,8 +40,6 @@ export class InvoiceService {
     return this.http.post<Invoice>(`http://localhost:28846/api/Invoice/`, invoiceForm);
   }
 
-
-  // TODO: create update form in ts file and fix this method
   updateInvoice(updateForm: Invoice, id: any): Observable<Invoice> {
     return this.http.put<Invoice>(`http://localhost:28846/api/Invoice/${id}`, updateForm);
   }

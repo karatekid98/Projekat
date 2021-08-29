@@ -40,7 +40,6 @@ export class ProductService {
     return this.http.post<Product>(`http://localhost:28846/api/Product/`, productForm);
   }
 
-  // TODO: create update form in ts file and fix this method
   updateProduct(updateForm: Product, id: any): Observable<Product> {
     return this.http.put<Product>(`http://localhost:28846/api/Product/${id}`, updateForm);
   }

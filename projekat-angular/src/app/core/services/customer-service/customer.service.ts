@@ -37,7 +37,6 @@ export class CustomerService {
     return this.http.post<Customer>(`http://localhost:28846/api/Customer/singUp`, customerForm);
   }
 
-  // TODO: create update form in ts file and fix this method
   updateCustomer(updateForm: Customer, id: any): Observable<Customer> {
     return this.http.put<Customer>(`http://localhost:28846/api/Customer/${id}`, updateForm);
   }
