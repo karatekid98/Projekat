@@ -153,7 +153,7 @@
               (click)="openUserEditPage(element.id)"
             >
             <button mat-icon-button [disabled]="editIndicator == true && element.id == this.lockedItem.itemId">
-              <mat-icon [color]="editIndicator == true && element.id == this.lockedItem.itemId ? 'warn' : ''">mode_edit</mat-icon></button></mat-cell
+              <mat-icon [color]="editIndicator == true && this.listOfLockedUsers.includes(element.id)  ? 'warn' : ''">mode_edit</mat-icon></button></mat-cell
             >
           </ng-container>
 

@@ -89,16 +89,10 @@
       </mat-form-field>
       <!--****************************************************************-->
     </form>
-    <h3
-      fxLayout="row"
-      fxLayoutAlign="center center"
-      [ngClass]="{
-        warning: formFilled,
-        error: !formFilled
-      }"
-    >
-      All fields are required
-    </h3>
+    <h3 *ngIf="this.isButtonVisible" fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+      'warning': formFilled,
+      'error': !formFilled
+    }">All fields are required</h3>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
       <button (click)="backToCustomerTable()" color="warn" mat-raised-button>
         BACK

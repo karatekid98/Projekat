@@ -1,6 +1,6 @@
 import { LockService } from './../../../core/services/lock-service/lock.service';
 import { Address } from './../../../models/address';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { EditModalComponent } from '../../../shared/edit-modal/edit-modal.compon
   templateUrl: './address-edit.component.html',
   styleUrls: ['./address-edit.component.scss', '../../user/user-table/user-add/user-add.component.scss']
 })
-export class AddressEditComponent implements OnInit {
+export class AddressEditComponent implements OnInit, OnDestroy {
 
   hide = true;
   confirmhide = true;
@@ -56,7 +56,7 @@ export class AddressEditComponent implements OnInit {
               private lockService: LockService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('lockedItem') === null) {
+    if (localStorage.getItem('readPage')) {
       this.pageHeader = 'Read-only address';
       this.isButtonVisible = false;
       this.addressForm.disable();
@@ -69,7 +69,13 @@ export class AddressEditComponent implements OnInit {
       this.initalValues = this.addressForm.value;
 
     });
+  }
 
+  ngOnDestroy(): void {
+    localStorage.removeItem('readPage');
+    if (this.id !== null) {
+      this.unlockItem(this.id);
+    }
   }
 
   backToAddressTable(): void {
@@ -124,7 +130,6 @@ export class AddressEditComponent implements OnInit {
       duration: 2000,
       panelClass: ['snackbar']
     });
-
   }
 
   getUrlParams(): any {

@@ -1,6 +1,6 @@
 import { Observable, ReplaySubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatAccordion } from '@angular/material/expansion';
@@ -27,7 +27,7 @@ import { AddInvoiceProductComponent } from './add-invoice-product-modal/add-invo
   templateUrl: './invoice-edit.component.html',
   styleUrls: ['./invoice-edit.component.scss', '../../user/user-table/user-add/user-add.component.scss']
 })
-export class InvoiceEditComponent implements OnInit {
+export class InvoiceEditComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   @ViewChild(MatTable) table: MatTable<any>;
 
@@ -128,11 +128,11 @@ export class InvoiceEditComponent implements OnInit {
 
 
 
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event): void {
-    this.unlockItem(localStorage.getItem('lockedItem'));
-    localStorage.removeItem('lockedItem');
-  }
+  // @HostListener('window:popstate', ['$event'])
+  // onPopState(event): void {
+  //   this.unlockItem(localStorage.getItem('lockedItem'));
+  //   localStorage.removeItem('lockedItem');
+  // }
 
   constructor(private route: ActivatedRoute, private invoiceService: InvoiceService,
               private router: Router,  public dialog: MatDialog, private customerService: CustomerService,
@@ -141,10 +141,8 @@ export class InvoiceEditComponent implements OnInit {
               private lockService: LockService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.lockedItem.userId = localStorage.getItem('userId');
-
-
-    if (localStorage.getItem('lockedItem') === null) {
+    // this.lockedItem.userId = localStorage.getItem('userId');
+    if (localStorage.getItem('readPage')) {
       this.pageHeader = 'Read-only invoice';
       this.isButtonVisible = false;
       this.detailForm.disable();
@@ -170,6 +168,13 @@ export class InvoiceEditComponent implements OnInit {
       this.showProducts();
     });
 
+  }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('readPage');
+    if (this.id !== null) {
+      this.unlockItem(this.id);
+    }
   }
 
   patchUserForm(): void {
@@ -203,10 +208,9 @@ export class InvoiceEditComponent implements OnInit {
         this.initalValuesCustomer !== this.customerForm.value) {
             this.openGoBackModal();
     } else {
-      const itemId = localStorage.getItem('lockedItem');
-      if (itemId !== null) {
-        this.unlockItem(itemId);
-        localStorage.removeItem('lockedItem');
+      if (this.id !== null) {
+        this.unlockItem(this.id);
+        localStorage.removeItem('readPage');
         this.router.navigate([`/admin-home-page/invoice`]);
       } else {
         this.router.navigate([`/admin-home-page/invoice`]);
@@ -222,7 +226,7 @@ export class InvoiceEditComponent implements OnInit {
         (response) => {
           this.updateUser(this.invoiceUserId);
           this.formFilled = true;
-          localStorage.removeItem('lockedItem');
+          localStorage.removeItem('readPage');
           this.unlockItem(this.id);
           this.openSnackBar();
           this.router.navigate(['admin-home-page/invoice']);
@@ -319,8 +323,6 @@ export class InvoiceEditComponent implements OnInit {
       this.showProducts();
     });
   }
-
-
 
   removeProduct(): void {
 

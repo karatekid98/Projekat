@@ -132,8 +132,8 @@
               (click)="openCustomerEditPage(element.id)"
             >
             <button mat-icon-button [disabled]="editIndicator == true && element.id == this.lockedItem.itemId">
-              <mat-icon [color]="editIndicator == true && element.id == this.lockedItem.itemId ? 'warn' : ''">mode_edit</mat-icon></button></mat-cell
-            >
+              <mat-icon [color]="editIndicator == true && this.listOfLockedCustomers.includes(element.id)  ? 'warn' : ''">mode_edit</mat-icon></button></mat-cell
+              >
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

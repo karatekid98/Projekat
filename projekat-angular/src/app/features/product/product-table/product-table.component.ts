@@ -28,7 +28,8 @@ export class ProductTableComponent implements OnInit {
     itemId: '',
     userId: ''
   };
-
+  user;
+  listOfLockedProducts = [];
   dataSource;
   pageSize;
   totalSizeOfItems;
@@ -44,13 +45,15 @@ export class ProductTableComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.lockedItem.userId = localStorage.getItem('userId');
-    const lockedItem = localStorage.getItem('lockedItem');
-    if (lockedItem !== null) {
-      this.editIndicator = true;
-      this.lockedItem.itemId = lockedItem;
-    }
-
+    // this.lockedItem.userId = localStorage.getItem('userId');
+    // const lockedItem = localStorage.getItem('lockedItem');
+    // if (lockedItem !== null) {
+    //   this.editIndicator = true;
+    //   this.lockedItem.itemId = lockedItem;
+    // }
+    this.user = JSON.parse(localStorage.getItem('userObject'));
+    this.lockedItem.userId = this.user.id;
+    this.editIndicator = true;
     this.showProducts(this.parametars);
   }
 
@@ -74,8 +77,9 @@ export class ProductTableComponent implements OnInit {
       this.currentPage = metadata.currentPage;
       this.currentPage = this.currentPage - 1;
       this.totalSizeOfItems = metadata.totalCount;
-      const listOfUsers = products['pagedList'];
-      this.dataSource = new MatTableDataSource(listOfUsers);
+      const listOfProducts = products['pagedList'];
+      this.getLockedProducts(listOfProducts);
+      this.dataSource = new MatTableDataSource(listOfProducts);
     });
   }
   private showDeletedProducts(parametars: any): void {
@@ -87,6 +91,17 @@ export class ProductTableComponent implements OnInit {
       this.totalSizeOfItems = metadata.totalCount;
       const listOfUsers = products['pagedList'];
       this.dataSource = new MatTableDataSource(listOfUsers);
+    });
+  }
+
+
+  getLockedProducts(allProducts: any): void {
+    allProducts.forEach(product => {
+      this.lockService.getIsItemLocked(product.id).subscribe((res) => {
+        if (res) {
+          this.listOfLockedProducts.push(product.id);
+        }
+      });
     });
   }
 
@@ -114,13 +129,12 @@ export class ProductTableComponent implements OnInit {
   }
 
   readProductEditPage(id: any): void{
+    localStorage.setItem('readPage', 'true');
     this.router.navigate([`/admin-home-page/product/edit-product/${id}`]);
   }
 
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
-    localStorage.setItem('lockedItem', id);
-    this.lockedItems.push(this.lockedItem.itemId);
     this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 

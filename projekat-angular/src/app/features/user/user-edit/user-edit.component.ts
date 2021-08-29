@@ -1,6 +1,6 @@
 import { Address } from './../../../models/address';
 import { EditModalComponent } from '../../../shared/edit-modal/edit-modal.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user-service/user.service';
@@ -16,7 +16,7 @@ import { HostListener } from '@angular/core';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.scss', '../user-table/user-add/user-add.component.scss']
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
 
 
   selected = 'Female';
@@ -74,11 +74,16 @@ export class UserEditComponent implements OnInit {
     line: new FormControl('', Validators.required)
   });
 
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event): void {
-    this.unlockItem(localStorage.getItem('lockedItem'));
-    localStorage.removeItem('lockedItem');
-  }
+
+  // @HostListener('window:popstate', ['$event'])
+  // onPopState(event): void {
+  //   localStorage.removeItem('readPage');
+  //   console.log(this.id);
+
+  //   if (this.id !== null) {
+  //     this.unlockItem(this.id);
+  //   }
+  // }
 
   get emailInput(): any {
     return this.detailForm.get('email');
@@ -94,15 +99,16 @@ export class UserEditComponent implements OnInit {
               private router: Router,  public dialog: MatDialog, private addressService: AddressService,
               private lockService: LockService, private snackBar: MatSnackBar) { }
 
-  // TODO: ADD LIST OF ITEMS TO LOCAL STORAGE, ADD TIMER FOR EDITING USER
+  // TODO:  ADD TIMER FOR EDITING USER
   ngOnInit(): void {
-    if (localStorage.getItem('lockedItem') === null) {
+    if (localStorage.getItem('readPage')) {
       this.pageHeader = 'Read-only user';
       this.isButtonVisible = false;
       this.detailForm.disable();
       this.addressForm.disable();
     }
     this.id = this.getUrlParams();
+
     this.userService.getUser(this.id).subscribe((user) => {
       this.user.addressId = user.addressId;
       this.user.role = user.role;
@@ -121,6 +127,13 @@ export class UserEditComponent implements OnInit {
     });
   }
 
+ ngOnDestroy(): void {
+    localStorage.removeItem('readPage');
+    if (this.id !== null) {
+      this.unlockItem(this.id);
+    }
+  }
+
   patchAddressForm(): void {
     this.userService.getUserAddress(this.userAddressId).subscribe((address) => {
       this.addressForm.patchValue(address[0]);
@@ -132,10 +145,9 @@ export class UserEditComponent implements OnInit {
     if (this.initalValues !== this.detailForm.value || this.initalValuesAddress !== this.addressForm.value) {
       this.openGoBackModal();
     } else {
-      const itemId = localStorage.getItem('lockedItem');
-      if (itemId !== null) {
-        this.unlockItem(itemId);
-        localStorage.removeItem('lockedItem');
+      if (this.id !== null) {
+        this.unlockItem(this.id);
+        localStorage.removeItem('readPage');
         this.router.navigate([`/admin-home-page/user`]);
       } else {
         this.router.navigate([`/admin-home-page/user`]);
@@ -151,7 +163,7 @@ export class UserEditComponent implements OnInit {
         (response) => {
           this.updateAddress(this.userAddressId);
           this.formFilled = true;
-          localStorage.removeItem('lockedItem');
+          localStorage.removeItem('readPage');
           this.unlockItem(this.id);
           this.openSnackBar();
           this.router.navigate(['admin-home-page/user']);

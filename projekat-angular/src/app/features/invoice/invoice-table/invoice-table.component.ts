@@ -30,7 +30,8 @@ export class InvoiceTableComponent implements OnInit {
     itemId: '',
     userId: ''
   };
-
+  loggedUser;
+  listOfLockedInvoices = [];
   dataSource;
   pageSize;
   totalSizeOfItems;
@@ -47,14 +48,9 @@ export class InvoiceTableComponent implements OnInit {
               public dialog: MatDialog, private lockService: LockService, private customerService: CustomerService) { }
 
   ngOnInit(): void {
-
-    this.lockedItem.userId = localStorage.getItem('userId');
-    const lockedItem = localStorage.getItem('lockedItem');
-    if (lockedItem !== null) {
-      this.editIndicator = true;
-      this.lockedItem.itemId = lockedItem;
-    }
-
+    this.loggedUser = JSON.parse(localStorage.getItem('userObject'));
+    this.lockedItem.userId = this.loggedUser.id;
+    this.editIndicator = true;
     this.showInvoices(this.parametars);
   }
 
@@ -97,7 +93,7 @@ export class InvoiceTableComponent implements OnInit {
         });
       }
 
-
+      this.getLockedInvoices(list);
       this.dataSource = new MatTableDataSource(list);
 
     });
@@ -129,6 +125,16 @@ export class InvoiceTableComponent implements OnInit {
     });
   }
 
+  getLockedInvoices(allInvoices: any): void {
+    allInvoices.forEach(invoice => {
+      this.lockService.getIsItemLocked(invoice.id).subscribe((res) => {
+        if (res) {
+          this.listOfLockedInvoices.push(invoice.id);
+        }
+      });
+    });
+  }
+
   openDeleteModal(id: any): void{
     const dialogRef = this.dialog.open(DeleteModalComponent, {data: {id : id, component: 'invoice'}});
     dialogRef.afterClosed().subscribe(x => {
@@ -153,13 +159,12 @@ export class InvoiceTableComponent implements OnInit {
   }
 
   readInvoiceEditPage(id: any): void{
+    localStorage.setItem('readPage', 'true');
     this.router.navigate([`/admin-home-page/invoice/edit-invoice/${id}`]);
   }
 
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
-    localStorage.setItem('lockedItem', id);
-    this.lockedItems.push(this.lockedItem.itemId);
     this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 }

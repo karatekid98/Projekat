@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,7 +13,7 @@ import { EditModalComponent } from 'src/app/shared/edit-modal/edit-modal.compone
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss', '../../user/user-table/user-add/user-add.component.scss']
 })
-export class ProductEditComponent implements OnInit {
+export class ProductEditComponent implements OnInit, OnDestroy {
   hide = true;
   confirmhide = true;
   formFilled = true;
@@ -44,8 +44,7 @@ export class ProductEditComponent implements OnInit {
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event): void {
-    this.unlockItem(localStorage.getItem('lockedItem'));
-    localStorage.removeItem('lockedItem');
+    localStorage.removeItem('readPage');
   }
 
 
@@ -56,7 +55,7 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.date = new Date().toString();
-    if (localStorage.getItem('lockedItem') === null) {
+    if (localStorage.getItem('readPage')) {
       this.pageHeader = 'Read-only product';
       this.isButtonVisible = false;
       this.productForm.disable();
@@ -69,17 +68,22 @@ export class ProductEditComponent implements OnInit {
       this.initalValues = this.productForm.value;
 
     });
+  }
 
+  ngOnDestroy(): void {
+    localStorage.removeItem('readPage');
+    if (this.id !== null) {
+      this.unlockItem(this.id);
+    }
   }
 
   backToProductTable(): void {
     if (this.initalValues !== this.productForm.value) {
       this.openGoBackModal();
     } else {
-      const itemId = localStorage.getItem('lockedItem');
-      if (itemId !== null) {
-        this.unlockItem(itemId);
-        localStorage.removeItem('lockedItem');
+      if (this.id !== null) {
+        this.unlockItem(this.id);
+        localStorage.removeItem('readPage');
         this.router.navigate([`/admin-home-page/product`]);
       } else {
         this.router.navigate([`/admin-home-page/product`]);
@@ -95,7 +99,7 @@ export class ProductEditComponent implements OnInit {
         (response) => {
 
           this.formFilled = true;
-          localStorage.removeItem('lockedItem');
+          localStorage.removeItem('readPage');
           this.unlockItem(this.id);
           this.openSnackBar();
           this.router.navigate(['admin-home-page/product']);

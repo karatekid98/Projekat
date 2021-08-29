@@ -1,5 +1,5 @@
 <div id="container">
-  <mat-card-title>Add new address</mat-card-title>
+  <mat-card-title>{{pageHeader}}</mat-card-title>
   <mat-card-content fxLayout="column">
     <form [formGroup]="productForm">
       <div fxLayout="row" fxLayoutAlign="space-between">
@@ -35,7 +35,7 @@
       <input matInput formControlName="dateAdded" [(ngModel)]="this.date" readonly/>
     </mat-form-field>
     </form>
-    <h3  fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+    <h3 *ngIf="this.isButtonVisible" fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
       'warning': formFilled,
       'error': !formFilled
     }">All fields are required</h3>
@@ -48,11 +48,12 @@
         BACK
       </button>
       <button
-        (click)="submit()"
+      *ngIf="this.isButtonVisible"
+      (click)="submit()"
         color="accent"
         mat-raised-button
       >
-        FINISH
+        SUBMIT CHANGES
       </button>
     </mat-card-actions>
   </mat-card-content>

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { LockItem } from '../../../models/lockItem';
 import { LockService } from '../../../core/services/lock-service/lock.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-table',
@@ -26,6 +27,7 @@ export class UserTableComponent implements OnInit {
   editIndicator = false;
   tableOpened = true;
   userId;
+  listOfLockedUsers = [];
   lockedItem: LockItem = {
     itemId: '',
     userId: ''
@@ -38,12 +40,13 @@ export class UserTableComponent implements OnInit {
   currentPage;
   pageEvent;
   parametars: any = {
-    pageNumber: 3,
+    pageNumber: 1,
     pageSize: 5
   };
 
   constructor(private router: Router, private userService: UserService,
-              public dialog: MatDialog, private lockService: LockService) { }
+              public dialog: MatDialog, private lockService: LockService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // this.loggedUser = JSON.parse(localStorage.getItem('userObject'));
@@ -52,12 +55,7 @@ export class UserTableComponent implements OnInit {
     // }
     this.user = JSON.parse(localStorage.getItem('userObject'));
     this.lockedItem.userId = this.user.id;
-    // this.lockedItem.userId = localStorage.getItem('userId');
-    const lockedItem = localStorage.getItem('lockedItem');
-    if (lockedItem !== null) {
-      this.editIndicator = true;
-      this.lockedItem.itemId = lockedItem;
-    }
+    this.editIndicator = true;
     this.showUsers(this.parametars);
   }
 
@@ -82,6 +80,7 @@ export class UserTableComponent implements OnInit {
       this.currentPage = this.currentPage - 1;
       this.totalSizeOfItems = metadata.totalCount;
       const listOfUsers = users['pagedList'];
+      this.getLockedUsers(listOfUsers);
       this.dataSource = new MatTableDataSource(listOfUsers);
     });
   }
@@ -95,6 +94,16 @@ export class UserTableComponent implements OnInit {
       this.totalSizeOfItems = metadata.totalCount;
       const listOfUsers = users['pagedList'];
       this.dataSource = new MatTableDataSource(listOfUsers);
+    });
+  }
+
+  getLockedUsers(allUsers: any): void {
+    allUsers.forEach(user => {
+      this.lockService.getIsItemLocked(user.id).subscribe((res) => {
+        if (res) {
+          this.listOfLockedUsers.push(user.id);
+        }
+      });
     });
   }
 
@@ -123,11 +132,14 @@ export class UserTableComponent implements OnInit {
         if (result === false) {
               this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
               this.lockItem(id);
-          }
+        } else {
+          this.openSnackBar();
+        }
       });
   }
 
   readUserEditPage(id: any): void{
+    localStorage.setItem('readPage', 'true');
     this.router.navigate([`/admin-home-page/user/edit-user/${id}`]);
   }
 
@@ -135,8 +147,14 @@ export class UserTableComponent implements OnInit {
     this.lockedItem.itemId = id;
     //localStorage.setItem('lockedItem', id);
     // this.lockedItems.push(this.lockedItem.itemId);
-    console.log(this.lockedItem);
 
     this.lockService.postLockItem(this.lockedItem).subscribe();
+  }
+
+  openSnackBar(): void {
+    this.snackBar.open('User is currently being modified! Try again later.', 'Close', {
+      duration: 4000,
+      panelClass: ['snackbar']
+    });
   }
 }

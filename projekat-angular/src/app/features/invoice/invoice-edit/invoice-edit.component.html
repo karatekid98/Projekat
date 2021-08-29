@@ -231,23 +231,17 @@
       </mat-expansion-panel>
     </mat-accordion>
 
-    <h3
-      fxLayout="row"
-      fxLayoutAlign="center center"
-      [ngClass]="{
-        warning: formFilled,
-        error: !formFilled
-      }"
-    >
-      All fields are required
-    </h3>
+    <h3 *ngIf="this.isButtonVisible" fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
+      'warning': formFilled,
+      'error': !formFilled
+    }">All fields are required</h3>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
       <button (click)="backToInvoiceTable()" color="warn" mat-raised-button>
         BACK
       </button>
       <button
-        *ngIf="this.isButtonVisible"
-        (click)="submit()"
+      *ngIf="this.isButtonVisible"
+      (click)="submit()"
         color="accent"
         mat-raised-button
       >

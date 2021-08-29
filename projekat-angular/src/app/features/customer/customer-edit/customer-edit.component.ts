@@ -1,5 +1,5 @@
 import { Address } from './../../../models/address';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Customer } from 'src/app/models/customer';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { EditModalComponent } from 'src/app/shared/edit-modal/edit-modal.compone
   templateUrl: './customer-edit.component.html',
   styleUrls: ['./customer-edit.component.scss', '../../user/user-table/user-add/user-add.component.scss']
 })
-export class CustomerEditComponent implements OnInit {
+export class CustomerEditComponent implements OnInit, OnDestroy {
   selected = 'Female';
   formFilled = true;
   id: any;
@@ -74,7 +74,7 @@ export class CustomerEditComponent implements OnInit {
               private lockService: LockService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('lockedItem') === null) {
+    if (localStorage.getItem('readPage')) {
       this.pageHeader = 'Read-only customer';
       this.isButtonVisible = false;
       this.detailForm.disable();
@@ -97,7 +97,13 @@ export class CustomerEditComponent implements OnInit {
       this.initalValues = this.detailForm.value;
 
     });
+  }
 
+  ngOnDestroy(): void {
+    localStorage.removeItem('readPage');
+    if (this.id !== null) {
+      this.unlockItem(this.id);
+    }
   }
 
   patchAddressForm(): void {
@@ -111,10 +117,9 @@ export class CustomerEditComponent implements OnInit {
     if (this.initalValues !== this.detailForm.value || this.initalValuesAddress !== this.addressForm.value) {
       this.openGoBackModal();
     } else {
-      const itemId = localStorage.getItem('lockedItem');
-      if (itemId !== null) {
-        this.unlockItem(itemId);
-        localStorage.removeItem('lockedItem');
+      if (this.id !== null) {
+        this.unlockItem(this.id);
+        localStorage.removeItem('readPage');
         this.router.navigate([`/admin-home-page/customer`]);
       } else {
         this.router.navigate([`/admin-home-page/customer`]);
@@ -130,7 +135,7 @@ export class CustomerEditComponent implements OnInit {
         (response) => {
           this.updateAddress(this.customerAddressId);
           this.formFilled = true;
-          localStorage.removeItem('lockedItem');
+          localStorage.removeItem('readPage');
           this.unlockItem(this.id);
           this.openSnackBar();
           this.router.navigate(['admin-home-page/customer']);

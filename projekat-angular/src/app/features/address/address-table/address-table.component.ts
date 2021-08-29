@@ -24,6 +24,8 @@ export class AddressTableComponent implements OnInit {
   editIndicator = false;
   tableOpened = true;
   userId;
+  user;
+  listOfLockedAddresses = [];
   lockedItem: LockItem = {
     itemId: '',
     userId: ''
@@ -44,13 +46,9 @@ export class AddressTableComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.lockedItem.userId = localStorage.getItem('userId');
-    const lockedItem = localStorage.getItem('lockedItem');
-    if (lockedItem !== null) {
-      this.editIndicator = true;
-      this.lockedItem.itemId = lockedItem;
-    }
-
+    this.user = JSON.parse(localStorage.getItem('userObject'));
+    this.lockedItem.userId = this.user.id;
+    this.editIndicator = true;
     this.showAddresses(this.parametars);
   }
 
@@ -74,8 +72,9 @@ export class AddressTableComponent implements OnInit {
       this.currentPage = metadata.currentPage;
       this.currentPage = this.currentPage - 1;
       this.totalSizeOfItems = metadata.totalCount;
-      const listOfUsers = addresses['pagedList'];
-      this.dataSource = new MatTableDataSource(listOfUsers);
+      const listOfAddresses = addresses['pagedList'];
+      this.getLockedAddresses(listOfAddresses);
+      this.dataSource = new MatTableDataSource(listOfAddresses);
     });
   }
   private showDeletedAddresses(parametars: any): void {
@@ -85,8 +84,19 @@ export class AddressTableComponent implements OnInit {
       this.currentPage = metadata.currentPage;
       this.currentPage = this.currentPage - 1;
       this.totalSizeOfItems = metadata.totalCount;
-      const listOfUsers = addresses['pagedList'];
-      this.dataSource = new MatTableDataSource(listOfUsers);
+      const listOfAddresses = addresses['pagedList'];
+      this.dataSource = new MatTableDataSource(listOfAddresses);
+    });
+  }
+
+
+  getLockedAddresses(allAddresses: any): void {
+    allAddresses.forEach(address => {
+      this.lockService.getIsItemLocked(address.id).subscribe((res) => {
+        if (res) {
+          this.listOfLockedAddresses.push(address.id);
+        }
+      });
     });
   }
 
@@ -114,13 +124,12 @@ export class AddressTableComponent implements OnInit {
   }
 
   readAddressEditPage(id: any): void{
+    localStorage.setItem('readPage', 'true');
     this.router.navigate([`/admin-home-page/address/edit-address/${id}`]);
   }
 
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
-    localStorage.setItem('lockedItem', id);
-    this.lockedItems.push(this.lockedItem.itemId);
     this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 
