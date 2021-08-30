@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
@@ -20,6 +21,8 @@ export class ProductTableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'unit',  'price',
     'dateAdded', 'availableQuantity', 'delete', 'read', 'edit'];
 
+  defColToDisplay: string[];
+  tabActive = '';
   lockedItems: Array<object> = [];
   editIndicator = false;
   tableOpened = true;
@@ -41,7 +44,8 @@ export class ProductTableComponent implements OnInit {
   };
 
   constructor(private router: Router, private productService: ProductService,
-              public dialog: MatDialog, private lockService: LockService) { }
+              public dialog: MatDialog, private lockService: LockService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -55,12 +59,17 @@ export class ProductTableComponent implements OnInit {
     this.lockedItem.userId = this.user.id;
     this.editIndicator = true;
     this.showProducts(this.parametars);
+    this.defColToDisplay = this.displayedColumns;
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     if (tabChangeEvent.index === 0) {
+      this.tabActive = 'products';
       this.showProducts(this.parametars);
+      this.displayedColumns = this.defColToDisplay;
     } else {
+      this.tabActive = 'deletedproducts';
+      this.displayedColumns = this.displayedColumns.slice(0, 6);
       this.showDeletedProducts(this.parametars);
     }
   }
@@ -116,7 +125,11 @@ export class ProductTableComponent implements OnInit {
   handlePage(event: any): void {
     this.parametars.pageSize = event.pageSize;
     this.parametars.pageNumber = event.pageIndex + 1;
-    this.showProducts(this.parametars);
+    if (this.tabActive === 'products') {
+      this.showProducts(this.parametars);
+    } else {
+      this.showDeletedProducts(this.parametars);
+    }
   }
 
   openProductEditPage(id: any): void{
@@ -124,6 +137,8 @@ export class ProductTableComponent implements OnInit {
         if (result === false) {
               this.router.navigate([`/admin-home-page/product/edit-product/${id}`]);
               this.lockItem(id);
+          }  else {
+            this.openSnackBar();
           }
       });
   }
@@ -136,6 +151,13 @@ export class ProductTableComponent implements OnInit {
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
     this.lockService.postLockItem(this.lockedItem).subscribe();
+  }
+
+  openSnackBar(): void {
+    this.snackBar.open('Product is currently being modified! Try again later.', 'Close', {
+      duration: 4000,
+      panelClass: ['snackbar']
+    });
   }
 
 

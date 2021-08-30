@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver, EventEmitter, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
@@ -21,6 +22,8 @@ export class CustomerTableComponent implements OnInit {
     'email', 'phone', 'companyNumber',
     'delete', 'read', 'edit'];
 
+  defColToDisplay: string[];
+  tabActive = '';
   lockedItems: Array<object> = [];
   editIndicator = false;
   tableOpened = true;
@@ -40,9 +43,11 @@ export class CustomerTableComponent implements OnInit {
     pageNumber: 1,
     pageSize: 5
   };
+  show = true;
 
   constructor(private router: Router, private customerService: CustomerService,
-              public dialog: MatDialog, private resolver: ComponentFactoryResolver, private lockService: LockService) { }
+              public dialog: MatDialog, private resolver: ComponentFactoryResolver, private lockService: LockService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -50,12 +55,17 @@ export class CustomerTableComponent implements OnInit {
     this.lockedItem.userId = this.user.id;
     this.editIndicator = true;
     this.showCustomers(this.parametars);
+    this.defColToDisplay = this.displayedColumns;
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     if (tabChangeEvent.index === 0) {
+      this.tabActive = 'customers';
       this.showCustomers(this.parametars);
+      this.displayedColumns = this.defColToDisplay;
     } else {
+      this.tabActive = 'deletedcustomers';
+      this.displayedColumns = this.displayedColumns.slice(0, 7);
       this.showDeletedCustomers(this.parametars);
     }
   }
@@ -110,7 +120,12 @@ export class CustomerTableComponent implements OnInit {
   handlePage(event: any): void {
     this.parametars.pageSize = event.pageSize;
     this.parametars.pageNumber = event.pageIndex + 1;
-    this.showCustomers(this.parametars);
+    if (this.tabActive === 'customers') {
+      this.showCustomers(this.parametars);
+    } else {
+      this.showDeletedCustomers(this.parametars);
+    }
+
   }
 
   openCustomerEditPage(id: any): void{
@@ -118,6 +133,8 @@ export class CustomerTableComponent implements OnInit {
         if (result === false) {
               this.router.navigate([`/admin-home-page/customer/edit-customer/${id}`]);
               this.lockItem(id);
+          } else {
+            this.openSnackBar();
           }
       });
   }
@@ -130,5 +147,12 @@ export class CustomerTableComponent implements OnInit {
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
     this.lockService.postLockItem(this.lockedItem).subscribe();
+  }
+
+  openSnackBar(): void {
+    this.snackBar.open('Customer is currently being modified! Try again later.', 'Close', {
+      duration: 4000,
+      panelClass: ['snackbar']
+    });
   }
 }

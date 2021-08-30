@@ -9,6 +9,7 @@ import { DeleteModalComponent } from 'src/app/shared/delete-modal/delete-modal.c
 import { InvoiceService } from '../../../core/services/invoice-service/invoice.service';
 import { CustomerService } from '../../../core/services/customer-service/customer.service';
 import { UserService } from 'src/app/core/services/user-service/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-invoice-table',
@@ -22,6 +23,8 @@ export class InvoiceTableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'customer', 'user', 'name',  'isPrinted',
     'delete', 'read', 'edit'];
 
+  defColToDisplay: string[];
+  tabActive = '';
   lockedItems: Array<object> = [];
   editIndicator = false;
   tableOpened = true;
@@ -45,19 +48,25 @@ export class InvoiceTableComponent implements OnInit {
   user: any;
 
   constructor(private router: Router, private invoiceService: InvoiceService, private userService: UserService,
-              public dialog: MatDialog, private lockService: LockService, private customerService: CustomerService) { }
+              public dialog: MatDialog, private lockService: LockService, private customerService: CustomerService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.loggedUser = JSON.parse(localStorage.getItem('userObject'));
     this.lockedItem.userId = this.loggedUser.id;
     this.editIndicator = true;
     this.showInvoices(this.parametars);
+    this.defColToDisplay = this.displayedColumns;
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     if (tabChangeEvent.index === 0) {
+      this.tabActive = 'invoices';
       this.showInvoices(this.parametars);
+      this.displayedColumns = this.defColToDisplay;
     } else {
+      this.tabActive = 'deletedinvoices';
+      this.displayedColumns = this.displayedColumns.slice(0, 5);
       this.showDeletedInvoices(this.parametars);
     }
   }
@@ -146,7 +155,11 @@ export class InvoiceTableComponent implements OnInit {
   handlePage(event: any): void {
     this.parametars.pageSize = event.pageSize;
     this.parametars.pageNumber = event.pageIndex + 1;
-    this.showInvoices(this.parametars);
+    if (this.tabActive === 'invoices') {
+      this.showInvoices(this.parametars);
+    } else {
+      this.showDeletedInvoices(this.parametars);
+    }
   }
 
   openInvoiceEditPage(id: any): void{
@@ -154,6 +167,8 @@ export class InvoiceTableComponent implements OnInit {
         if (result === false) {
               this.router.navigate([`/admin-home-page/invoice/edit-invoice/${id}`]);
               this.lockItem(id);
+          } else {
+            this.openSnackBar();
           }
       });
   }
@@ -166,5 +181,12 @@ export class InvoiceTableComponent implements OnInit {
   lockItem(id: any): void {
     this.lockedItem.itemId = id;
     this.lockService.postLockItem(this.lockedItem).subscribe();
+  }
+
+  openSnackBar(): void {
+    this.snackBar.open('Invoice is currently being modified! Try again later.', 'Close', {
+      duration: 4000,
+      panelClass: ['snackbar']
+    });
   }
 }

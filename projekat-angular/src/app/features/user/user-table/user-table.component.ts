@@ -22,6 +22,8 @@ export class UserTableComponent implements OnInit {
     'email', 'phone', 'role', 'dateOfBirth',
     'delete', 'read', 'edit'];
 
+  defColToDisplay: string[];
+
   user;
   lockedItems: Array<object> = [];
   editIndicator = false;
@@ -32,6 +34,7 @@ export class UserTableComponent implements OnInit {
     itemId: '',
     userId: ''
   };
+  tabActive = '';
   loggedUser;
   showCol = true;
   dataSource;
@@ -44,6 +47,7 @@ export class UserTableComponent implements OnInit {
     pageSize: 5
   };
 
+
   constructor(private router: Router, private userService: UserService,
               public dialog: MatDialog, private lockService: LockService,
               private snackBar: MatSnackBar) { }
@@ -53,16 +57,22 @@ export class UserTableComponent implements OnInit {
     // if (this.loggedUser.role) {
     //   this.showCol = true;
     // }
+    this.tabActive = 'users';
     this.user = JSON.parse(localStorage.getItem('userObject'));
     this.lockedItem.userId = this.user.id;
     this.editIndicator = true;
     this.showUsers(this.parametars);
+    this.defColToDisplay = this.displayedColumns;
   }
 
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     if (tabChangeEvent.index === 0) {
+      this.tabActive = 'users';
       this.showUsers(this.parametars);
+      this.displayedColumns = this.defColToDisplay;
     } else {
+      this.tabActive = 'deletedusers';
+      this.displayedColumns = this.displayedColumns.slice(0, 9);
       this.showDeletedUsers(this.parametars);
     }
   }
@@ -106,8 +116,8 @@ export class UserTableComponent implements OnInit {
       });
     });
   }
-
   openDeleteModal(id: any): void{
+
     const dialogRef = this.dialog.open(DeleteModalComponent, {data: {id : id, component: 'user'}});
     dialogRef.afterClosed().subscribe(x => {
       this.showUsers(this.parametars);
@@ -124,7 +134,11 @@ export class UserTableComponent implements OnInit {
   handlePage(event: any): void {
     this.parametars.pageSize = event.pageSize;
     this.parametars.pageNumber = event.pageIndex + 1;
-    this.showUsers(this.parametars);
+    if (this.tabActive === 'users') {
+      this.showUsers(this.parametars);
+    } else {
+      this.showDeletedUsers(this.parametars);
+    }
   }
 
   openUserEditPage(id: any): void{
