@@ -3,7 +3,7 @@
   #tabGroup
   (selectedTabChange)="tabChanged($event)"
 >
-  <mat-tab label="View products">
+  <mat-tab label="{{'View products'  | translate }}">
     <ng-container #viewContainer>
       <ng-template [ngIf]="tableOpened" #table>
         <div id="add-button" fxLayout="row" fxLayoutAlign="end center">
@@ -19,10 +19,10 @@
         <mat-accordion>
           <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title> Search here... </mat-panel-title>
+              <mat-panel-title> {{'Search here'  | translate }}... </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-form-field>
-              <mat-label>Filter</mat-label>
+              <mat-label>{{'Search'  | translate }}</mat-label>
               <input
                 matInput
                 (keyup)="applyFilter($event)"
@@ -40,33 +40,33 @@
           </ng-container>
 
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> {{'Name'  | translate }}  </mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.name }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="unit">
-            <mat-header-cell *matHeaderCellDef> Unit </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'Unit'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element" appHighlightTitle>
               {{ element.unit }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'Price'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element" appHighlightTitle>
               {{ element.price }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="dateAdded">
-            <mat-header-cell *matHeaderCellDef> Date Added</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> {{'Date Added'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.dateAdded | date }} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="availableQuantity">
-            <mat-header-cell *matHeaderCellDef> Available Quantity</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> {{'Available Quantity'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.availableQuantity }} </mat-cell>
           </ng-container>
 
@@ -76,7 +76,7 @@
               fxLayoutAlign="center center"
               *matHeaderCellDef
             >
-              Delete
+             {{'Delete'  | translate }}
             </mat-header-cell>
             <mat-cell
               class="delete-button"
@@ -96,7 +96,7 @@
               *matHeaderCellDef
 
             >
-              Read
+              {{'Read'  | translate }}
             </mat-header-cell>
             <mat-cell
               class="read-button"
@@ -116,7 +116,7 @@
               *matHeaderCellDef
 
             >
-              Edit
+             {{'Edit'  | translate }}
             </mat-header-cell>
             <mat-cell
 
@@ -148,7 +148,7 @@
       </ng-template>
     </ng-container>
   </mat-tab>
-  <mat-tab label="View deleted products">
+  <mat-tab label="{{'View deleted products'  | translate }}">
     <ng-template [ngTemplateOutlet]="table"></ng-template>
   </mat-tab>
 </mat-tab-group>

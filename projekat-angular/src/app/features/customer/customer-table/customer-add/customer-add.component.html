@@ -1,21 +1,21 @@
 <div id="container">
-  <mat-card-title>Add new customer</mat-card-title>
+  <mat-card-title>{{'Add new customer'  | translate }}</mat-card-title>
   <mat-card-content fxLayout="column">
     <form [formGroup]="detailForm">
       <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-form-field class="input-width">
-          <mat-label>First name</mat-label>
+          <mat-label>{{'First name'  | translate }}</mat-label>
           <input matInput formControlName="firstName" required />
         </mat-form-field>
         <mat-form-field class="input-width">
-          <mat-label>Last name</mat-label>
+          <mat-label>{{'Last name'  | translate }}</mat-label>
           <input matInput formControlName="lastName" required />
         </mat-form-field>
       </div>
       <!--****************************************************************-->
       <div fxLayout="row" fxLayoutAlign="space-between">
       <mat-form-field class="input-full-width">
-        <mat-label>Telephone number</mat-label>
+        <mat-label>{{'Telephone number'  | translate }}</mat-label>
         <input
           type="tel"
           matInput
@@ -25,7 +25,7 @@
         />
       </mat-form-field>
       <mat-form-field class="input-full-width">
-      <mat-label>Select gender</mat-label>
+      <mat-label>{{'Select gender'  | translate }}</mat-label>
       <mat-select formControlName='gender'  [(value)]="selected">
         <mat-option>None</mat-option>
         <mat-option value="Female">Female</mat-option>
@@ -38,7 +38,7 @@
 
       <!--****************************************************************-->
       <mat-form-field class="input-full-width">
-        <mat-label>Email</mat-label>
+        <mat-label>{{'Email'  | translate }}</mat-label>
         <input
           matInput
           formControlName="email"
@@ -61,25 +61,25 @@
       <!--****************************************************************-->
       <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-form-field class="input-full-width">
-          <mat-label>City</mat-label>
+          <mat-label>{{'City'  | translate }}</mat-label>
           <input matInput formControlName="city" required />
         </mat-form-field>
 
         <mat-form-field id="post-code" class="input-full-width">
-          <mat-label>Postcode</mat-label>
+          <mat-label>{{'Postcode'  | translate }}</mat-label>
           <input matInput formControlName="postcode" required />
         </mat-form-field>
       </div>
       <!--****************************************************************-->
       <mat-form-field class="input-full-width">
-        <mat-label>Line</mat-label>
+        <mat-label>{{'Line'  | translate }}</mat-label>
         <input matInput formControlName="line" required />
       </mat-form-field>
       <br />
       <!--****************************************************************-->
 
       <mat-form-field class="input-full-width">
-        <mat-label>Country</mat-label>
+        <mat-label>{{'Country'  | translate }}</mat-label>
         <input matInput formControlName="country" required />
       </mat-form-field>
       <!--****************************************************************-->
@@ -87,7 +87,7 @@
     <h3  fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
       'warning': formFilled,
       'error': !formFilled
-    }">All fields are required</h3>
+    }">{{'All fields are required'  | translate }}</h3>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
       <button
         (click)="backToCustomerTable()"
@@ -95,14 +95,14 @@
         color="warn"
         mat-raised-button
       >
-        BACK
+        {{'BACK'  | translate }}
       </button>
       <button
         (click)="finishSingup()"
         color="accent"
         mat-raised-button
       >
-        FINISH
+        {{'FINISH'  | translate }}
       </button>
     </mat-card-actions>
   </mat-card-content>

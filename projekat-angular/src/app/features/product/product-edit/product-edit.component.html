@@ -4,48 +4,48 @@
     <form [formGroup]="productForm">
       <div fxLayout="row" fxLayoutAlign="space-between">
       <mat-form-field class="input-full-width">
-        <mat-label>Name</mat-label>
+        <mat-label>{{'Name'  | translate }}</mat-label>
         <input matInput formControlName="name" required />
       </mat-form-field>
 
       <mat-form-field id="post-code" class="input-full-width">
-        <mat-label>Unit</mat-label>
+        <mat-label>{{'Unit'  | translate }}</mat-label>
         <input matInput formControlName="unit" required/>
       </mat-form-field>
     </div>
     <!--****************************************************************-->
     <mat-form-field class="input-full-width">
-      <mat-label>Price</mat-label>
+      <mat-label>{{'Price'  | translate }}</mat-label>
       <input matInput formControlName="price" required />
     </mat-form-field>
     <br />
      <!--****************************************************************-->
     <mat-form-field class="input-full-width" appearance="fill">
-      <mat-label>Description</mat-label>
+      <mat-label>{{'Description'  | translate }}</mat-label>
       <textarea matInput   formControlName="description"></textarea>
     </mat-form-field><br />
     <!--****************************************************************-->
     <mat-form-field class="input-full-width">
-      <mat-label>Available Quantity</mat-label>
+      <mat-label>{{'Available Quantity'  | translate }}</mat-label>
       <input matInput formControlName="availableQuantity" required/>
     </mat-form-field> <br />
     <!--****************************************************************-->
     <mat-form-field class="input-full-width">
-      <mat-label>Date added</mat-label>
+      <mat-label>{{'Date added'  | translate }}</mat-label>
       <input matInput formControlName="dateAdded" [(ngModel)]="this.date" readonly/>
     </mat-form-field>
     </form>
     <h3 *ngIf="this.isButtonVisible" fxLayout="row" fxLayoutAlign="center center" [ngClass]="{
       'warning': formFilled,
       'error': !formFilled
-    }">All fields are required</h3>
+    }">{{'All fields are required'  | translate }}</h3>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
       <button
         (click)="backToProductTable()"
         color="warn"
         mat-raised-button
       >
-        BACK
+        {{'BACK'  | translate }}
       </button>
       <button
       *ngIf="this.isButtonVisible"
@@ -53,7 +53,7 @@
         color="accent"
         mat-raised-button
       >
-        SUBMIT CHANGES
+        {{'SUBMIT CHANGES'  | translate }}
       </button>
     </mat-card-actions>
   </mat-card-content>

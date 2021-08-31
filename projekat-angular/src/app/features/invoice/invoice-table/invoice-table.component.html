@@ -3,7 +3,7 @@
   #tabGroup
   (selectedTabChange)="tabChanged($event)"
 >
-  <mat-tab label="View invoices">
+  <mat-tab label="{{'View invoices'  | translate }}">
     <ng-container #viewContainer>
       <ng-template [ngIf]="tableOpened" #table>
         <div id="add-button" fxLayout="row" fxLayoutAlign="end center">
@@ -19,10 +19,10 @@
         <mat-accordion>
           <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title> Search here... </mat-panel-title>
+              <mat-panel-title> {{'Search here'  | translate }}... </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-form-field>
-              <mat-label>Filter</mat-label>
+              <mat-label>{{'Search'  | translate }}</mat-label>
               <input
                 matInput
                 (keyup)="applyFilter($event)"
@@ -40,28 +40,28 @@
           </ng-container>
 
           <ng-container matColumnDef="customer">
-            <mat-header-cell *matHeaderCellDef> Customer name </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> {{'Customer name'  | translate }} </mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.customer }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Customer comp. name </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'Customer comp. name'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.name }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="user">
-            <mat-header-cell *matHeaderCellDef> Issuer </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> {{'Issuer'  | translate }} </mat-header-cell>
             <mat-cell *matCellDef="let element" appHighlightTitle>
               {{ element.user }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="isPrinted">
-            <mat-header-cell *matHeaderCellDef> Printed </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'Printed'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element" appHighlightTitle>
               {{ element.isPrinted }}
             </mat-cell>
@@ -73,7 +73,7 @@
               fxLayoutAlign="center center"
               *matHeaderCellDef
             >
-              Delete
+              {{'Delete'  | translate }}
             </mat-header-cell>
             <mat-cell
               class="delete-button"
@@ -93,7 +93,7 @@
               *matHeaderCellDef
 
             >
-              Read
+              {{'Read'  | translate }}
             </mat-header-cell>
             <mat-cell
               class="read-button"
@@ -113,7 +113,7 @@
               *matHeaderCellDef
 
             >
-              Edit
+              {{'Edit'  | translate }}
             </mat-header-cell>
             <mat-cell
 
@@ -145,7 +145,7 @@
       </ng-template>
     </ng-container>
   </mat-tab>
-  <mat-tab label="View deleted invoices">
+  <mat-tab label="{{'View deleted invoices'  | translate }}">
     <ng-template [ngTemplateOutlet]="table"></ng-template>
   </mat-tab>
 </mat-tab-group>

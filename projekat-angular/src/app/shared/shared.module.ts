@@ -27,11 +27,10 @@ import { TranslateLabelsPipe } from './translate-labels.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { TranslationService } from '../core/services/translation/translation.service';
 
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+
 @NgModule({
   declarations: [PageNotFoundComponent, TranslateLabelsPipe],
   imports: [
@@ -60,13 +59,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FlexLayoutModule,
     MatSelectModule,
     MatMenuModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
   ],
   exports: [
     MatCardModule,
@@ -95,6 +87,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     TranslateLabelsPipe,
     TranslateModule
-  ]
+  ],
+  providers: [],
 })
 export class SharedModule { }

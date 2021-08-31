@@ -13,12 +13,11 @@ import { AddressComponent } from './address.component';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UserModule } from '../user/user.module';
+import { TranslationService } from 'src/app/core/services/translation/translation.service';
 
 
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+
 
 @NgModule({
   declarations: [AddressTableComponent, AddressEditComponent, AddressAddComponent, AddressComponent],
@@ -31,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule,
     UserModule
   ],
-  exports: [AddressComponent, AddressTableComponent, AddressAddComponent],
-  providers: [AddressService]
+  exports: [AddressComponent, AddressTableComponent, AddressAddComponent, AddressEditComponent],
+  providers: [AddressService, TranslationService]
 })
 export class AddressModule { }

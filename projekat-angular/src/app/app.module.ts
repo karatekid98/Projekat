@@ -18,6 +18,8 @@ import { AddressModule } from './features/address/address.module';
 import { CustomerModule } from './features/customer/customer.module';
 import { ProductModule } from './features/product/product.module';
 import { InvoiceModule } from './features/invoice/invoice.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslationService } from './core/services/translation/translation.service';
 
 @NgModule({
   declarations: [
@@ -38,9 +40,18 @@ import { InvoiceModule } from './features/invoice/invoice.module';
     AddressModule,
     CustomerModule,
     ProductModule,
-    InvoiceModule
+    InvoiceModule,
+    TranslateModule.forRoot(
+      {
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }
+    ),
   ],
-  providers: [],
+  providers: [TranslationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

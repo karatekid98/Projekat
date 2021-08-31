@@ -3,7 +3,7 @@
   #tabGroup
   (selectedTabChange)="tabChanged($event)"
 >
-  <mat-tab label="View customers">
+  <mat-tab label="{{'View customers'  | translate }}">
     <ng-container #viewContainer>
       <ng-template [ngIf]="tableOpened" #table>
         <div id="add-button" fxLayout="row" fxLayoutAlign="end center">
@@ -19,10 +19,10 @@
         <mat-accordion>
           <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title> Search here... </mat-panel-title>
+              <mat-panel-title>{{'Search here'  | translate }}...</mat-panel-title>
             </mat-expansion-panel-header>
             <mat-form-field>
-              <mat-label>Filter</mat-label>
+              <mat-label>{{'Filter'  | translate }}</mat-label>
               <input
                 matInput
                 (keyup)="applyFilter($event)"
@@ -40,38 +40,38 @@
           </ng-container>
 
           <ng-container matColumnDef="firstName">
-            <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'First Name'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element" appHighlightTitle>
               {{ element.firstName }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'Last Name'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element" appHighlightTitle>
               {{ element.lastName }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef> E-mail </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> {{'E-mail'  | translate }} </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="gender">
-            <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> {{'Gender'  | translate }} </mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.gender }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="phone">
-            <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'Phone'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.phone }} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="companyNumber">
-            <mat-header-cell *matHeaderCellDef> Company Number </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>  {{'Company Number'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.companyNumber }} </mat-cell>
           </ng-container>
 
@@ -81,7 +81,7 @@
               fxLayoutAlign="center center"
               *matHeaderCellDef
             >
-              Delete
+                  {{'Delete'  | translate }}
             </mat-header-cell>
             <mat-cell
               class="delete-button"
@@ -101,7 +101,7 @@
               *matHeaderCellDef
 
             >
-              Read
+              {{'Read'  | translate }}
             </mat-header-cell>
             <mat-cell
               class="read-button"
@@ -121,7 +121,7 @@
               *matHeaderCellDef
 
             >
-              Edit
+                 {{'Edit'  | translate }}
             </mat-header-cell>
             <mat-cell
 
@@ -153,7 +153,7 @@
       </ng-template>
     </ng-container>
   </mat-tab>
-  <mat-tab label="View deleted customers">
+  <mat-tab label="{{'View deleted customers'  | translate }}">
     <ng-template [ngTemplateOutlet]="table"></ng-template>
   </mat-tab>
 </mat-tab-group>
