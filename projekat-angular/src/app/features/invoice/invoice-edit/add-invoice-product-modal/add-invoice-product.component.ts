@@ -101,7 +101,7 @@ export class AddInvoiceProductComponent implements OnInit {
       }
     );
   }
-  doSomething(target: any): void {
+  updateData(target: any): void {
     if (target !== '' || this.products.length !== undefined) {
       this.products.forEach(product => {
          if (target === product.id) {

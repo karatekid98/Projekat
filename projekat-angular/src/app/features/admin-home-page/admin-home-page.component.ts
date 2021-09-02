@@ -14,54 +14,19 @@ import { TranslationService } from '../../core/services/translation/translation.
   templateUrl: './admin-home-page.component.html',
   styleUrls: ['./admin-home-page.component.scss'],
 })
-export class AdminHomePageComponent implements OnInit, AfterViewInit {
+export class AdminHomePageComponent implements OnInit {
   @ViewChild('viewContainer', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
-  @ViewChild('isLoggedInTemplate', { read: TemplateRef }) template: TemplateRef<any>;
   selectedLang = true;
   row = '';
   selectedRow = 'Admin';
   showFiller = false;
   status = false;
 
-
   constructor(private router: Router, private resolver: ComponentFactoryResolver,
               private translate: TranslationService) {
               }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
-    this.viewContainer.createComponent(componentFactory);
-  }
-
-  openComponent(component): void {
-    this.viewContainer.clear();
-
-    let clickedComponent = component + 'Component';
-    if (clickedComponent === 'CustomerComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(CustomerComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'UserComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'ProductComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(ProductComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'InvoiceComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(InvoiceComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'UserProfileComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserProfileComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else if (clickedComponent === 'UserProfileEditComponent') {
-      const componentFactory = this.resolver.resolveComponentFactory(UserProfileComponent);
-      this.viewContainer.createComponent(componentFactory);
-    } else {
-      const componentFactory = this.resolver.resolveComponentFactory(AddressComponent);
-      this.viewContainer.createComponent(componentFactory);
-    }
   }
 
   logOut(): void {

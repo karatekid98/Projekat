@@ -116,8 +116,6 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
     name: new FormControl('', Validators.required),
   });
 
-
-  // TODO: PREPRAVI USER FORMU
   userForm: FormGroup = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),

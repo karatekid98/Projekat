@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class TranslationService implements OnInit {
   private jsonURL = '../../../assets/i18n/sr.json';
   private jsonData;
-  public proba;
+  public response;
 
   constructor(private translate: TranslateService, private http: HttpClient, ) {
     translate.setDefaultLang('en');
@@ -27,8 +27,8 @@ export class TranslationService implements OnInit {
     return this.getJSON().pipe(map((res) => {
         for (let key in res) {
           if (key === value) {
-            this.proba = res[key];
-            return this.proba;
+            this.response = res[key];
+            return this.response;
           }
         }
       })
@@ -39,7 +39,6 @@ export class TranslationService implements OnInit {
     this.translate.use(language);
     this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
       this.translate.setDefaultLang(event.lang);
-      console.log(event.lang);
     });
   }
 

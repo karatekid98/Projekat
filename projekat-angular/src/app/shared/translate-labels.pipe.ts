@@ -5,13 +5,10 @@ import { TranslationService } from '../core/services/translation/translation.ser
   name: 'translateLabels'
 })
 export class TranslateLabelsPipe implements PipeTransform {
-
   constructor(private getTranslation: TranslationService){
 
   }
   transform(value: string, ...args: any): any {
     return this.getTranslation.getJSONfile(value);
   }
-
-
 }

@@ -18,7 +18,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   constructor(@Inject(AdminHomePageComponent) private parent: AdminHomePageComponent,
               private router: Router, private resolver: ComponentFactoryResolver) { }
 
-  // TODO: fix complete routing in app
   ngOnInit(): void {
 
   }

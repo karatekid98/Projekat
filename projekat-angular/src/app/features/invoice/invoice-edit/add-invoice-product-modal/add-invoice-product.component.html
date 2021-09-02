@@ -6,7 +6,7 @@
       <!--****************************************************************-->
       <mat-form-field appearance="fill">
         <mat-label>{{'Select product'  | translate }}</mat-label>
-        <mat-select [formControl]="productsfrm"  (ngModelChange)="doSomething($event)">
+        <mat-select [formControl]="productsfrm"  (ngModelChange)="updateData($event)">
             <mat-option  *ngFor="let product of products" [value]="product.id" >{{product.name}}</mat-option>
         </mat-select>
       </mat-form-field>
