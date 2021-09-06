@@ -67,7 +67,7 @@ namespace Projekat.Controllers
          
             try
             {
-                var invoiceProducts = _invoiceProductService.AsQueryable().Where(x => x.InvoiceId == id);
+                var invoiceProducts = _invoiceProductService.AsQueryable().Where(x => x.InvoiceId == id && x.IsDeleted == false);
 
                 return Ok(invoiceProducts);
             }

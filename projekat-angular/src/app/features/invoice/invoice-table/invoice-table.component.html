@@ -49,7 +49,7 @@
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef>  {{'Customer comp. name'  | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let element">
-              {{ element.name }}
+              {{ element.name === '' ? element.name: '/' }}
             </mat-cell>
           </ng-container>
 

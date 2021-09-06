@@ -6,6 +6,7 @@ import { AddressService } from '../../core/services/address-service/address.serv
 import { InvoiceService } from '../../core/services/invoice-service/invoice.service';
 import { ProductService } from 'src/app/core/services/product-service/product.service';
 import { CustomerService } from 'src/app/core/services/customer-service/customer.service';
+import { InvoiceProductService } from '../../core/services/invoice-product-service/invoice-product.service';
 @Component({
   selector: 'app-delete-modal',
   templateUrl: './delete-modal.component.html',
@@ -20,6 +21,7 @@ export class DeleteModalComponent implements OnInit {
                private invoiceService: InvoiceService,
                private productService: ProductService,
                private customerService: CustomerService,
+               private invoiceProductService: InvoiceProductService,
                private dialogRef: MatDialogRef<DeleteModalComponent>,
                @Inject(MAT_DIALOG_DATA) public data) { }
 
@@ -38,6 +40,8 @@ export class DeleteModalComponent implements OnInit {
       this.productService.softDeleteProduct(id).subscribe();
     }else if (this.data.component === 'customer') {
       this.customerService.softDeleteCustomer(id).subscribe();
+    }else if (this.data.component === 'invoiceProduct') {
+      this.invoiceProductService.softDeleteInvoiceProducts(id).subscribe();
     }
     this.dialogRef.close();
   }

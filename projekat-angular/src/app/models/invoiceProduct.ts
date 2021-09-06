@@ -9,5 +9,6 @@ export interface InvoiceProduct {
   invoice: any;
   product: any;
   isDeleted: boolean;
+  id?: any;
 }
 

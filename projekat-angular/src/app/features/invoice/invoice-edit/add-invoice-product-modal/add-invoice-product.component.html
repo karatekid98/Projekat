@@ -1,7 +1,7 @@
 <div id="container">
   <mat-card-title>{{'Add new product'  | translate }}</mat-card-title>
   <mat-card-content fxLayout="column">
-    <form [formGroup]="productForm" fxLayout="column" fxLayoutAlign="space-between center" >
+    <form [formGroup]="productForm" fxLayout="column" fxLayoutAlign="space-between" >
 
       <!--****************************************************************-->
       <mat-form-field appearance="fill">
@@ -13,13 +13,13 @@
 
       <mat-form-field id="post-code" class="input-full-width">
         <mat-label>{{'Unit'  | translate }}</mat-label>
-        <input matInput formControlName="unit" required/>
+        <input matInput formControlName="unit"/>
       </mat-form-field>
 
       <!--****************************************************************-->
       <mat-form-field class="input-full-width">
         <mat-label>{{'Price'  | translate }}</mat-label>
-        <input matInput formControlName="price" required />
+        <input  matInput formControlName="price" />
       </mat-form-field>
 
        <!--****************************************************************-->

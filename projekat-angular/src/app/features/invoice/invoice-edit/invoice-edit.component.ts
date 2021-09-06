@@ -21,6 +21,13 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { InvoiceProductService } from '../../../core/services/invoice-product-service/invoice-product.service';
 import { ProductAddComponent } from '../../product/product-table/product-add/product-add.component';
 import { AddInvoiceProductComponent } from './add-invoice-product-modal/add-invoice-product.component';
+import { DatePipe } from '@angular/common';
+import { DeleteModalComponent } from 'src/app/shared/delete-modal/delete-modal.component';
+
+
+interface Totals {
+  quant: number;
+}
 
 @Component({
   selector: 'app-invoice-edit',
@@ -32,7 +39,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
   @ViewChild(MatTable) table: MatTable<any>;
 
   displayedColumns: string[] = ['name', 'unit', 'price',
-                                'dateAdded', 'quantity'];
+                                 'quantity', 'delete'];
   customerPerson = true;
   selected = 'Female';
   formFilled = true;
@@ -55,15 +62,16 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
   totalSizeOfItems;
   currentPage;
   pageEvent;
+  invoiceProductId;
   parametars: any = {
     pageNumber: 1,
     pageSize: 5
   };
-
+  isDisable = false;
   // dataToDisplay = [...ELEMENT_DATA];
 
   // dataSource = new ExampleDataSource(this.dataToDisplay);
-
+  totals: Totals[];
 
   public invoice: Invoice = {
       date: null,
@@ -101,7 +109,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 };
 
   detailForm: FormGroup = new FormGroup({
-    invoiceDate: new FormControl(null, Validators.required),
+    date: new FormControl('', Validators.required),
     customerId: new FormControl('', Validators.required),
     issuerId: new FormControl('', Validators.required)
   });
@@ -136,22 +144,26 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
               private router: Router,  public dialog: MatDialog, private customerService: CustomerService,
               private userService: UserService, private productService: ProductService,
               private invoiceProductService: InvoiceProductService,
-              private lockService: LockService, private snackBar: MatSnackBar) { }
+              private lockService: LockService, private snackBar: MatSnackBar,
+              public datepipe: DatePipe) { }
 
   ngOnInit(): void {
     // this.lockedItem.userId = localStorage.getItem('userId');
     if (localStorage.getItem('readPage')) {
       this.pageHeader = 'Read-only invoice';
       this.isButtonVisible = false;
-      this.detailForm.disable();
-      this.customerForm.disable();
-      this.userForm.disable();
+      this.isDisable = true;
+      this.disableForms();
     }
+
+    this.disableForms();
+
     this.id = this.getUrlParams();
     this.invoiceService.getInvoice(this.id).subscribe((invoice) => {
       this.invoice.customerId = invoice.customerId;
       this.invoice.issuerId = invoice.issuerId;
       this.invoice.id = invoice.id;
+
       this.customer.id = invoice.customerId;
       this.user.id = invoice.issuerId;
 
@@ -160,12 +172,23 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
       this.invoiceCustomerId = invoice.customerId;
       this.detailForm.patchValue(invoice);
 
+
+      const invDate = this.formatDate(invoice.date);
+      this.detailForm.patchValue({
+        date: invDate
+      });
       this.patchUserForm();
       this.patchCustomerForm();
       this.initalValues = this.detailForm.value;
       this.showProducts();
     });
 
+  }
+
+  disableForms(): void {
+    this.detailForm.disable();
+    this.customerForm.disable();
+    this.userForm.disable();
   }
 
   ngOnDestroy(): void {
@@ -178,10 +201,10 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
   patchUserForm(): void {
     this.userService.getUser(this.invoiceUserId).subscribe((user) => {
       this.userForm.patchValue(user);
-      console.log(user.dateOfBirth);
 
-      this.customerForm.patchValue({
-        dateOfBirth: user.dateOfBirth,
+      const dateOfBirth = this.formatDate(user.dateOfBirth);
+      this.userForm.patchValue({
+        dateofBirth: dateOfBirth
      });
       this.initalValuesUser = this.userForm.value;
     });
@@ -282,31 +305,31 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 
   openGoBackModal(): void{
     const dialogRef = this.dialog.open(EditModalComponent , {data: {component: 'invoice'}});
-   }
+  }
 
-   editCustomer(): void {
+  editCustomer(): void {
     this.lockService.getIsItemLocked(this.invoiceCustomerId).subscribe((result) => {
       if (result === false) {
             this.router.navigate([`/admin-home-page/customer/edit-customer/${this.invoiceCustomerId}`]);
             this.lockItem(this.invoiceCustomerId);
         }
     });
-   }
+  }
 
-   editUser(): void {
+  editUser(): void {
     this.lockService.getIsItemLocked(this.invoiceUserId).subscribe((result) => {
       if (result === false) {
             this.router.navigate([`/admin-home-page/user/edit-user/${this.invoiceUserId}`]);
             this.lockItem(this.invoiceUserId);
         }
     });
-   }
+  }
 
-   unlockItem(lockedItemId: any): void {
+  unlockItem(lockedItemId: any): void {
     this.lockService.postUnlockItem(lockedItemId).subscribe();
-   }
+  }
 
-   lockItem(id: any): void {
+  lockItem(id: any): void {
     this.unlockItem(this.id);
     this.lockedItem.itemId = id;
     localStorage.setItem('lockedItem', id);
@@ -314,52 +337,56 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
     this.lockService.postLockItem(this.lockedItem).subscribe();
   }
 
+  formatDate(date: any): string {
+    const formatedDate = new DatePipe('en-US').transform(date, 'dd/MM/yyyy');
+    return formatedDate;
+  }
+
   // TODO: zavris metodu, napravi modalni prozor za dodavanje novog proizvoda i dodaj korpu za brisanje proizvoda sa fakture
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddInvoiceProductComponent);
+    const dialogRef = this.dialog.open(AddInvoiceProductComponent, {data: {'invoiceId': this.invoice.id}} );
     dialogRef.afterClosed().subscribe(result => {
       this.showProducts();
     });
   }
 
-  removeProduct(): void {
+  openDeleteModal(id: any): void{
+    const dialogRef = this.dialog.open(DeleteModalComponent, {data: {id : id, component: 'invoiceProduct'}});
+    dialogRef.afterClosed().subscribe(x => {
+      this.showProducts();
+    });
+   }
+
+  getInvoiceProductId(id: any): any {
+    this.invoiceProductService.getOneInvoiceProducts(this.id).subscribe((result) => {
+      const list = result;
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].productId === id) {
+          this.invoiceProductId = list[i].id;
+          console.log('nunt', this.invoiceProductId);
+        }
+      }
+
+    });
 
   }
 
   showProducts(): void{
     this.invoiceProductService.getOneInvoiceProducts(this.id).subscribe((invproducts) => {
-      // this.dataSource = new MatTableDataSource(products);
-
       const list = invproducts;
       for (let i = 0; i < list.length; i++) {
         this.productService.getProduct(list[i].productId).subscribe((product) => {
           if (product.name !== null) {
             list[i].name = product.name;
-
           }
         });
       }
       this.dataSource = new MatTableDataSource(list);
     });
   }
+
+  // getTotalCost() {
+  //   return this.totals.map(t => t.quant).reduce((acc, value) => acc + value, 0);
+  // }
 }
 
-
-// class ExampleDataSource extends DataSource<Product> {
-//   private _dataStream = new ReplaySubject<Product[]>();
-
-//   constructor(initialData: Product[]) {
-//     super();
-//     this.setData(initialData);
-//   }
-
-//   connect(): Observable<Product[]> {
-//     return this._dataStream;
-//   }
-
-//   disconnect(): void {}
-
-//   setData(data: Product[]): void {
-//     this._dataStream.next(data);
-//   }
-// }

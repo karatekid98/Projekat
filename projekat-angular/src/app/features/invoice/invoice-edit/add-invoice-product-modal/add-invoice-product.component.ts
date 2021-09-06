@@ -1,6 +1,6 @@
 import { logging } from 'protractor';
 import { HttpResponseBase } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -8,7 +8,8 @@ import { Product } from 'src/app/models/product';
 import { ProductService } from '../../../../core/services/product-service/product.service';
 import { InvoiceProduct } from '../../../../models/invoiceProduct';
 import { InvoiceProductService } from '../../../../core/services/invoice-product-service/invoice-product.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { exit } from 'process';
 
 @Component({
   selector: 'app-add-invoice-product',
@@ -21,9 +22,9 @@ export class AddInvoiceProductComponent implements OnInit {
   hide = true;
   confirmhide = true;
   public products: Product[];
-  selectedProductId: any;
+  selectedProductId?: any;
   productsfrm = new FormControl();
-
+  productExists = false;
   public invoiceProduct: InvoiceProduct = {
     name: '',
     unit: '',
@@ -48,7 +49,8 @@ export class AddInvoiceProductComponent implements OnInit {
   constructor(private productService: ProductService,
               private dialogRef: MatDialogRef<AddInvoiceProductComponent>,
               private invoiceProductService: InvoiceProductService,
-              private router: Router, private snackBar: MatSnackBar) { }
+              private router: Router, private snackBar: MatSnackBar,
+              @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -56,6 +58,32 @@ export class AddInvoiceProductComponent implements OnInit {
 
   finish(): void{
     this.fillOutForm();
+
+    this.invoiceProductService.getOneInvoiceProducts(this.data.invoiceId).subscribe(
+      (response) => {
+        response.forEach(invoiceProduct => {
+          if (invoiceProduct.productId === this.selectedProductId) {
+            this.productExists = true;
+          }
+        });
+        if (!this.productExists) {
+          this.addNewProduct();
+        }
+        else {
+          this.openErrorSnackBar();
+        }
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
+
+
+  }
+
+  addNewProduct(): void {
+    this.invoiceProduct.invoiceId = this.data.invoiceId;
+
 
     this.invoiceProductService.addInvoiceProduct(this.invoiceProduct).subscribe(
       (response) => {
@@ -84,7 +112,13 @@ export class AddInvoiceProductComponent implements OnInit {
       duration: 2000,
       panelClass: ['snackbar']
     });
+  }
 
+  openErrorSnackBar(): void {
+    this.snackBar.open('Product already exists!', 'Close', {
+      duration: 2000,
+      panelClass: ['snackbar']
+    });
   }
 
   closeDialog(): void {
@@ -107,6 +141,8 @@ export class AddInvoiceProductComponent implements OnInit {
          if (target === product.id) {
           this.selectedProductId = target;
           this.productForm.patchValue(product);
+            // this.productForm.get('price').disable();
+            // this.productForm.get('unit').disable();
          }
       });
     }

@@ -42,3 +42,14 @@
   text-align: center;
   justify-content:center;
 }
+
+.header-align-left {
+  display: flex;
+  padding: 21px 0;
+  justify-content: flex-start !important;
+}
+.delete-button:hover {
+  cursor: pointer;
+  user-select: none;
+  background-color: whitesmoke;
+}
