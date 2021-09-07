@@ -63,8 +63,28 @@ namespace Projekat.Controllers
             }
         }
 
+
+        [HttpGet("getAllCustomers")]
+        public ActionResult<Customer> GetCustomersNoPag()
+        {
+
+            try
+            {
+                var customers= _customerService.AsQueryable().Where(x => x.IsDeleted == false);
+
+                return Ok(customers);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.GetBaseException().Message);
+            }
+
+        }
+
+
         [HttpGet("getDeletedCustomers")]
-        public ActionResult<PaginationResponse<Customer >> GetDeletedCustomers([FromQuery] PaginationParameters parameters)
+        public ActionResult<PaginationResponse<Customer>> GetDeletedCustomers([FromQuery] PaginationParameters parameters)
         {
             try
             {

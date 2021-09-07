@@ -21,6 +21,10 @@ export class CustomerService {
     return this.http.get<PaginationResponse<Customer[]>>(`http://localhost:28846/api/Customer?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }
 
+  getCustomersNoPag(): Observable<Customer[]>  {
+    return this.http.get<Customer[]>(`http://localhost:28846/api/Customer/getAllCustomers`);
+  }
+
   getDeletedCustomers(parametars: any): Observable<PaginationResponse<Customer[]>>  {
     return this.http.get<PaginationResponse<Customer[]>>(`http://localhost:28846/api/Customer/getDeletedCustomers?pageNumber=${parametars.pageNumber}&pageSize=${parametars.pageSize}`);
   }
